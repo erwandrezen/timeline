@@ -2,6 +2,7 @@
 <!-- Essai de commit nouveau bureau : Chomphoo -->
     <head>  
         <script src="http://d3js.org/d3.v3.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/css.css">
     </head>
     
     <body>
@@ -40,14 +41,14 @@
 
     g.append("rect")
         .attr("x", 10)           .attr("y", 20)
+        .attr("class","essai")
         .attr("width", 300)      .attr("height", 200)
-        .attr("stroke", "black") .attr("fill", "#cccccc")
         .call(drag);
     
     g.append("rect")
     .attr("x", 320)           .attr("y", 220)
+    .attr("class","essai")
     .attr("width", 300)      .attr("height", 200)
-    .attr("stroke", "black") .attr("fill", "#cccccc")
     .call(drag);
 
     g.append("text")
