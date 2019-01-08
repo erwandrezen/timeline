@@ -43,6 +43,12 @@
         .attr("width", 300)      .attr("height", 200)
         .attr("stroke", "black") .attr("fill", "#cccccc")
         .call(drag);
+    
+    g.append("rect")
+    .attr("x", 320)           .attr("y", 220)
+    .attr("width", 300)      .attr("height", 200)
+    .attr("stroke", "black") .attr("fill", "#cccccc")
+    .call(drag);
 
     g.append("text")
         .attr("x", 20)           .attr("y", 30)
