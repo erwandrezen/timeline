@@ -25,6 +25,7 @@
     function sommet_voisin(request_response, sommet){
         var sommet_nom = [];
         	request_response[sommet].forEach(function(e){
+            	// Enregistrer sommet - dessiner (plus tard)
         		sommet_nom.push(e);
         	});
         console.log(sommet_nom);
