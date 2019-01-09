@@ -35,6 +35,7 @@
     	values.forEach(function(e){
         	// Si c'est un objet (sous-branche)
     		if (typeof e == 'object'){
+        		// dessiner un rectangle (plus tard)
     			 keys = Object.keys(e);
     			 console.log("clees: " + keys);
         		
