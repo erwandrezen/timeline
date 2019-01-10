@@ -21,22 +21,7 @@
         return request;
     }
 
-    // Recupere les sommets voisin
-    function sommet_voisin(sommet){
-    	var table = sommet;
-    	var keys = Object.keys(table);
-    	var values = Object.values(table);
-		var marquer = ['gf'];
-		var i = 0;
-		marquer.forEach(function(e){
-			marquer[i] = e
-			console.log(marquer[i]);
-			i++;
-			//marquer.push(keys);
-		});
-		
-    	console.log	(marquer);
-    }
+  
 /*
     explorer (graph, sommet)
     sauvegarder sommet.keys
@@ -55,7 +40,7 @@ var marquer = [];
 		
 		marquer.push(sommet);
 		
-		var keys = Object.keys(sommet);
+		//var keys = Object.keys(sommet);
 		var values = sommet.values();
 		var newArray = [];
 		var unSommet;
@@ -84,7 +69,9 @@ var marquer = [];
 		}
 		
 
-		
+		/* Si le le tableau contient des donnees (les sous branches d'un seul niveau) 
+			on continue à reutiliser cette fonction
+		*/
 		if (newArray.length > 0){
 			console.log(marquer);
 			explorer(newArray);
