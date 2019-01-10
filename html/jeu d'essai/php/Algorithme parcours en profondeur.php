@@ -36,6 +36,7 @@
     	values.forEach(function(e){
         	// Si c'est un objet (sous-branche)
     		if (typeof e == 'object'){
+        		
         		// dessiner un rectangle (plus tard)
         		// Parcourir la sous-branche
         		branche(e);

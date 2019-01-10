@@ -29,7 +29,8 @@
     	  var tableau;
       	  file = request.response;
       	  // Parcoure du fichier json en largeur
-		  tableau = explorer(file[sommet]);
+		 // tableau = explorer(file[sommet]);
+		  branche(file[sommet][0]);
 		  tableau = marquer;
 		  console.log(tableau);
 

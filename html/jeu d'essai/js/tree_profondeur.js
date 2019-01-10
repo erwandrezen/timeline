@@ -1,5 +1,5 @@
 function branche(sommet){
-    	var sommet_nom = [];
+    	marquer.push(sommet);
     	var table = sommet;
     	var keys = Object.keys(table);
     	var values = Object.values(table);
@@ -11,11 +11,12 @@ function branche(sommet){
         	// Si c'est un objet (sous-branche)
     		if (typeof e == 'object'){
         		// dessiner un rectangle (plus tard)
-    			 values = Object.values(e);
-    			 console.log(values);
-        		
+    			rectangle(element,x,y,w,h);
+				y += h+2;
         		// Parcourir la sous-branche
         		branche(e);
+    		} else {
+    			console.log(marquer);
     		}
 
 
