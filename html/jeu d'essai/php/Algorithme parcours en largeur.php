@@ -35,9 +35,10 @@
 */
 
 
+var marquer = [];
 
 	function explorer(sommet){
-    	var marquer = [];
+    	
 		marquer.push(sommet);
 		
 		//var keys = Object.keys(sommet);

@@ -1,5 +1,6 @@
+var marquer = [];
+
 function explorer(sommet){
-		var marquer = [];
 		marquer.push(sommet);
 		
 		var values = sommet.values();
@@ -34,8 +35,12 @@ function explorer(sommet){
 			on continue à reutiliser cette fonction
 		*/
 		if (newArray.length > 0){
-			console.log(marquer);
+			//console.log(marquer);
+			
 			explorer(newArray);
+		} else {
+			console.log(marquer);
+			return marquer;
 		}
 		
     }
