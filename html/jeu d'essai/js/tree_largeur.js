@@ -1,5 +1,5 @@
 function explorer(sommet){
-		
+		var marquer = [];
 		marquer.push(sommet);
 		
 		var values = sommet.values();
@@ -47,6 +47,9 @@ function explorer(sommet){
     	var file;
         request.onload = function() {        
         	  file = request.response;
-        	  sommet_voisin(file,sommet);
+        	  explorer(file[sommet]);
         	}
-    	}*/
+    	} 
+    	
+    	*
+    	*/
