@@ -48,37 +48,50 @@
       
       explorer(concate)
 */
+
 var marquer = [];
-var i = 0;
+
 	function explorer(sommet){
-		var table = sommet;
-		var keys = Object.keys(table);
-		var values = Object.values(table);
 		
-		marquer.push(values);
-		console.log(values);
-		var lastElement = marquer.slice(-1);
-		//console.log(lastElement);
+		marquer.push(sommet);
+		
+		var keys = Object.keys(sommet);
+		var values = sommet.values();
 		var newArray = [];
+		var unSommet;
+		var unSousSommet;
 
-		if (lastElement.length >= 1){
-			//console.log("ok");
-					lastElement.forEach(function(v,k,e){
-						console.log(v[0]);
-						newArray = newArray.concat(v[0]);
-
-
-						
-						});
+		if (sommet.length >= 1){
+			//console.log(sommet);
+			resultat = values.next();
+			while (!resultat.done) {
+				//newArray.push(resultat.value);
+				unSommet = resultat.value;
+				if (typeof unSommet == "object"){
+					// Pour chaque sous sommet
+					for (key in unSommet){
+						// CONCAT
+						unSousSommet = unSommet[key];
+						newArray.push(unSousSommet);
+					}
+					//console.log(unSousSommet);
+					
+				}
+                 resultat = values.next();
+			}
+			
 
 		}
-		if (i < 10){
-			i++;
-			//console.log(newArray);
+		
+
+		
+		if (newArray.length > 0){
+			console.log(marquer);
 			explorer(newArray);
 		}
 		
     }
+   
     // lancement des fonctions pour ouvrir le json,
     // recuperer les sommets
     function get_tree(graph, sommet) {
