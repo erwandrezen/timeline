@@ -1,12 +1,43 @@
-    // Recupere les sommets voisin
-    function sommet_voisin(request_response, sommet){
-        var sommet_nom = [];
-        	request_response[sommet].forEach(function(e){
-            	// Enregistrer sommet - dessiner (plus tard)
-        		sommet_nom.push(e);
-        	});
-        console.log(sommet_nom);
-        return sommet_nom;
+function explorer(sommet){
+		
+		marquer.push(sommet);
+		
+		var values = sommet.values();
+		var newArray = [];
+		var unSommet;
+		var unSousSommet;
+
+		if (sommet.length >= 1){
+			//console.log(sommet);
+			resultat = values.next();
+			while (!resultat.done) {
+				//newArray.push(resultat.value);
+				unSommet = resultat.value;
+				if (typeof unSommet == "object"){
+					// Pour chaque sous sommet
+					for (key in unSommet){
+						// CONCAT
+						unSousSommet = unSommet[key];
+						newArray.push(unSousSommet);
+					}
+					//console.log(unSousSommet);
+					
+				}
+                 resultat = values.next();
+			}
+			
+
+		}
+		
+
+		/* Si le le tableau contient des donnees (les sous branches d'un seul niveau) 
+			on continue à reutiliser cette fonction
+		*/
+		if (newArray.length > 0){
+			console.log(marquer);
+			explorer(newArray);
+		}
+		
     }
 /*
     // lancement des fonctions pour ouvrir le json,
