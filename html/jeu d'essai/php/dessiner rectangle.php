@@ -6,6 +6,7 @@
         <script src="../js/tree_largeur.js"></script>
         <script src="../js/tree_profondeur.js"></script>
         <script src="../js/draw.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/css.css">
     </head>
     
     <body>
@@ -32,7 +33,7 @@
 		 // tableau = explorer(file[sommet]);
 		  branche(file[sommet][0]);
 		  tableau = marquer;
-		  console.log(tableau);
+		  //console.log(tableau);
 
 
 		  

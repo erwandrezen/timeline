@@ -4,6 +4,7 @@ var x = 10;
 var y = 10;
 var w = 50;
 var h = 20;
+var h_max = 200;
 function explorer(sommet){
 		marquer.push(sommet);
 		
@@ -18,6 +19,8 @@ function explorer(sommet){
 			while (!resultat.done) {
 				
 				rectangle(element,x,y,w,h);
+				text(element,x,y);
+				console.log("largeur");
 				y += h+2;
 				unSommet = resultat.value;
 				if (typeof unSommet == "object"){
