@@ -23,8 +23,9 @@
 
 	// Pour chaque sommet
 	// parcourir une branche jusqu'à ses feuilles
+	var marquer = [];
     function branche(sommet){
-    	var sommet_nom = [];
+    	marquer.push(sommet);
     	var table = sommet;
     	var keys = Object.keys(table);
     	var values = Object.values(table);
@@ -36,11 +37,10 @@
         	// Si c'est un objet (sous-branche)
     		if (typeof e == 'object'){
         		// dessiner un rectangle (plus tard)
-    			 values = Object.values(e);
-    			 console.log(values);
-        		
         		// Parcourir la sous-branche
         		branche(e);
+    		} else {
+    			console.log(marquer);
     		}
 
 
