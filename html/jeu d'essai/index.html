@@ -3,11 +3,19 @@
     <head>  
         <script src="http://d3js.org/d3.v3.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/css.css">
+        <script src="js/draw.js"></script>
     </head>
     
     <body>
+    
+
+
         <div id="timeline">
-            <div id="hierarchypart"></div>
+        
+            <div id="hierarchypart">
+ 
+
+            </div>
         </div>
     </body>
 
@@ -22,8 +30,8 @@
 	  var x = d3.event.x;
 	  var y = d3.event.y;
 	  d3.select(this)
-	  .attr("x", d3.event.x)
-	  .attr("y", d3.event.y);
+	  .attr( "x",d3.event.x)
+	  .attr( "y",d3.event.y);
 	}
 	
     /* RECT */
@@ -38,24 +46,23 @@
     	
 
     var g = hierarchypart.append("g");
-
-    g.append("rect")
+    
+    
+    var gg = g.append("rect")
         .attr("x", 10)           .attr("y", 20)
-        .attr("class","essai")
-        .attr("width", 300)      .attr("height", 200)
-        .call(drag);
+
+        .attr("width", 300)      .attr("height", 200);
+
     
     g.append("rect")
     .attr("x", 320)           .attr("y", 220)
-    .attr("class","essai")
     .attr("width", 300)      .attr("height", 200)
-    .call(drag);
+    
 
-    g.append("text")
-        .attr("x", 20)           .attr("y", 30)
-        .attr("dx", "0.2em")     .attr("dy", "0.9em")
-        .attr("fill", "#111111") .text(function(d) { return "item"; })
-        
+    
+	text(g,'jh',10,20);
+
+        d3.selectAll("rect").call(drag);
         
    
 

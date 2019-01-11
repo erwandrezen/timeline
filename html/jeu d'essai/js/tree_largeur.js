@@ -5,49 +5,74 @@ var y = 10;
 var w = 50;
 var h = 20;
 var h_max = 200;
+var l = 1;
+
 function explorer(sommet){
-		marquer.push(sommet);
+		//marquer.push(sommet);
+		//var profondeur = {profondeur : marquer.length+1, largeur : l};
+
+		//console.log(sommet);
 		
 		var values = sommet.values();
+		var keys = Object.keys(sommet);
+		
 		var newArray = [];
+		var newArray_object = [];
 		var unSommet;
 		var unSousSommet;
 
-		if (sommet.length >= 1){
-			//console.log(sommet);
+
 			resultat = values.next();
+			// Pour chaque valeur en largeur
+			
 			while (!resultat.done) {
+				//console.log(resultat.value.constructor.name);
+				//console.log(resultat.value);
+				// si c'est un object
 				
-				rectangle(element,x,y,w,h);
-				text(element,x,y);
-				console.log("largeur");
-				y += h+2;
-				unSommet = resultat.value;
-				if (typeof unSommet == "object"){
-					// Pour chaque sous sommet
-					for (key in unSommet){
-						// CONCAT
-						unSousSommet = unSommet[key];
-						newArray.push(unSousSommet);
-					}
-					//console.log(unSousSommet);
+
+					//console.log(resultat.value);
 					
-				}
+					// parcourir et enregistrer les valeurs
+					for (k in resultat.value){
+						//console.log(resultat.value[k]);
+						
+						if (resultat.value[k].constructor.name == "Array"){
+							
+							resultat.value[k].forEach(function(e){
+								console.log(e);
+								console.log("*array");
+								newArray.push(e);
+							});
+							
+							
+
+						} else if (resultat.value[k].constructor.name == "Object") {
+							newArray_object.push(resultat.value[k]);
+							//console.log(newArray_object);
+							
+						} else {
+
+							//console.log("*other");
+						}
+						
+					}
+					
+					
+	
+				//console.log(resultat.value);
+				// Continuer avec la valeur suivante
                  resultat = values.next();
 			}
-			//x += w + 2;
-
-		}
-		
-
-		/* Si le le tableau contient des donnees (les sous branches d'un seul niveau) 
-			on continue à reutiliser cette fonction
-		*/
-		if (newArray.length > 0){
-			//console.log(marquer);
+			//console.log(resultat);
+			
+		if (l < 5){
+			l++;
+			//console.log(newArray_object);
 			explorer(newArray);
+			marquer.push(newArray_object);
 		} else {
-			//console.log(marquer);
+			console.log(marquer);
 			//return marquer;
 			
 		}

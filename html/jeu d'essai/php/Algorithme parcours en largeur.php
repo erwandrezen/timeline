@@ -38,7 +38,7 @@
 var marquer = [];
 
 	function explorer(sommet){
-    	
+    	console.log("hbvhjj");
 		marquer.push(sommet);
 		
 		//var keys = Object.keys(sommet);
@@ -46,7 +46,7 @@ var marquer = [];
 		var newArray = [];
 		var unSommet;
 		var unSousSommet;
-
+		
 		if (sommet.length >= 1){
 			//console.log(sommet);
 			resultat = values.next();
