@@ -34,14 +34,17 @@ function explorer(sommet){
 					//console.log(resultat.value);
 					
 					// parcourir et enregistrer les valeurs
+				
 					for (k in resultat.value){
+						
 						//console.log(resultat.value[k]);
+						console.log(resultat.value.constructor.name);
 						
 						if (resultat.value[k].constructor.name == "Array"){
 							
 							resultat.value[k].forEach(function(e){
 								console.log(e);
-								console.log("*array");
+								//console.log("*array");
 								newArray.push(e);
 							});
 							
@@ -49,11 +52,11 @@ function explorer(sommet){
 
 						} else if (resultat.value[k].constructor.name == "Object") {
 							newArray_object.push(resultat.value[k]);
-							//console.log(newArray_object);
+							console.log("obj");
 							
 						} else {
 
-							//console.log("*other");
+							
 						}
 						
 					}
@@ -67,6 +70,7 @@ function explorer(sommet){
 			//console.log(resultat);
 			
 		if (l < 5){
+			console.log("Nouveau niveau");
 			l++;
 			//console.log(newArray_object);
 			explorer(newArray);
