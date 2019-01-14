@@ -2,7 +2,7 @@
 
 var marquer = [];
 
-function explorer(sommet){
+function branche_niveau(sommet){
 		//marquer.push(sommet);
 
 		
@@ -80,7 +80,7 @@ function explorer(sommet){
 		}
 		if (lesSousSommets.length > 0){
 			//console.log(lesSousSommets);
-			explorer(lesSousSommets);
+			branche_niveau(lesSousSommets);
 			//return marquer;
 			
 		} else {
@@ -89,6 +89,12 @@ function explorer(sommet){
 		}
 		
     }
+
+
+
+
+
+
 /*
     // lancement des fonctions pour ouvrir le json,
     // recuperer les sommets
@@ -97,7 +103,7 @@ function explorer(sommet){
     	var file;
         request.onload = function() {        
         	  file = request.response;
-        	  explorer(file[sommet]);
+        	  branche_niveau(file[sommet]);
         	}
     	} 
     	
