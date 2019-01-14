@@ -5,7 +5,7 @@ var y = 10;
 var w = 50;
 var h = 20;
 var h_max = 200;
-var l = 1;
+
 
 function explorer(sommet){
 		//marquer.push(sommet);
@@ -16,8 +16,8 @@ function explorer(sommet){
 		var values = sommet.values();
 		var keys = Object.keys(sommet);
 		
-		var newArray = [];
-		var newArray_object = [];
+		var lesSousBranches = [];
+		var lesBranches = [];
 		var unSommet;
 		var unSousSommet;
 
@@ -30,22 +30,26 @@ function explorer(sommet){
 				//console.log(resultat.value);
 				var dejaParcouru = false;
 					// On parcour les clées (tableau ou objet)
-					for (k in resultat.value){
+					for (key in resultat.value){
 						
 						// Si c'est un tableau (sous branche)
-						if (resultat.value[k].constructor.name == "Array"){
+						if (resultat.value[key].constructor.name == "Array"){
 							// on enregistre ses sous branches
-							//console.log(resultat.value[k]);
-							for (sk in resultat.value[k]){
-								var sousBranche = resultat.value[k][sk]
+							//console.log(resultat.value[key]);
+							for (Souskey in resultat.value[key]){
+								var sousBranche = resultat.value[key][Souskey]
 								//console.log(sousBranche);
-								newArray.push(sousBranche);
+								lesSousBranches.push(sousBranche);
 							}
 						} else {
 							// Si la clees n'es pas un tableau ni deja parcouru
 							if (dejaParcouru == false){
+								// On ajoute le parametre profondeur
+								var profondeur = {profondeur : marquer.length+1, longueur : 'l'};
+								resultat.value['profondeur'] = profondeur;
+								console.log(resultat.value);
 								// On enregistre toute cette branche
-								newArray_object.push(resultat.value);
+								lesBranches.push(resultat.value);
 								// on indique que cette branche est deja parcouru
 								dejaParcouru = true;
 							}
@@ -58,15 +62,15 @@ function explorer(sommet){
 			}
 			
 			
-		if (newArray_object.length > 0){
+		if (lesBranches.length > 0){
 			console.log("Nouveau niveau");
-			l++;
-			//console.log(newArray_object);
+			//console.log(lesBranches);
 			
-			marquer.push(newArray_object);
+			marquer.push(lesBranches);
 		}
-		if (newArray.length > 0){
-			explorer(newArray);
+		if (lesSousBranches.length > 0){
+			//console.log(lesSousBranches);
+			explorer(lesSousBranches);
 			//return marquer;
 			
 		} else {
