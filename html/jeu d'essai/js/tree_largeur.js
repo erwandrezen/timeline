@@ -1,83 +1,90 @@
+//Variable externe permettant d'enregistrer tout les sommets d'un niveau
+
 var marquer = [];
-
-var x = 10;
-var y = 10;
-var w = 50;
-var h = 20;
-var h_max = 200;
-
 
 function explorer(sommet){
 		//marquer.push(sommet);
-		//var profondeur = {profondeur : marquer.length+1, largeur : l};
 
-		//console.log(sommet);
 		
-		var values = sommet.values();
-		var keys = Object.keys(sommet);
-		var profondeur = {};
-		var lesSousBranches = [];
-		var lesBranches = [];
-		var unSommet;
-		var unSousSommet;
+	
+		var values = sommet.values(); // valeurs du sommet
+		var profondeur = {}; // niveau de profondeur pour chaque des sommets
+		var lesSousSommets = []; // variable temporaire permettant de stocker les sous-sommets de chaque sommet d'une branche qui n'as pas atteint sa feuille
+		var lesSommets = []; // variable temporaire permettant de stocker seulement des branches du niveau actuel
 
 
-			resultat = values.next();
+
+	
+		resultat = values.next();
 			
-			// Pour chaque valeur en largeur
-			while (!resultat.done) {
-				//console.log(resultat.value.constructor.name);
-				//console.log(resultat.value);
-				var dejaParcouru = false;
-					// On parcour les clées (tableau ou objet)
-				var i = 0;
-					for (key in resultat.value){
+		
+		
+		// Pour chaque valeur en largeur
+		while (!resultat.done) {
+				
+			//console.log(resultat.value.constructor.name);
+			//console.log(resultat.value);
+				
+			var dejaParcouru = false; // Variable indiquant si la branche a deja ete parcourue une fois
+				
+				
+				// Pour chaque clées (key) du tableau ou objet (resultat.value) on parcour le tableau
+				for (key in resultat.value){
 						
-						i++;
-						if (resultat.value[key].constructor.name == "Array"){
-							// on enregistre ses sous branches
-							//console.log(resultat.value[key]);
-							
-							for (Souskey in resultat.value[key]){
-								var sousBranche = resultat.value[key][Souskey]
-								//console.log(sousBranche);
-								lesSousBranches.push(sousBranche);
-								console.log(lesSousBranches);
-							}
-						} else {
-							// Si la clees n'es pas un tableau ni deja parcouru
-							if (dejaParcouru == false){
-								// On ajoute le parametre profondeur
+					// Si la clées est de type tableau
+					if (resultat.value[key].constructor.name == "Array"){
+						
+						//console.log(resultat.value[key]);
+						
+						// Pour chaque element de cette clee
+						for (Souskey in resultat.value[key]){
 								
-								profondeur['profondeur'] = marquer.length+1;
-								resultat.value['profondeur'] = profondeur;
-								//console.log(resultat.value);
-								// On enregistre toute cette branche
-								lesBranches.push(resultat.value);
-								// on indique que cette branche est deja parcouru
-								dejaParcouru = true;
-							}
-							
+							var unSommet = resultat.value[key][Souskey] // variable correspondant a un sous-sommet
+							//console.log(sousBranche);
+								
+							// On ajoute cet nouveau sommet comme sous-branche
+							lesSousSommets.push(unSommet);
+								
+							//console.log(lesSousSommets);
+								
 						}
+					} else {
+						// Si la clees n'es pas un tableau qui n'as pas été parcouru
+						if (dejaParcouru == false){
+								
+							// On ajoute le parametre profondeur
+							profondeur['profondeur'] = marquer.length+1;
+							resultat.value['profondeur'] = profondeur;
+
+							// On ajoute tout les sommets du niveau
+							lesSommets.push(resultat.value);
+								
+							// On indique que cette branche est deja parcouru
+							dejaParcouru = true;
+						}
+							
 					}
+				}
 
 			
-                 resultat = values.next();
-			}
-			
-			
-		if (lesBranches.length > 0){
-			console.log("Nouveau niveau");
-			//console.log(lesBranches);
-			
-			marquer.push(lesBranches);
+				resultat = values.next();
 		}
-		if (lesSousBranches.length > 0){
-			//console.log(lesSousBranches);
-			explorer(lesSousBranches);
+			
+		// S'il y as des données comportant les sommets du niveau actuel
+		if (lesSommets.length > 0){
+			console.log("Nouveau niveau");
+			//console.log(lesSommets);
+			
+			// On ajoute 
+			marquer.push(lesSommets);
+		}
+		if (lesSousSommets.length > 0){
+			//console.log(lesSousSommets);
+			explorer(lesSousSommets);
 			//return marquer;
 			
 		} else {
+			//affiche toute les branches avec le paramètre: profondeur
 			console.log(marquer);
 		}
 		
