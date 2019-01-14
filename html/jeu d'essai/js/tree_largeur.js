@@ -23,62 +23,54 @@ function explorer(sommet){
 
 
 			resultat = values.next();
-			// Pour chaque valeur en largeur
 			
+			// Pour chaque valeur en largeur
 			while (!resultat.done) {
 				//console.log(resultat.value.constructor.name);
 				//console.log(resultat.value);
-				// si c'est un object
-				
-
-					//console.log(resultat.value);
-					
-					// parcourir et enregistrer les valeurs
-				
+				var dejaParcouru = false;
+					// On parcour les clées (tableau ou objet)
 					for (k in resultat.value){
 						
-						//console.log(resultat.value[k]);
-						console.log(resultat.value.constructor.name);
-						
+						// Si c'est un tableau (sous branche)
 						if (resultat.value[k].constructor.name == "Array"){
-							
-							resultat.value[k].forEach(function(e){
-								console.log(e);
-								//console.log("*array");
-								newArray.push(e);
-							});
-							
-							
-
-						} else if (resultat.value[k].constructor.name == "Object") {
-							newArray_object.push(resultat.value[k]);
-							console.log("obj");
-							
+							// on enregistre ses sous branches
+							//console.log(resultat.value[k]);
+							for (sk in resultat.value[k]){
+								var sousBranche = resultat.value[k][sk]
+								//console.log(sousBranche);
+								newArray.push(sousBranche);
+							}
 						} else {
-
+							// Si la clees n'es pas un tableau ni deja parcouru
+							if (dejaParcouru == false){
+								// On enregistre toute cette branche
+								newArray_object.push(resultat.value);
+								// on indique que cette branche est deja parcouru
+								dejaParcouru = true;
+							}
 							
 						}
-						
 					}
-					
-					
-	
-				//console.log(resultat.value);
-				// Continuer avec la valeur suivante
+
+			
                  resultat = values.next();
 			}
-			//console.log(resultat);
 			
-		if (l < 5){
+			
+		if (newArray_object.length > 0){
 			console.log("Nouveau niveau");
 			l++;
 			//console.log(newArray_object);
-			explorer(newArray);
+			
 			marquer.push(newArray_object);
-		} else {
-			console.log(marquer);
+		}
+		if (newArray.length > 0){
+			explorer(newArray);
 			//return marquer;
 			
+		} else {
+			console.log(marquer);
 		}
 		
     }
