@@ -15,7 +15,7 @@ function explorer(sommet){
 		
 		var values = sommet.values();
 		var keys = Object.keys(sommet);
-		
+		var profondeur = {};
 		var lesSousBranches = [];
 		var lesBranches = [];
 		var unSommet;
@@ -30,24 +30,28 @@ function explorer(sommet){
 				//console.log(resultat.value);
 				var dejaParcouru = false;
 					// On parcour les clées (tableau ou objet)
+				var i = 0;
 					for (key in resultat.value){
 						
-						// Si c'est un tableau (sous branche)
+						i++;
 						if (resultat.value[key].constructor.name == "Array"){
 							// on enregistre ses sous branches
 							//console.log(resultat.value[key]);
+							
 							for (Souskey in resultat.value[key]){
 								var sousBranche = resultat.value[key][Souskey]
 								//console.log(sousBranche);
 								lesSousBranches.push(sousBranche);
+								console.log(lesSousBranches);
 							}
 						} else {
 							// Si la clees n'es pas un tableau ni deja parcouru
 							if (dejaParcouru == false){
 								// On ajoute le parametre profondeur
-								var profondeur = {profondeur : marquer.length+1, longueur : 'l'};
+								
+								profondeur['profondeur'] = marquer.length+1;
 								resultat.value['profondeur'] = profondeur;
-								console.log(resultat.value);
+								//console.log(resultat.value);
 								// On enregistre toute cette branche
 								lesBranches.push(resultat.value);
 								// on indique que cette branche est deja parcouru
