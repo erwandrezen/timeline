@@ -43,27 +43,23 @@
 
 		  explorer(file[sommet]);
 		  tableau = marquer;
-
-		  
+		  //console.log(tableau);
 		  var x = 10;
 		  var y = 10;
-		  var i = 0;
+		  var w = 50;
+		  var h = 20;
+		  /*
+		  x += w + 2;
+    	  y += h+2;
+		  */
 
-
-		  // explorer
-		  for (key_element in tableau){
-			  i += 1;
-			  y += 24;
-			  text(element, "Niveau: "+i,x,y);
-			  
-			  for (key_feature in tableau[key_element]){
-				  y += 14;
-				  var feature = tableau[key_element][key_feature];
-				  text(element, feature['uid'],x,y);
-				  
-			  }
-			  
-		  }
+			  /*
+			  console.log(tableau[k].length);
+			  for (i = 1 ; i <= tableau[k].length; i++){
+				  rectangle(element,x,y,w,h);
+				  y += h+2;
+			  }*/
+			  //x += w + 2;
 
 
 
