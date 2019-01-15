@@ -49,6 +49,21 @@
 		  var y = 10;
 		  var i = 0;
 
+		// branche_profondeur
+		for (key_element in tableau){
+			 // i += 1;
+			  y += 14;
+			  let uid = tableau[key_element]['uid'];
+			  let largeur = tableau[key_element]['profondeur']['largeur']
+			  text(element, "uid: "+uid,x,y);
+			  y += 14;
+			  text(element, "branche Num: "+largeur,x,y);
+			  y += 24;
+			  
+		  }
+		
+		
+		
 
 		  // branche_niveau - Jeu d'essai
 		  /*
