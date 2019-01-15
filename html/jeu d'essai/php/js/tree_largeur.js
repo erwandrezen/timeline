@@ -6,7 +6,7 @@ function branche_niveau(sommet){
 		//marquer.push(sommet);
 
 		
-	console.log(sommet);
+		//console.log(sommet);
 		var values = sommet.values(sommet); // valeurs du sommet
 		console.log(values);
 		var profondeur = {}; // niveau de profondeur pour chaque des sommets
