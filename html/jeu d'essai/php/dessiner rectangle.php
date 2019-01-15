@@ -41,16 +41,17 @@
       	  // Parcoure du fichier json en largeur
 		  //tableau = explorer(file[sommet]);
 
-		  branche_profondeur(file[sommet]);
+		  branche_niveau(file[sommet]);
 		  tableau = marquer;
-
+		  console.log(tableau[0]);
+		  branche_profondeur(tableau[0]);
 		  
 		  var x = 10;
 		  var y = 10;
 		  var i = 0;
 
 		// branche_profondeur
-		for (key_element in tableau){
+		/*for (key_element in tableau){
 			 // i += 1;
 			  y += 14;
 			  let uid = tableau[key_element]['uid'];
@@ -61,12 +62,12 @@
 			  y += 24;
 			  
 		  }
-		
+		*/
 		
 		
 
 		  // branche_niveau - Jeu d'essai
-		  /*
+	
 		  for (key_element in tableau){
 			  i += 1;
 			  y += 24;
@@ -80,7 +81,7 @@
 			  }
 			  
 		  }
-		*/
+
 
 
 		  

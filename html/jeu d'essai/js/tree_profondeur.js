@@ -9,21 +9,33 @@ function branche_profondeur(sommet){
 		// Parcourir pour chaque valeurs
     	keys.forEach(function(e){
     		
-    		
+    		//debugger;
         	// Si c'est un objet (une partie de la hierarchy part)
     		if (sommet[e].constructor.name == 'Object'
-    			 && e != "profondeur"){
+    			&& e != "profondeur"){
     			//debugger;
 
-    			let tmp = []; // Variable temporaire
-    			profondeur = {profondeur : {largeur : parseInt(e) + 1}}; // Indique la largeur du sommet
+    			tmp = []; // Variable temporaire
+    			profondeur = sommet[e]['profondeur'];
+    			Object.assign(profondeur,  {largeur : parseInt(e) + 1});
+    			
+    			//Object.assign(profondeur, {largeur : parseInt(e) + 1});
+    			
+    			//let profondeur = {profondeur : {largeur : parseInt(e) + 1}}; // Indique la largeur du sommet
+    			//profondeur['profondeur'] = {largeur : parseInt(e) + 1}; // Indique la largeur du sommet
     			
     			 // affecte à la variabl temporaire le sommet actuelle ainsi que la nouvelle profondeur en largeur
-    	        Object.assign(tmp, sommet[e], profondeur);
-    	        
+    	       try{
+    	    	   console.log(sommet[e]);
+    	    	   tmp["profondeur"] =  {profondeur};
+    	       } catch(error){
+    	    	   console.log("error");
+    	       }
+    		profondeur = [];
+    	       //console.log(tmp);
     	        // indique de ne pas modifier cet objet la prochaine fois
-    	        Object.freeze(tmp);
-
+    	        
+    	        
     			//enregistre cette variable aleatoire
     			marquer.push(tmp);
     			
@@ -56,7 +68,7 @@ function branche_profondeur(sommet){
     		//On relance la fonction
     		branche_profondeur(lesSousSommets);
 		} else {
-			console.log(marquer);
+			//console.log(marquer);
 		}
     }
 /*
