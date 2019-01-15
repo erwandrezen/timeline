@@ -40,11 +40,11 @@
       	  file = requestt.response;
       	  // Parcoure du fichier json en largeur
 		  //tableau = explorer(file[sommet]);
-
-		  branche_niveau(file[sommet]);
+      	  var nodelist = file[sommet][0]['nodelist'];
+		  branche_niveau(nodelist);
 		  tableau = marquer;
-		  console.log(tableau[0]);
-		  branche_profondeur(tableau[0]);
+		  //console.log(tableau[0]);
+		  //branche_profondeur(tableau[1]);
 		  
 		  var x = 10;
 		  var y = 10;

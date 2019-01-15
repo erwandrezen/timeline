@@ -6,8 +6,9 @@ function branche_niveau(sommet){
 		//marquer.push(sommet);
 
 		
-	
-		var values = sommet.values(); // valeurs du sommet
+	console.log(sommet);
+		var values = sommet.values(sommet); // valeurs du sommet
+		console.log(values);
 		var profondeur = {}; // niveau de profondeur pour chaque des sommets
 		var lesSousSommets = []; // variable temporaire permettant de stocker les sous-sommets de chaque sommet d'une branche qui n'as pas atteint sa feuille
 		var lesSommets = []; // variable temporaire permettant de stocker seulement des branches du niveau actuel
