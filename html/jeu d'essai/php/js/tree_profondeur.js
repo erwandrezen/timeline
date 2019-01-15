@@ -26,7 +26,7 @@ function branche_profondeur(sommet){
     			Object.assign(profondeur,  {hauteur : parseInt(e) + 1});
     			
     			
-    			
+    			//console.log(profondeur);
     			//Object.assign(profondeur, {largeur : parseInt(e) + 1});
     			
     			//let profondeur = {profondeur : {largeur : parseInt(e) + 1}}; // Indique la largeur du sommet
@@ -34,10 +34,13 @@ function branche_profondeur(sommet){
     			
     			 // affecte à la variabl temporaire le sommet actuelle ainsi que la nouvelle profondeur en largeur
     	       try{
-    	    	   console.log(sommet[e]);
-    	    	   tmp["profondeur"] =  {profondeur};
+    	    	   //console.log(sommet[e]);
+    	    	   
+    	    	   Object.assign(tmp,sommet[e] , profondeur);
+    	    	   console.log(tmp);
+    	    	   //tmp["profondeur"] =  {profondeur};
     	       } catch(error){
-    	    	   console.log("error");
+    	    	   //console.log("error");
     	       }
     		profondeur = [];
     	       //console.log(tmp);
