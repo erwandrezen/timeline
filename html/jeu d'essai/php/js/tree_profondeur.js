@@ -17,7 +17,7 @@ function branche_profondeur(sommet){
 
     			tmp = []; // Variable temporaire
     			profondeur = sommet[e]['profondeur'];
-    			Object.assign(profondeur,  {largeur : parseInt(e) + 1});
+    			Object.assign(profondeur,  {hauteur : parseInt(e) + 1});
     			
     			//Object.assign(profondeur, {largeur : parseInt(e) + 1});
     			
