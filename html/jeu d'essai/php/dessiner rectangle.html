@@ -44,11 +44,8 @@
 		  branche_niveau(nodelist);
 		  tableau = marquer;
 		  //console.log(tableau[0]);
-		  branche_profondeur(tableau[0]);
+		  //branche_profondeur(tableau[0]);
 		  
-		  var x = 10;
-		  var y = 10;
-		  var i = 0;
 
 		// branche_profondeur - Jeu d'essai
 		/*
@@ -68,10 +65,18 @@
 		
 
 		  // branche_niveau - Jeu d'essai
-	
+		var x_max = 500;
+		var nombre_niveau = tableau.length;
+		var x_niveau = x_max/nombre_niveau;
+		var i = 0;
+		var x = 0;
+		var y = 10;
+		
+		
 		  for (key_element in tableau){
 			  i += 1;
-			  y += 24;
+			  //y += 24;
+			  console.log(x);
 			  text(element, "Niveau: "+i,x,y);
 			  
 			  for (key_feature in tableau[key_element]){
@@ -80,6 +85,8 @@
 				  text(element, feature['uid'],x,y);
 				  
 			  }
+			  //y -= 14;
+			  x = x_niveau*i;
 			  
 		  }
 
