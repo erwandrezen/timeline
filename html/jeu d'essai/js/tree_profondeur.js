@@ -1,42 +1,33 @@
 marquer = [];
-var i = 0;
+
 function branche_profondeur(sommet){
-		
 
-
-    	var newArray = [];
-    	
-    	var keys = Object.keys(sommet);
-
-    	var values = Object.values(sommet);
-    	var lesValeurs = sommet.values;
-    	var unBool = false;
-    	var essai;
+    	var lesSousSommets = []; // variable temporaire correspondant aux sommets d'un sous sommet
+    	var keys = Object.keys(sommet); // iterateur de clées du sommets
 		var profondeur = {}; // niveau de profondeur pour chaque des sommets
 
 		// Parcourir pour chaque valeurs
     	keys.forEach(function(e){
     		
     		
-        	// Si c'est un objet (sous-branche)
-    		//console.log(e);
+        	// Si c'est un objet (une partie de la hierarchy part)
     		if (sommet[e].constructor.name == 'Object'
     			 && e != "profondeur"){
-    			//console.log("branche", parseInt(e) + 1);
-    			
-    			//console.log(profondeur);
-    			//console.log(sommet[e]);
+    			//debugger;
 
+    			let tmp = []; // Variable temporaire
+    			profondeur = {profondeur : {largeur : parseInt(e) + 1}}; // Indique la largeur du sommet
+    			
+    			 // affecte à la variabl temporaire le sommet actuelle ainsi que la nouvelle profondeur en largeur
+    	        Object.assign(tmp, sommet[e], profondeur);
+    	        
+    	        // indique de ne pas modifier cet objet la prochaine fois
+    	        Object.freeze(tmp);
 
+    			//enregistre cette variable aleatoire
+    			marquer.push(tmp);
     			
-    			// On parcourire l'objet
-    			console.log(e, parseInt(e)+1);
-    			profondeur['largeur'] = parseInt(e) ;
-    			console.log("??: ", sommet[e]);
-    			sommet[e]['profondeur'] = profondeur;
-    			
-    			
-    			marquer.push(sommet[e]);
+    			// Parcoure chaque clée de l'objets courrant
     			branche_profondeur(sommet[e]);
 
 
@@ -49,24 +40,21 @@ function branche_profondeur(sommet){
 
     			// On ajoute le tableau à la liste des tableaux à parcourir
     			sommet[e].forEach(function(e){
-    				newArray.push(e);
+    				lesSousSommets.push(e);
     			});
     			
     			//branche_profondeur(sommet[e]);
     			
     			
-    		} else {
     		}
-    		
-    		
-    		
-    		//x = x - w - 2;
 
     	});
 
-    	if (newArray.length > 0){
-    		//console.log(newArray);
-    		branche_profondeur(newArray);
+    	
+    	// Si des sous sommets sont affectés
+    	if (lesSousSommets.length > 0){
+    		//On relance la fonction
+    		branche_profondeur(lesSousSommets);
 		} else {
 			console.log(marquer);
 		}

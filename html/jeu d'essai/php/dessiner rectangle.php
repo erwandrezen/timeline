@@ -41,7 +41,7 @@
       	  // Parcoure du fichier json en largeur
 		  //tableau = explorer(file[sommet]);
 
-		  explorer(file[sommet]);
+		  branche_profondeur(file[sommet]);
 		  tableau = marquer;
 
 		  
@@ -50,7 +50,8 @@
 		  var i = 0;
 
 
-		  // explorer
+		  // branche_niveau - Jeu d'essai
+		  /*
 		  for (key_element in tableau){
 			  i += 1;
 			  y += 24;
@@ -64,7 +65,7 @@
 			  }
 			  
 		  }
-
+		*/
 
 
 		  
