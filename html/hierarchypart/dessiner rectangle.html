@@ -1,5 +1,5 @@
 <html>
-<!-- Essai de commit nouveau bureau : Chomphoo -->
+
     <head>  
         <script src="js/d3.v3.min.js"></script>
         <script src="js/file_json.js"></script>
@@ -25,7 +25,7 @@
 
 	
     	var file = "mocks/mock2.json";
-    	var sommet = "ownerlist";
+
     	var requestt = open_json(file);
 
 
@@ -40,15 +40,15 @@
       	  file = requestt.response;
       	  // Parcoure du fichier json en largeur
 		  //tableau = explorer(file[sommet]);
-      	  var nodelist = file[sommet][0]['nodelist'];
-		  branche_niveau(nodelist);
+      	  let nodelist = file['ownerlist'][0]['nodelist'];
+      	branche_niveau(nodelist);
 		  tableau = marquer;
 		  //console.log(tableau[0]);
-		  //branche_profondeur(tableau[0]);
+		  branche_profondeur(tableau[0]);
 		  
 
 		// branche_profondeur - Jeu d'essai
-		/*
+
 		for (key_element in tableau){
 			 // i += 1;
 			  y += 14;
@@ -60,11 +60,12 @@
 			  y += 24;
 			  
 		  }
-		*/
+
 		
 		
 
 		  // branche_niveau - Jeu d'essai
+		  /*
 		var x_max = 500;
 		var y_max = 200;
 		var nombre_niveau = tableau.length;
@@ -94,19 +95,10 @@
 				  
 			  }
 			  y_niveau = 0;
-			  //y -= 14;
 			  x = x_niveau*i;
-			  
 		  }
-
-
-
-		  
-		 
-
+	*/
       	}
-
-        	
 
    </script>
 
