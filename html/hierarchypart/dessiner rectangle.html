@@ -61,24 +61,59 @@
 		  	marquer = []; // on reintialise la sortie
 
 		  	
-		  	console.log(tableau)
+		  	//console.log(tableau)
 		  	
 		  	
 		  	
 			/*
     		JEU D'ESSAI			branche_profondeur
     		*/
+    		
+    		/*
+    		FONCTION			inscrit la taille de chaque ensemble
+    		*/
+    		
+    		function fueilles(liste_sommet){
+		  		let f = [1];
+		  		liste_sommet.forEach(function(e){
+		  			let profondeur = e['profondeur'];
+		  			profondeur = parseInt(profondeur);
+		  			
+		  			if (f[profondeur]){
+		  				f[profondeur] ++;
+		  			} else {
+		  				f[profondeur] = 1;
+		  			}
+		  			
+		  			
+		  		});
+		  		//console.log(Math.max.apply(null,mafeuille));
+		  		return Object.values(f);
+		  	}
+		  	
+		  	mafeuille = fueilles(tableau);
+		  	let feuille_max = Math.max.apply(null,mafeuille);
+		  	//console.log(feuille_max);
+    		let width_max = 500; 		// largeur maximum
+			let hight_max = 250; 		// hauteur maximum
+			let width = 166; 	// largeur d'une part
+			let hight = 17;	// hauteur d'une part
+			let x = 0;
+			let y = 0;
+			
 			for (key_element in tableau){
-			 	// i += 1;
-				 
-				 /*
-				  y += 14;
-				  let uid = tableau[key_element]['uid'];
-				  let largeur = tableau[key_element]['profondeur']['largeur']
-				  text(element, "uid: "+uid,x,y);
-				  y += 14;
-				  text(element, "branche Num: "+largeur,x,y);
-				  y += 24;*/
+				let laPart = tableau[key_element];		// selectionne une hierarchy part
+				let laProfondeur = laPart.profondeur;	// selectionne sa profondeur
+				let laHauteur = laPart.hauteur;			// selection sa hauteur
+				let leUID = laPart.uid					// selection son UID
+				x = laProfondeur*width;
+				y = laHauteur*hight-hight;
+				
+			
+				console.log(laPart);
+				rectangle(element,x,y,width,hight);
+				text(element, leUID,x,y);
+
 			  
 		  	}
 

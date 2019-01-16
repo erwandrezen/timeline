@@ -7,19 +7,16 @@ function branche_niveau(sommet){
 		//marquer.push(sommet);
 
 		
-		//console.log(sommet);
+
 		var values = sommet.values(sommet); // valeurs du sommet
-		console.log(values);
 		var profondeur = {}; // niveau de profondeur pour chaque des sommets
 		var lesSousSommets = []; // variable temporaire permettant de stocker les sous-sommets de chaque sommet d'une branche qui n'as pas atteint sa feuille
 		var lesSommets = []; // variable temporaire permettant de stocker seulement des branches du niveau actuel
 
-
+		
 
 	
 		resultat = values.next();
-			
-		
 		
 		// Pour chaque valeur en largeur
 		while (!resultat.done) {
@@ -55,8 +52,11 @@ function branche_niveau(sommet){
 						if (dejaParcouru == false){
 								
 							// On ajoute le parametre profondeur
-							profondeur['profondeur'] = marquer.length+1;
-							resultat.value['profondeur'] = profondeur;
+							//console.log(marquer.length+1, resultat.value);
+							profondeur = {profondeur : marquer.length+1};
+							Object.assign(resultat.value, profondeur);
+							//Object.assign(obj, profondeur);
+							//resultat.value['profondeur'] = profondeur;
 
 							// On ajoute tout les sommets du niveau
 							lesSommets.push(resultat.value);
@@ -76,7 +76,6 @@ function branche_niveau(sommet){
 		if (lesSommets.length > 0){
 			console.log("Nouveau niveau");
 			//console.log(lesSommets);
-			
 			// On ajoute 
 			marquer.push(lesSommets);
 		}
@@ -85,9 +84,6 @@ function branche_niveau(sommet){
 			branche_niveau(lesSousSommets);
 			//return marquer;
 			
-		} else {
-			//affiche toute les branches avec le paramètre: profondeur
-			console.log(marquer);
 		}
 		
     }

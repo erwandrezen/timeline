@@ -21,7 +21,7 @@ function branche_profondeur(sommet){
     			
     			
     			Object.assign(tmp,sommet[e] , hauteur);	// Ajout objet profondeur 	dans l'objet 	tmp
-    			console.log(tmp);
+    			//console.log(tmp);
     			
     			
     			marquer.push(tmp); //Enregistre cette variable aleatoire
