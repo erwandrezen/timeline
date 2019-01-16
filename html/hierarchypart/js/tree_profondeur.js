@@ -1,29 +1,27 @@
 var marquer = []; // DONNEES FINAL
 
 function branche_profondeur(sommet){
-		
+	
     	var lesSousSommets = []; // variable temporaire correspondant aux sommets d'un sous sommet
     	var keys = Object.keys(sommet); // iterateur de clées du sommets
 		
-
+    	let i = 0;
+    	
 		// Parcourir pour chaque valeurs
     	keys.forEach(function(e){
     		
     		//debugger;
         	// Si c'est un objet (une partie de la hierarchy part)
-    		if (sommet[e].constructor.name == 'Object'
-    			&& e != "profondeur"){
+    		if (sommet[e].constructor.name == 'Object'){
     			//debugger;
-
+    			
     			let tmp = []; // Variable temporaire
-    			let profondeur = sommet[e]['profondeur']; // Niveau de profondeur 	pour chaque des sommets
     			let hauteur = {hauteur : parseInt(e) + 1};// Niveau de hauteur		pour chaque des sommets
+    			//console.log(e, profondeur);
     			
     			
-    			
-    			Object.assign(profondeur, hauteur); 		// Ajout objet hauteur 		dans l'objet 	profondeur
-    			Object.assign(tmp,sommet[e] , profondeur);	// Ajout objet profondeur 	dans l'objet 	tmp
-
+    			Object.assign(tmp,sommet[e] , hauteur);	// Ajout objet profondeur 	dans l'objet 	tmp
+    			console.log(tmp);
     			
     			
     			marquer.push(tmp); //Enregistre cette variable aleatoire
@@ -60,6 +58,7 @@ function branche_profondeur(sommet){
     	if (lesSousSommets.length > 0){
     		//On relance la fonction
     		branche_profondeur(lesSousSommets);
+    		
 		}
     }
 
