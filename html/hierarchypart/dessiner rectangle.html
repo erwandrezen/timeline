@@ -11,12 +11,9 @@
     </head>
     
     <body>
-    voir logs console
+   		voir logs console
         <div id="timeline">
-            <div id="hierarchypart">
- 
-
-            </div>
+            <div id="hierarchypart"> </div>
         </div>
     </body>
 
@@ -24,80 +21,111 @@
 
 
 	
-    	var file = "mocks/mock2.json";
-
-    	var requestt = open_json(file);
-
+    	var file = "mocks/mock2.json"; // Chemin du fichier json
+    	var request = open_json(file); // Requete d'ouverture du fichier json
+    	var hierarchypart = svg("#hierarchypart",window.innerWidth,3000); // selection d'un svg sur l'id hierarchypart
+    	var element = hierarchypart.append("g"); // ajout dans cette hierarchypart une DIV "g" afin de grouper
 
     	
-    	var hierarchypart = svg("#hierarchypart",window.innerWidth,3000);
-    	var element = hierarchypart.append("g");
 
-    	//rectangle(element,10,10,50,50);
-    	//console.log(requestt.onload);
-    	requestt.onload = function() {        
-    	  var tableau;
-      	  file = requestt.response;
-      	  // Parcoure du fichier json en largeur
-		  //tableau = explorer(file[sommet]);
-      	  let nodelist = file['ownerlist'][0]['nodelist'];
-      	branche_niveau(nodelist);
-		  tableau = marquer;
-		  //console.log(tableau[0]);
-		  branche_profondeur(tableau[0]);
-		  
+    	request.onload = function() {
+    		/*
+    		VARIABLE
+    		*/
+			let tableau; // variable temporaire
+			file = request.response; // recuperation de donnees la requette
+      	  	let nodelist = file['ownerlist'][0]['nodelist']; // variable temporaire indiquant le sommet (nodelist)
+      		
+      	  	
+      	  	
+      	  	/*
+    		FONCTION			Parcour en largeur sur le sommet nodelist
+    		*/
+      	  	branche_niveau(nodelist);
+      	  	
+      	  	
+      	  	
+		  	tableau = marquer; // tableau vaut la sortie de la fonction branche_niveau
+		  	marquer = []; // on reintialise la sortie
+		  	
+		  	
+		  	
+      	  	/*
+    		FONCTION			Parcour en profondeur sur le sommet tableau
+    		*/
+		  	branche_profondeur(tableau[0]);
+      	  	
+      	  	
+      	  	
+		  	tableau = marquer; // tableau vaut la sortie de la fonction branche_niveau
+		  	marquer = []; // on reintialise la sortie
 
-		// branche_profondeur - Jeu d'essai
-
-		for (key_element in tableau){
-			 // i += 1;
-			  y += 14;
-			  let uid = tableau[key_element]['uid'];
-			  let largeur = tableau[key_element]['profondeur']['largeur']
-			  text(element, "uid: "+uid,x,y);
-			  y += 14;
-			  text(element, "branche Num: "+largeur,x,y);
-			  y += 24;
+		  	
+		  	console.log(tableau)
+		  	
+		  	
+		  	
+			/*
+    		JEU D'ESSAI			branche_profondeur
+    		*/
+			for (key_element in tableau){
+			 	// i += 1;
+				 
+				 /*
+				  y += 14;
+				  let uid = tableau[key_element]['uid'];
+				  let largeur = tableau[key_element]['profondeur']['largeur']
+				  text(element, "uid: "+uid,x,y);
+				  y += 14;
+				  text(element, "branche Num: "+largeur,x,y);
+				  y += 24;*/
 			  
-		  }
+		  	}
 
 		
-		
+			
+			/*
+    		JEU D'ESSAI			branche_niveau
+    		*/
 
-		  // branche_niveau - Jeu d'essai
-		  /*
-		var x_max = 500;
-		var y_max = 200;
-		var nombre_niveau = tableau.length;
-		var x_niveau = x_max/nombre_niveau;
-		var y_niveau;
-		var y_sous_niveau;
-		var i = 0;
-		var x = 0;
-		var y = 10;
-		
-		
-		  for (key_element in tableau){
-			  i += 1;
-			  y = 0;
-			  console.log(x);
-			  text(element, "Niveau: "+i,x,y);
-			  
-			  for (key_feature in tableau[key_element]){
-				  y_niveau = y_max/tableau[key_element].length;
-				  //y_sous_niveau
-				  console.log(tableau[parseInt(key_element)+1]);
 
-				  var feature = tableau[key_element][key_feature];
-				  rectangle(element,x,y,x_niveau-2,y_niveau-2);
-				  text(element, feature['uid'],x,y);
-				  y += y_niveau;
+		  	/*
+			var x_max = 500;
+			var y_max = 200;
+			var nombre_niveau = tableau.length;
+			var x_niveau = x_max/nombre_niveau;
+			var y_niveau;
+			var y_sous_niveau;
+			var i = 0;
+			var x = 0;
+			var y = 10;
+			
+			
+			  for (key_element in tableau){
+				  i += 1;
+				  y = 0;
+				  console.log(x);
+				  text(element, "Niveau: "+i,x,y);
 				  
+				  for (key_feature in tableau[key_element]){
+					  y_niveau = y_max/tableau[key_element].length;
+					  //y_sous_niveau
+					  console.log(tableau[parseInt(key_element)+1]);
+	
+					  var feature = tableau[key_element][key_feature];
+					  rectangle(element,x,y,x_niveau-2,y_niveau-2);
+					  text(element, feature['uid'],x,y);
+					  y += y_niveau;
+					  
+				  }
+				  y_niveau = 0;
+				  x = x_niveau*i;
 			  }
-			  y_niveau = 0;
-			  x = x_niveau*i;
-		  }
-	*/
+		*/
+	
+	
+	
+	
       	}
 
    </script>

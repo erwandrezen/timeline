@@ -1,6 +1,7 @@
 //Variable externe permettant d'enregistrer tout les sommets d'un niveau
 
-var marquer = [];
+var marquer = []; // DONNEES FINAL
+
 
 function branche_niveau(sommet){
 		//marquer.push(sommet);

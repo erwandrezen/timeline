@@ -1,10 +1,10 @@
-marquer = [];
+var marquer = []; // DONNEES FINAL
 
 function branche_profondeur(sommet){
-
+		
     	var lesSousSommets = []; // variable temporaire correspondant aux sommets d'un sous sommet
     	var keys = Object.keys(sommet); // iterateur de clées du sommets
-		var profondeur = {}; // niveau de profondeur pour chaque des sommets
+		
 
 		// Parcourir pour chaque valeurs
     	keys.forEach(function(e){
@@ -15,38 +15,24 @@ function branche_profondeur(sommet){
     			&& e != "profondeur"){
     			//debugger;
 
-    			tmp = []; // Variable temporaire
+    			let tmp = []; // Variable temporaire
+    			let profondeur = sommet[e]['profondeur']; // Niveau de profondeur 	pour chaque des sommets
+    			let hauteur = {hauteur : parseInt(e) + 1};// Niveau de hauteur		pour chaque des sommets
     			
     			
+    			
+    			Object.assign(profondeur, hauteur); 		// Ajout objet hauteur 		dans l'objet 	profondeur
+    			Object.assign(tmp,sommet[e] , profondeur);	// Ajout objet profondeur 	dans l'objet 	tmp
 
-    			Object.assign(profondeur,  sommet[e]['profondeur'],{hauteur : parseInt(e) + 1});
     			
     			
-    			//console.log(profondeur);
-    			//Object.assign(profondeur, {largeur : parseInt(e) + 1});
+    			marquer.push(tmp); //Enregistre cette variable aleatoire
     			
-    			//let profondeur = {profondeur : {largeur : parseInt(e) + 1}}; // Indique la largeur du sommet
-    			//profondeur['profondeur'] = {largeur : parseInt(e) + 1}; // Indique la largeur du sommet
     			
-    			 // affecte à la variabl temporaire le sommet actuelle ainsi que la nouvelle profondeur en largeur
-    	       try{
-    	    	   //console.log(sommet[e]);
-    	    	   
-    	    	   Object.assign(tmp,sommet[e] , profondeur);
-    	    	   console.log(tmp);
-    	    	   //tmp["profondeur"] =  {profondeur};
-    	       } catch(error){
-    	    	   //console.log("error");
-    	       }
-    		profondeur = [];
-    	       //console.log(tmp);
-    	        // indique de ne pas modifier cet objet la prochaine fois
-    	        
-    	        
-    			//enregistre cette variable aleatoire
-    			marquer.push(tmp);
     			
-    			// Parcoure chaque clée de l'objets courrant
+    			/*
+        		FONCTION			Parcoure chaque clée de l'objets courrant
+        		*/
     			branche_profondeur(sommet[e]);
 
 
@@ -74,10 +60,13 @@ function branche_profondeur(sommet){
     	if (lesSousSommets.length > 0){
     		//On relance la fonction
     		branche_profondeur(lesSousSommets);
-		} else {
-			//console.log(marquer);
 		}
     }
+
+
+
+
+
 /*
     function get_tree(graph, sommet) {
     	var request = open_json(graph);
