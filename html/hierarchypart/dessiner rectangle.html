@@ -106,11 +106,28 @@
 				let laProfondeur = laPart.profondeur;	// selectionne sa profondeur
 				let laHauteur = laPart.hauteur;			// selection sa hauteur
 				let leUID = laPart.uid					// selection son UID
+				
+				//console.log(laPart, laHauteur, hight, y);
+				
+				
+	
+				ensembleOld = mafeuille[laProfondeur-1];
+				hauteurOld = hight_max / ensembleOld;
+				ensembleNew = mafeuille[laProfondeur];
+				hauteurNew = hauteurOld / ensembleNew;
+				ensembleNext = mafeuille[laProfondeur+1];
+				hauteurNext = hauteurNew / ensembleNext;
+				
+				if (!ensembleNext){
+					console.log("Not ensemble", laPart);
+				}
+				
+				hight = hauteurNew;
+				
+				console.log(ensembleNew);
+				
 				x = laProfondeur*width;
 				y = laHauteur*hight-hight;
-				
-			
-				console.log(laPart);
 				rectangle(element,x,y,width,hight);
 				text(element, leUID,x,y);
 

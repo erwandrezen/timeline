@@ -8,7 +8,8 @@
 function rectangle(element, x, y, w, h){
 	element.append("rect")
     .attr("x", x)           .attr("y", y)
-    .attr("width", w)      .attr("height", h);
+    .attr("width", w)      .attr("height", h)
+    .attr("onclick","alert('un clique !')");
 }
 
 function text(element,text, x, y){
