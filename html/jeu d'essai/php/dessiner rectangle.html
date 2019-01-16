@@ -7,7 +7,7 @@
         <script src="js/tree_profondeur.js"></script>
         <script src="js/draw.js"></script>
         
-        <link rel="stylesheet" type="text/css" href="../css/css.css">
+       <link rel="stylesheet" type="text/css" href="css/css.css">
     </head>
     
     <body>
@@ -24,7 +24,7 @@
 
 
 	
-    	var file = "../mocks/mock2.json";
+    	var file = "mocks/mock2.json";
     	var sommet = "ownerlist";
     	var requestt = open_json(file);
 
@@ -66,8 +66,10 @@
 
 		  // branche_niveau - Jeu d'essai
 		var x_max = 500;
+		var y_max = 200;
 		var nombre_niveau = tableau.length;
 		var x_niveau = x_max/nombre_niveau;
+		var y_niveau = y_max/8;
 		var i = 0;
 		var x = 0;
 		var y = 10;
@@ -75,16 +77,21 @@
 		
 		  for (key_element in tableau){
 			  i += 1;
-			  //y += 24;
+			  y = 0;
 			  console.log(x);
 			  text(element, "Niveau: "+i,x,y);
 			  
 			  for (key_feature in tableau[key_element]){
-				  y += 14;
+				  y_niveau = y_max/tableau[key_element].length;
+				  console.log(y_niveau);
+
 				  var feature = tableau[key_element][key_feature];
+				  rectangle(element,x,y,x_niveau-2,y_niveau-2);
 				  text(element, feature['uid'],x,y);
+				  y += y_niveau;
 				  
 			  }
+			  y_niveau = 0;
 			  //y -= 14;
 			  x = x_niveau*i;
 			  
