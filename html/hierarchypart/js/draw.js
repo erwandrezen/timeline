@@ -5,11 +5,50 @@
  *w: width 	- largeur
  *h: height - hauteur 
  * */
-function rectangle(element, x, y, w, h){
+
+
+  
+function rectangle(element, x, y, w, h,uneFonction = null){
+	let tooltip = d3.select(".tooltip");
 	element.append("rect")
+	
     .attr("x", x)           .attr("y", y)
     .attr("width", w)      .attr("height", h)
-    .attr("onclick","alert('un clique !')");
+    .style("fill-opacity", 1e-6)
+
+    .attr("onclick",uneFonction)
+    .style("fill-opacity", 1e-6)
+    
+    // Evenement de d'entrer de la souris sur un element
+    .on("mouseover", function () {
+    	// Modification du style de la div "tooltip" en transition
+    	tooltip.transition()
+    	
+    	// Changement d'opaciter
+    	.style("opacity", .9); 
+    	
+    	
+    	// Creation de texte dans la div
+    	tooltip.html(x) 
+    	
+    	
+    	
+    	// Deplacement du tooltip en X en partant d'en haut à gauche
+    	.style("left", (x+(w/2)) + "px") 
+    	
+    	// Deplacement du tooltip en Y en partant d'en haut à gauche
+        .style("top", (y-20) + "px"); 
+
+    })
+	
+    
+	// Evenement de sortie de la souris sur un element
+	.on("mouseout", function () {
+		tooltip.transition()
+		.style("opacity", 0);
+  });
+
+
 }
 
 function text(element,text, x, y){
@@ -35,4 +74,10 @@ function svg(svg_part,w,h){
     .attr("height", h);
 	
 	return unSVG;
+}
+
+
+function essai(){
+	  console.log(svg);
+	console.log(event.target);
 }
