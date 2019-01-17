@@ -8,16 +8,14 @@
 
 
   
-function rectangle(element, x, y, w, h,uneFonction = null){
+function rectangle(element, x, y, w, h, name= null, uneFonction = null){
 	let tooltip = d3.select(".tooltip");
 	element.append("rect")
 	
     .attr("x", x)           .attr("y", y)
     .attr("width", w)      .attr("height", h)
-    .style("fill-opacity", 1e-6)
-
+     .attr("name", name)
     .attr("onclick",uneFonction)
-    .style("fill-opacity", 1e-6)
     
     // Evenement de d'entrer de la souris sur un element
     .on("mouseover", function () {
@@ -29,7 +27,8 @@ function rectangle(element, x, y, w, h,uneFonction = null){
     	
     	
     	// Creation de texte dans la div
-    	tooltip.html(x) 
+    	//tooltip.html("{"+x+" ; "+y+"}") // POSITION de l'element
+    	tooltip.html(name) // Nom de l'element
     	
     	
     	

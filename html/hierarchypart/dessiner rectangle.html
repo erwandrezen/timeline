@@ -6,15 +6,15 @@
         <script src="js/tree_largeur.js"></script>
         <script src="js/tree_profondeur.js"></script>
         <script src="js/draw.js"></script>
-        
+        <link rel="stylesheet" type="text/css" href="csss.css">
        <link rel="stylesheet" type="text/css" href="css/css.css">
     </head>
     
     <body>
    		voir logs console
-        <div id="timeline">
+        <div id="timeline"></div>
+        <div class="tooltip"></div>
             <div id="hierarchypart"> </div>
-        </div>
     </body>
 
     <script>
@@ -128,7 +128,7 @@
 				
 				x = laProfondeur*width;
 				y = laHauteur*hight-hight;
-				rectangle(element,x,y,width,hight);
+				rectangle(element,x,y,width,hight,leUID,"essai()");
 				text(element, leUID,x,y);
 
 			  
