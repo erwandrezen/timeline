@@ -5,6 +5,7 @@
         <script src="js/file_json.js"></script>
         <script src="js/tree_largeur.js"></script>
         <script src="js/tree_profondeur.js"></script>
+        <script src="js/profondeur et largeur.js"></script>
         <script src="js/draw.js"></script>
         <link rel="stylesheet" type="text/css" href="csss.css">
        <link rel="stylesheet" type="text/css" href="css/css.css">
@@ -36,32 +37,22 @@
 			file = request.response; // recuperation de donnees la requette
       	  	let nodelist = file['ownerlist'][0]['nodelist']; // variable temporaire indiquant le sommet (nodelist)
       		
-      	  	
-      	  	
+
+	  	
+		  	
       	  	/*
     		FONCTION			Parcour en largeur sur le sommet nodelist
     		*/
-      	  	branche_niveau(nodelist);
-      	  	
-      	  	
-      	  	
-		  	tableau = marquer; // tableau vaut la sortie de la fonction branche_niveau
-		  	marquer = []; // on reintialise la sortie
-		  	
-		  	
-		  	
-      	  	/*
-    		FONCTION			Parcour en profondeur sur le sommet tableau
-    		*/
-		  	branche_profondeur(tableau[0]);
-      	  	
-      	  	
-      	  	
-		  	tableau = marquer; // tableau vaut la sortie de la fonction branche_niveau
-		  	marquer = []; // on reintialise la sortie
+    		parcourire_arbre(nodelist);
+    		
+      	  	console.log(nodelist);
 
+		  	tableau = nodelist; // tableau vaut la sortie de la fonction branche_niveau
+		  	marquer = []; // on reintialise la sortie
 		  	
-		  	//console.log(tableau)
+		  	
+		
+		  	
 		  	
 		  	
 		  	
@@ -69,13 +60,45 @@
     		JEU D'ESSAI			branche_profondeur
     		*/
     		
+    		
+    		
     		/*
     		FONCTION			largeur rectangle
     		*/
+    		function largeur_rect(niveau_actuel, width_max, somme_largeur_parrents){
+		  		/* Exemple
+		  		sur 5 niveau
+		  		
+		  		niveau noeu source = 5
+		  		
+		  		niveau actuelle = 3
+		  		width_max = 500
+		  		somme_largeur_parrents = 200
+		  		
+		  		
+		  		On soustrait width_max (500) par la somme_largeur_parrents (200) soit 500-200 = 300
+		  		qu'on divise par le niveau actuelle: 3 soit 300/3 = 100
+		  		qu'on ajoute à la largeur parrents: 200 soit 200+100 = 300
+		  		*/
+		  		let somme_parrent;
+		  		let result = width_max - somme_largeur_parrents;
+		  		result = result / niveau_actuel;
+		  		somme_parrent += result;
+		  		
+		  		return [somme_parrent, result];
+		  	}
     		
+    		
+		  	
+		  	
+		  	
     		/*
     		FONCTION			hauteur rectangle
     		*/
+    		function hauteur_rect(feuilles_noeud_n, c){
+    			return feuilles_noeud_n * c;
+    		}
+    		
     		
     		/*
     		FONCTION			position_x rectangle
@@ -88,12 +111,27 @@
     		/*
     		FONCTION			supprimer rectangles
     		*/
+    		// Soit un tableau pour un niveau
+    		// Soit une dimension pour un noeud en hauteur
+    		// un tableau et une dimension peu être vide selon l'emplacement de celui ci
+    		//var cacher = [] 
+    		
+    		
+    		//var arbre = []
+    		
+    		/*
+    		Parcourire arbre
+    		
+    		pour chaque niveau de l'arbre
+    		Si l'emplacement du tableau et dimension n'es pas dans cacher
+    		afficher le niveau et le sous niveau // Voir si agrandire le niveau ou reduire la part
+    		*/
     		
     		
     		/*
     		FONCTION			inscrit la taille de chaque ensemble
     		*/
-    		
+    		/*
     		function fueilles(liste_sommet){
 		  		let f = [1];
 		  		liste_sommet.forEach(function(e){
@@ -110,10 +148,11 @@
 		  		});
 		  		//console.log(Math.max.apply(null,mafeuille));
 		  		return Object.values(f);
-		  	}
+		  	}*/
 		  	
-		  	mafeuille = fueilles(tableau);
-		  	let feuille_max = Math.max.apply(null,mafeuille);
+		  	//mafeuille = fueilles(tableau);
+		  	//let feuille_max = Math.max.apply(null,mafeuille);
+		  	feuille_max = 8;
 		  	//console.log(feuille_max);
     		let width_max = 500; 		// largeur maximum
 			let hight_max = 250; 		// hauteur maximum
@@ -140,12 +179,12 @@
 				hauteurNext = hauteurNew / ensembleNext;
 				
 				if (!ensembleNext){
-					console.log("Not ensemble", laPart);
+					//console.log("Not ensemble", laPart);
 				}
 				
 				hight = hauteurNew;
 				
-				console.log(ensembleNew);
+				//console.log(ensembleNew);
 				
 				x = laProfondeur*width;
 				y = laHauteur*hight-hight;
