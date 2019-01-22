@@ -65,7 +65,7 @@
     		/*
     		FONCTION			largeur rectangle
     		*/
-    		function largeur_rect(niveau_actuel, width_max, somme_largeur_parrents){
+    		function largeur_rect(niveau_actuel, width_max, somme_largeur_parrents,feuilles_noeud_n){
 		  		/* Exemple
 		  		sur 5 niveau
 		  		
@@ -80,12 +80,26 @@
 		  		qu'on divise par le niveau actuelle: 3 soit 300/3 = 100
 		  		qu'on ajoute à la largeur parrents: 200 soit 200+100 = 300
 		  		*/
-		  		let somme_parrent = somme_largeur_parrents;
-		  		let result = width_max - somme_largeur_parrents;
-		  		result = result / niveau_actuel;
-		  		somme_parrent += result;
-		  		console.log(somme_parrent);
-		  		return [somme_parrent, result];
+		  		
+		  		
+		  		/* si c'est une feuille
+		  		On soustrait width_max (500) par la somme_largeur_parrents (200) soit 500-200 = 300
+		  		*/
+		  		if (feuilles_noeud_n == 1){
+		  			let somme_parrent = somme_largeur_parrents;
+		  			let result = width_max - somme_largeur_parrents;
+		  			return [somme_parrent, result];
+		  		} else {
+		  			let somme_parrent = somme_largeur_parrents;
+			  		let result = width_max - somme_largeur_parrents;
+			  		result = result / niveau_actuel;
+			  		somme_parrent += result;
+			  		return [somme_parrent, result];
+			  		
+		  		}
+		  		
+		  		
+		  		
 		  	}
     		
     		
@@ -163,6 +177,7 @@
 			let hauteur;
 			let feuilles_noeud;
 			let width;
+			let hight;
 			
     		const constante = 3;
     		for (i = 0;i < constante;i++){
@@ -170,18 +185,33 @@
     			
     			create_rect(tabl);
     			parent = width[0];
-    			x += width[1]+2;
+    			x += width[1];
     			
     			//pour chaque element tableau
-    			console.log(tabl);
-    			let m = tabl.map(m => Object.values(m));
     			
-    			//enregistrer sous noeud
-    			m = m.flat();
+    			let m = tabl.map(mp => Object.values(mp));
+    			
+    			
+    			let qsdfsdf = [];
+    			
+    			tabl = [];
+    			for (z in m){
+    				qsdfsdf = m[z].filter(f => f.constructor.name == "Array")
+    				
+    				qsdfsdf = qsdfsdf.map(m => qsdfsdf[0]);
+
+    				tabl = tabl.concat(qsdfsdf[0]);
+
+    				
+    				
+    			}
+    			
+
+
     			
     			//renvoyer tableau
-    			tabl = m.filter(f => f.constructor.name == "Array");
-    			tabl = tabl.flat();
+  
+    			console.log(tabl);
     			y = 0;
     		}
     		
@@ -189,21 +219,26 @@
     		function create_rect(sommet){
     			
     			sommet.forEach(function(e){
-    				profondeur = e.profondeur;
-    				uid = e.uid;
-    				hauteur = e.hauteur;
-    				feuilles_noeud = e.feuilles_noeud;
-    				width = largeur_rect(constante-profondeur+1, width_max, parent); // largeur d'une part
+    				if (e){
+    					profondeur = e.profondeur;
+        				uid = e.uid;
+        				hauteur = e.hauteur;
+        				feuilles_noeud = e.feuilles_noeud;
+        				width = largeur_rect(constante-profondeur+1, width_max, parent, feuilles_noeud); // largeur d'une part
+        				
+      
+        				hight =  hauteur_rect(feuilles_noeud, c);	// hauteur d'une part
+        				
+        				
+        				//console.log(profondeur, width, parent);
+        				rectangle(element,x,y,width[1],hight);
+        				text(element, uid,x,y);
+    				} else {
+    					console.log("nok");
+    				}
     				
-  
-    				let hight =  hauteur_rect(feuilles_noeud, c);	// hauteur d'une part
     				
-    				
-    				//console.log(profondeur, width, parent);
-    				rectangle(element,x,y,width[1],hight);
-    				text(element, uid,x,y);
-    				
-    				y += hight+2;
+    				y += hight;
     				
     			});
     			
