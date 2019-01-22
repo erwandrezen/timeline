@@ -1,82 +1,8 @@
-
-/* parcourire_arbre permet de parcourir un arbre en inscrivant la profondeur et ses feuilles du noeud n
- * 
- * 
- * 
- * le parametre:
- * 
- * - sommet renseigne le noeud racine
- * - profondeur permet la sauvegarder de la profondeur du noeud n
- * il n'es pas utile de le renseigner lors du lancement de la fonction
- * il n'es pas nécessaire de le prendre en compte
- * sert seulement de variable à cette fonction recursive
- * */
-
-var essai_tmp = [];
-function parcourire_arbre(sommet,profondeur = {profondeur:0, hauteur:0,feuilles_noeud:1},parent_noeud = []){
-	
-	// Si l'element est une liste (contient des sous noeud)
-	if (sommet.constructor.name == "Array"){
-
-
-		//console.log(sommet);
-		
-		// si l'element contient des donnees
-		if (sommet.length > 0){
-			
-			// on ajoute un niveau de profondeur
-			profondeur.profondeur += 1;
-			
-			/* pour chaque element 
-			 * e = valeur d'une element du tableau
-			 * i = l'indice de cet element du tableau
-			*/
-			let ii = 1;
-			sommet.forEach(function(e,i){
-				//console.log(e);
-				// profondeur.hauteur = index du tableau qu'on parcour + 1
-				
-				/*  /!\ l'element peut etre soit un tableau soit un objet
-				 * Mais la profondeur n'es pas sauvegarder à cette endroit dans le tableau
-				 * la hauteur est egal a l'indice d'un element
-				*/
-				profondeur.hauteur = i+1;
-				ii = profondeur.hauteur;
-				// on parcoure l'element e en sauvegardant la profondeur
-				parcourire_arbre(e,profondeur,parent_noeud);
-				
-			});
-			
-			//console.log("retour en haut", sommet);
-			profondeur.profondeur -= 1;
-		}
-		
-		
-		
-	}
-	
-	
+function element_is_object(sommet, profondeur = {profondeur:0, hauteur:0,feuilles_noeud:0},noeud = {parent:[], max:0}){
 	// Si l'element est un objet (contient un noeud / feature)
 	if (sommet.constructor.name == "Object"){
-		Object.assign(sommet,profondeur);
-		
+		//console.log(sommet);
 		//console.log(sommet,profondeur);
-		// Enregistrer profondeur.profondeur
-		//profondeur.hauteur += 1;
-		/*
-		console.log(profondeur.profondeur, profondeur.hauteur, sommet);
-		try {
-			essai_tmp[profondeur.profondeur][profondeur.hauteur] = sommet;
-		} 
-		
-		catch(error) {
-			essai_tmp[profondeur.profondeur] = ["profondeur: "+profondeur.profondeur];
-			essai_tmp[profondeur.profondeur][profondeur.hauteur] = sommet;
-			//console.log(error);
-		}*/
-
-
-		//essai_tmp[profondeur.profondeur][profondeur.hauteur] = sommet;
 		
 		//let profondeur = {profondeur : profondeur.profondeur};
 		
@@ -94,27 +20,114 @@ function parcourire_arbre(sommet,profondeur = {profondeur:0, hauteur:0,feuilles_
 			//console.log(values_noeud);
 			// Si vrai
 			//console.log(sommet);
+			let tmp_array = [];
 			if (values_noeud.length > 0){
-				let tmp_array = [];
-				console.log("liste");
-				parent_noeud.push(sommet);
-				//console.log(parent_noeud);
+				
+				//console.log("nouveau niveau", sommet);
+				noeud.max += 1;
+				noeud.parent.unshift(sommet);
+				//console.log(noeud.parent,noeud.max);
+				//console.log(noeud.parent);
 				values_noeud.forEach(function(v){
 					tmp_array = tmp_array.concat(v);
 				});
 
-				parcourire_arbre(tmp_array,profondeur,parent_noeud);
-				
-				
+
+				profondeur.feuilles_noeud = 0;
 			} else {
 				profondeur.feuilles_noeud = 1;
+				//console.log("feuille");
 			}
-			
+			Object.assign(sommet,profondeur);
+			parcourire_arbre(tmp_array,profondeur,noeud);
+			return true;
+	} else {
+		return false;
+	}
+}
 
-		}
+function calcule_feuilles_noeud(noeuds){
+	noeuds.forEach(function(e){
 		
+		let arr = Object.values(e).filter(lst => lst.constructor.name == "Array");
+		if (arr.length > 0){
+			let essai = 0;
+			
+			arr[0].forEach(function(e){
+				essai += e.feuilles_noeud;
+			});
+			e.feuilles_noeud = essai;
+			
+		}
+	});
+}
 
+function element_is_array(sommet, profondeur = {profondeur:0, hauteur:0,feuilles_noeud:0},noeud = {parent:[], max:0}){
+		if (sommet.constructor.name == "Array" ){
 	
+			if (sommet.length > 0){
+				
+			
+			
+			// on ajoute un niveau de profondeur
+			profondeur.profondeur += 1;
+			
+			/* pour chaque element 
+			 * e = valeur d'une element du tableau
+			 * i = l'indice de cet element du tableau
+			*/
 	
+			sommet.forEach(function(e,i,p){
+				//console.log(e);
+				// profondeur.hauteur = index du tableau qu'on parcour + 1
+				
+				/*  /!\ l'element peut etre soit un tableau soit un objet
+				 * Mais la profondeur n'es pas sauvegarder à cette endroit dans le tableau
+				 * la hauteur est egal a l'indice d'un element
+				*/
+				profondeur.hauteur = i+1;
+
+				// on parcoure l'element e en sauvegardant la profondeur
+				parcourire_arbre(e,profondeur,noeud);
+				
+			});
+			
+			console.log("*FIN BRANCHE*", sommet);
+			profondeur.profondeur -= 1;
+			calcule_feuilles_noeud(sommet);
+			return true;
+			}
+		
+	} else {
+		return false;
+	}
+}
+
+
+
+
+/* parcourire_arbre permet de parcourir un arbre en inscrivant la profondeur et ses feuilles du noeud n
+ * 
+ * 
+ * 
+ * le parametre:
+ * 
+ * - sommet renseigne le noeud racine
+ * - profondeur permet la sauvegarder de la profondeur du noeud n
+ * il n'es pas utile de le renseigner lors du lancement de la fonction
+ * il n'es pas nécessaire de le prendre en compte
+ * sert seulement de variable à cette fonction recursive
+ * */
+
+function parcourire_arbre(sommet,profondeur = {profondeur:0, hauteur:0,feuilles_noeud:0},noeud = {parent:[], max:0}){
+	
+	// Si l'element est une liste (contient des sous noeud)
+	let element_bool;
+
+	if (!element_is_array(sommet, profondeur, noeud)){
+		element_bool = element_is_object(sommet, profondeur, noeud);
+	}
+	
+
 	
 }

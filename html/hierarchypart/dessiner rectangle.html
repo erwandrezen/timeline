@@ -45,7 +45,6 @@
     		*/
     		parcourire_arbre(nodelist);
     		
-      	  	console.log(nodelist);
 
 		  	tableau = nodelist; // tableau vaut la sortie de la fonction branche_niveau
 		  	marquer = []; // on reintialise la sortie
@@ -160,40 +159,16 @@
 			let hight = 17;	// hauteur d'une part
 			let x = 0;
 			let y = 0;
+			let c =15;
 			
-			for (key_element in tableau){
-				let laPart = tableau[key_element];		// selectionne une hierarchy part
-				let laProfondeur = laPart.profondeur;	// selectionne sa profondeur
-				let laHauteur = laPart.hauteur;			// selection sa hauteur
-				let leUID = laPart.uid					// selection son UID
-				
-				//console.log(laPart, laHauteur, hight, y);
-				
-				
-	
-				ensembleOld = mafeuille[laProfondeur-1];
-				hauteurOld = hight_max / ensembleOld;
-				ensembleNew = mafeuille[laProfondeur];
-				hauteurNew = hauteurOld / ensembleNew;
-				ensembleNext = mafeuille[laProfondeur+1];
-				hauteurNext = hauteurNew / ensembleNext;
-				
-				if (!ensembleNext){
-					//console.log("Not ensemble", laPart);
-				}
-				
-				hight = hauteurNew;
-				
-				//console.log(ensembleNew);
-				
-				x = laProfondeur*width;
-				y = laHauteur*hight-hight;
-				rectangle(element,x,y,width-3,hight-3,laProfondeur,leUID,"essai()");
-				text(element, leUID,x,y);
+			let essai_p = tableau[0].profondeur;
+			let essai_h = tableau[0].hauteur;
+			let essai_l = largeur_rect(3-essai_p, width_max, 0);
+			essai_l = essai_l[1];
+			let essai_w = hauteur_rect(8, c);
 
-			  
-		  	}
-
+			rectangle(element,x,y,essai_l,essai_w);
+			
 		
 			
 			/*
