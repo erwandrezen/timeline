@@ -1,51 +1,57 @@
-function element_is_object(sommet, profondeur = {profondeur:0, hauteur:0,feuilles_noeud:0},noeud = {parent:[], max:0}){
+function element_is_object(sommet,profondeur = {profondeur:0, hauteur:0,feuilles_noeud:0}, noeud_max = 0){
 	// Si l'element est un objet (contient un noeud / feature)
-	if (sommet.constructor.name == "Object"){
-		//console.log(sommet);
+	if (sommet.constructor.name == "Object")
+	{
+		
 		//console.log(sommet,profondeur);
 		
 		//let profondeur = {profondeur : profondeur.profondeur};
 		
 		// Enregistrer profondeur.hauteur
 		
-			// Recuperer toutes les valeurs de l'objets
-			let values = Object.values(sommet);
+		// Recuperer toutes les valeurs de l'objets
+		let values = Object.values(sommet);	
+		// Recuperer toutes les valeurs de type tableau de cet objet
+		let values_noeud = values.filter(a => a.constructor.name == "Array")
+		let tmp_array = [];
+	
+		if (values_noeud.length > 0)
+		{
+			//console.log("nouveau niveau", sommet);
 			
-			// Recuperer toutes les valeurs de type tableau de cet objet
-			let values_noeud = values.filter(a => a.constructor.name == "Array")
-			
-			
-			// Si la longueur de values_noeud > 0 on renvoi vrai sinon on ajoute 1 à feuille
-			bool_noeud = (values_noeud.length > 0 ? true : false);
-			//console.log(values_noeud);
-			// Si vrai
-			//console.log(sommet);
-			let tmp_array = [];
-			if (values_noeud.length > 0){
-				
-				//console.log("nouveau niveau", sommet);
-				noeud.max += 1;
-				noeud.parent.unshift(sommet);
-				//console.log(noeud.parent,noeud.max);
-				//console.log(noeud.parent);
-				values_noeud.forEach(function(v){
-					tmp_array = tmp_array.concat(v);
-				});
+			//console.log(noeud_max, sommet);
+			//console.log(noeud.parent,noeud.max);
+			//console.log(noeud.parent);
+			values_noeud.forEach(function(v)
+					{
+						tmp_array = tmp_array.concat(v);
+					});
 
-
-				profondeur.feuilles_noeud = 0;
-			} else {
-				profondeur.feuilles_noeud = 1;
-				//console.log("feuille");
-			}
-			Object.assign(sommet,profondeur);
-			parcourire_arbre(tmp_array,profondeur,noeud);
-			return true;
-	} else {
+			profondeur.feuilles_noeud = 0;
+		} 
+		else
+		{
+			profondeur.feuilles_noeud = 1;
+			//console.log("feuille");
+		}
+		
+		
+		Object.assign(sommet,profondeur);
+		parcourire_arbre(tmp_array,profondeur,noeud_max);
+		return true;
+		
+	} 
+	else
+	{
 		return false;
 	}
 }
 
+
+/* Calcule le nombre de feuilles de ses sous noeuds
+ * 
+ * 
+ * */
 function calcule_feuilles_noeud(noeuds){
 	noeuds.forEach(function(e){
 		
@@ -62,42 +68,47 @@ function calcule_feuilles_noeud(noeuds){
 	});
 }
 
-function element_is_array(sommet, profondeur = {profondeur:0, hauteur:0,feuilles_noeud:0},noeud = {parent:[], max:0}){
-		if (sommet.constructor.name == "Array" ){
+function element_is_array(sommet,profondeur = {profondeur:0, hauteur:0,feuilles_noeud:0},noeud_max = 0){
 	
-			if (sommet.length > 0){
-				
-			
-			
+	
+	// Si l'element est une liste 
+	if (sommet.constructor.name == "Array" ){
+		
+		// Si la liste contient des donnees (contient des sous noeuds)
+		if (sommet.length > 0){
+
 			// on ajoute un niveau de profondeur
 			profondeur.profondeur += 1;
+			noeud_max += 1;
 			
 			/* pour chaque element 
 			 * e = valeur d'une element du tableau
 			 * i = l'indice de cet element du tableau
 			*/
-	
-			sommet.forEach(function(e,i,p){
+			sommet.forEach(function(e,i){
 				//console.log(e);
-				// profondeur.hauteur = index du tableau qu'on parcour + 1
+				// profondeur.hauteur = index du tableau qu'on parcoure + 1
 				
 				/*  /!\ l'element peut etre soit un tableau soit un objet
 				 * Mais la profondeur n'es pas sauvegarder à cette endroit dans le tableau
 				 * la hauteur est egal a l'indice d'un element
 				*/
 				profondeur.hauteur = i+1;
-
+				
+				
 				// on parcoure l'element e en sauvegardant la profondeur
-				parcourire_arbre(e,profondeur,noeud);
+				parcourire_arbre(e,profondeur, noeud_max);
 				
 			});
-			
-			console.log("*FIN BRANCHE*", sommet);
-			profondeur.profondeur -= 1;
-			calcule_feuilles_noeud(sommet);
-			return true;
-			}
 		
+				//console.log("*FIN BRANCHE*", sommet);
+				profondeur.profondeur -= 1;
+				
+				// Fin de branche: calcule de feuille
+				calcule_feuilles_noeud(sommet);
+				return true;
+		}
+	
 	} else {
 		return false;
 	}
@@ -119,15 +130,15 @@ function element_is_array(sommet, profondeur = {profondeur:0, hauteur:0,feuilles
  * sert seulement de variable à cette fonction recursive
  * */
 
-function parcourire_arbre(sommet,profondeur = {profondeur:0, hauteur:0,feuilles_noeud:0},noeud = {parent:[], max:0}){
+function parcourire_arbre(sommet,profondeur = {profondeur:0, hauteur:0,feuilles_noeud:0},noeud_max = 0){
 	
 	// Si l'element est une liste (contient des sous noeud)
 	let element_bool;
 
-	if (!element_is_array(sommet, profondeur, noeud)){
-		element_bool = element_is_object(sommet, profondeur, noeud);
+	if (!element_is_array(sommet, profondeur, noeud_max)){
+		element_bool = element_is_object(sommet, profondeur, noeud_max);
 	}
-	
+	//console.log(sommet);
 
 	
 }

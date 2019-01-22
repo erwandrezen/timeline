@@ -8,13 +8,14 @@
 
 
   
-function rectangle(element, x, y, w, h, name= null, uneFonction = null){
+function rectangle(element, x, y, w, h, id=null, name= null, uneFonction = null){
 	let tooltip = d3.select(".tooltip");
 	element.append("rect")
 	
     .attr("x", x)           .attr("y", y)
-    .attr("width", w)      .attr("height", h)
-     .attr("name", name)
+    .attr("width", w)      	.attr("height", h)
+    .attr("id", id)			.attr("name", name)
+    .attr("fill","coral")
     .attr("onclick",uneFonction)
     
     // Evenement de d'entrer de la souris sur un element
