@@ -19,10 +19,12 @@ function rectangle(element, x, y, w, h, id=null, name= null, uneFonction = null)
     .attr("onclick",uneFonction)
     
     // Evenement de d'entrer de la souris sur un element
-    .on("mouseover", function () {
+    .on("mousemove", function () {
     	// Modification du style de la div "tooltip" en transition
+    	var e = window.event;
+    	console.log();
     	tooltip.transition()
-    	
+    	.style( "transition-delay", "0s")
     	// Changement d'opaciter
     	.style("opacity", .9); 
     	
@@ -34,10 +36,10 @@ function rectangle(element, x, y, w, h, id=null, name= null, uneFonction = null)
     	
     	
     	// Deplacement du tooltip en X en partant d'en haut à gauche
-    	.style("left", (x+(w/2)) + "px") 
+    	.style("left", e.clientX + "px") 
     	
     	// Deplacement du tooltip en Y en partant d'en haut à gauche
-        .style("top", (y-20) + "px"); 
+        .style("top", e.clientY + "px"); 
 
     })
 	
