@@ -13,13 +13,17 @@
     
     <body>
    		voir logs console
+   		
+   		<button onclick="f_essai()">Click me</button>
+   		<input id="text">
         <div id="timeline"></div>
         <div class="tooltip"></div>
             <div id="hierarchypart"> </div>
+            
     </body>
 
     <script>
-
+   
 
 	
     	var file = "mocks/mock2.json"; // Chemin du fichier json
@@ -48,19 +52,7 @@
       	  	//console.log(nodelist);
 
 		  	tableau = nodelist; // tableau vaut la sortie de la fonction branche_niveau
-		  	marquer = []; // on reintialise la sortie
-		  	
-		  	
-		
-		  	
-		  	
-		  	
-		  	
-			/*
-    		JEU D'ESSAI			branche_profondeur
-    		*/
-    		
-    		
+	
     		
     		/*
     		FONCTION			largeur rectangle
@@ -165,6 +157,9 @@
     			
     			
 
+			/*
+    		JEU D'ESSAI			branche_niveau
+    		*/
 			let tabl = tableau;
     		let width_max = 500; 		// largeur maximum
     		let hight_max = 250; 		// hauteur maximum
@@ -178,43 +173,50 @@
 			let feuilles_noeud;
 			let width;
 			let hight;
-			
-    		const constante = 3;
-    		for (i = 0;i < constante;i++){
-    			//creation du rectangle
-    			
-    			create_rect(tabl);
-    			parent = width[0];
-    			x += width[1];
-    			
-    			//pour chaque element tableau
-    			
-    			let m = tabl.map(mp => Object.values(mp));
-    			
-    			
-    			let qsdfsdf = [];
-    			
-    			tabl = [];
-    			for (z in m){
-    				qsdfsdf = m[z].filter(f => f.constructor.name == "Array")
-    				
-    				qsdfsdf = qsdfsdf.map(m => qsdfsdf[0]);
+			let constante;
 
-    				tabl = tabl.concat(qsdfsdf[0]);
+    		function redessiner(cnst){
+    			constante = cnst;
+    			for (i = 0;i < cnst;i++){
+        			//creation du rectangle
+        			
+        			create_rect(tabl);
+        			parent = width[0];
+        			x += width[1];
+        			
+        			//pour chaque element tableau
+        			
+        			let m = tabl.map(mp => Object.values(mp));
+        			
+        			
+        			let qsdfsdf = [];
+        			
+        			tabl = [];
+        			for (z in m){
+        				qsdfsdf = m[z].filter(f => f.constructor.name == "Array")
+        				
+        				qsdfsdf = qsdfsdf.map(m => qsdfsdf[0]);
 
-    				
-    				
-    			}
-    			
+        				tabl = tabl.concat(qsdfsdf[0]);
+
+        				
+        				
+        			}
+        			
 
 
-    			
-    			//renvoyer tableau
-  
-    			console.log(tabl);
-    			y = 0;
+        			
+        			//renvoyer tableau
+      
+        			console.log(tabl);
+        			y = 0;
+        		}
     		}
     		
+    		
+    		
+    		
+    		redessiner(2);
 			
     		function create_rect(sommet){
     			
@@ -243,66 +245,7 @@
     			});
     			
     		}
-		  	
-    		
 
-    		
-			
-			
-	
-			/*
-			
-			let essai_p = tableau[0].profondeur;
-			let essai_h = tableau[0].hauteur;
-			
-*/
-			
-			
-
-			
-		
-			
-			/*
-    		JEU D'ESSAI			branche_niveau
-    		*/
-
-
-		  	/*
-			var x_max = 500;
-			var y_max = 200;
-			var nombre_niveau = tableau.length;
-			var x_niveau = x_max/nombre_niveau;
-			var y_niveau;
-			var y_sous_niveau;
-			var i = 0;
-			var x = 0;
-			var y = 10;
-			
-			
-			  for (key_element in tableau){
-				  i += 1;
-				  y = 0;
-				  console.log(x);
-				  text(element, "Niveau: "+i,x,y);
-				  
-				  for (key_feature in tableau[key_element]){
-					  y_niveau = y_max/tableau[key_element].length;
-					  //y_sous_niveau
-					  console.log(tableau[parseInt(key_element)+1]);
-	
-					  var feature = tableau[key_element][key_feature];
-					  rectangle(element,x,y,x_niveau-2,y_niveau-2);
-					  text(element, feature['uid'],x,y);
-					  y += y_niveau;
-					  
-				  }
-				  y_niveau = 0;
-				  x = x_niveau*i;
-			  }
-		*/
-	
-	
-	
 	
       	}
 
