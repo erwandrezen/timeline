@@ -27,19 +27,18 @@
 
 	
     	var file = "mocks/mock2.json"; // Chemin du fichier json
-    	var request = open_json(file); // Requete d'ouverture du fichier json
     	var hierarchypart = svg("#hierarchypart",window.innerWidth,3000); // selection d'un svg sur l'id hierarchypart
     	var element = hierarchypart.append("g"); // ajout dans cette hierarchypart une DIV "g" afin de grouper
 
-    	
+    	// Ouvre le json
+    	d3.json(file, function(data) {
+			 
 
-    	request.onload = function() {
     		/*
     		VARIABLE
     		*/
 			let tableau; // variable temporaire
-			file = request.response; // recuperation de donnees la requette
-      	  	let nodelist = file['ownerlist'][0]['nodelist']; // variable temporaire indiquant le sommet (nodelist)
+      	  	let nodelist = data['ownerlist'][0]['nodelist']; // variable temporaire indiquant le sommet (nodelist)
       		
 
 	  	
@@ -154,9 +153,9 @@
 					
     				
     		}*/
-    			
-    			
+    		
 
+    			console.log(tableau);
 			/*
     		JEU D'ESSAI			branche_niveau
     		*/
@@ -177,7 +176,7 @@
 
     		function redessiner(cnst){
     			constante = cnst;
-    			for (i = 0;i < cnst;i++){
+    			for (i = 1;i < cnst+1;i++){
         			//creation du rectangle
         			
         			create_rect(tabl);
@@ -192,11 +191,13 @@
         			let qsdfsdf = [];
         			
         			tabl = [];
+        			
         			for (z in m){
+        				//console.log(m[z]);
         				qsdfsdf = m[z].filter(f => f.constructor.name == "Array")
-        				
+        				//console.log(i,parseInt(z)+1,m[z]);
         				qsdfsdf = qsdfsdf.map(m => qsdfsdf[0]);
-
+        				//console.log(qsdfsdf);
         				tabl = tabl.concat(qsdfsdf[0]);
 
         				
@@ -208,7 +209,6 @@
         			
         			//renvoyer tableau
       
-        			console.log(tabl);
         			y = 0;
         		}
     		}
@@ -216,7 +216,7 @@
     		
     		
     		
-    		redessiner(2);
+    		redessiner(3);
 			
     		function create_rect(sommet){
     			
@@ -247,7 +247,7 @@
     		}
 
 	
-      	}
+      	});
 
    </script>
 
