@@ -2,11 +2,9 @@
 
     <head>  
         <script src="js/d3.v3.min.js"></script>
-        <script src="js/file_json.js"></script>
-        <script src="js/tree_largeur.js"></script>
-        <script src="js/tree_profondeur.js"></script>
         <script src="js/profondeur et largeur.js"></script>
         <script src="js/draw.js"></script>
+        <script src="js/cacher_rect.js"></script>
         <link rel="stylesheet" type="text/css" href="csss.css">
        <link rel="stylesheet" type="text/css" href="css/css.css">
     </head>
@@ -30,7 +28,6 @@
     	var hierarchypart = svg("#hierarchypart",window.innerWidth,3000); // selection d'un svg sur l'id hierarchypart
     	var element = hierarchypart.append("g"); // ajout dans cette hierarchypart une DIV "g" afin de grouper
 
-    	// Ouvre le json
     	d3.json(file, function(data) {
 			 
 
@@ -39,10 +36,61 @@
     		*/
 			let tableau; // variable temporaire
       	  	let nodelist = data['ownerlist'][0]['nodelist']; // variable temporaire indiquant le sommet (nodelist)
-      		
-
-	  	
-		  	
+      		/*
+			function d3_essai(){
+				let listeObjects = nodelist;
+				let un_i = 0;
+      	  		for (i = 0; i< 4; i++)
+      	  			{
+      	  		un_i += 1;
+      	  		//console.log(nodelist);
+      	  		
+      	  	console.log("uneListe",listeObjects);
+		      	  		var smallData = listeObjects.map(function(d,i) {
+		      	  				let nbr_feuilles = 0;
+		      	  				let tmp_list;
+		      	  				let tmp_int;
+		      	  				//Sur un objet
+		      	  				//le convertire en tableau
+		      	  				tmp_list = Object.values(d);
+		      	  				
+		      	  				//filtrer ses tableau
+		      	  				tmp_list = tmp_list.filter(f => f.constructor.name =="Array");
+		      	  				//recuperer leurs taille
+		      	  				try {
+		      	  					nbr_feuilles = tmp_list[0].length;
+		      	  				} catch (e){
+		      	  				nbr_feuilles = 1;
+		      	  				}
+		      	  				
+		      	  				
+		      	  				//Sur un objet
+		      	  				//Ajouter des parametres
+				      		  	Object.assign(d,{hauteur: i+1,
+				      		  					profondeur: un_i,
+				      		  					feuilles: nbr_feuilles});
+		      	  				
+		      	  				//Transforme l'objet en liste
+								let uneListe = Object.values(d);
+		      	  				
+		      	  				//Dans cette liste on recupere seulement les listes
+				      			uneListe = uneListe.filter(f => f.constructor.name == "Array");
+				      			//console.log(d,uneListe);
+		      	  				//on l'ajoute a la listeObjects
+				      			return uneListe[0];
+		      	  				//console.log(listeObjects);
+				      		  //a.push(uneListe);
+				      	  });
+		      	  		//console.log("a",smallData[0]		
+		      	  	listeObjects = smallData[0];
+		      	  	console.log("une passe");
+      	  			}
+				
+      	  	}
+      	
+			d3_essai();
+			*/
+		  	//console.log(nodelist);
       	  	/*
     		FONCTION			Parcour en largeur sur le sommet nodelist
     		*/
@@ -53,56 +101,6 @@
 		  	tableau = nodelist; // tableau vaut la sortie de la fonction branche_niveau
 	
     		
-    		/*
-    		FONCTION			largeur rectangle
-    		*/
-    		function largeur_rect(niveau_actuel, width_max, somme_largeur_parrents,feuilles_noeud_n){
-		  		/* Exemple
-		  		sur 5 niveau
-		  		
-		  		niveau noeu source(root) = 5
-		  		
-		  		niveau actuelle = 3
-		  		width_max = 500
-		  		somme_largeur_parrents = 200
-		  		
-		  		
-		  		On soustrait width_max (500) par la somme_largeur_parrents (200) soit 500-200 = 300
-		  		qu'on divise par le niveau actuelle: 3 soit 300/3 = 100
-		  		qu'on ajoute à la largeur parrents: 200 soit 200+100 = 300
-		  		*/
-		  		
-		  		
-		  		/* si c'est une feuille
-		  		On soustrait width_max (500) par la somme_largeur_parrents (200) soit 500-200 = 300
-		  		*/
-		  		if (feuilles_noeud_n == 1){
-		  			let somme_parrent = somme_largeur_parrents;
-		  			let result = width_max - somme_largeur_parrents;
-		  			return [somme_parrent, result];
-		  		} else {
-		  			let somme_parrent = somme_largeur_parrents;
-			  		let result = width_max - somme_largeur_parrents;
-			  		result = result / niveau_actuel;
-			  		somme_parrent += result;
-			  		return [somme_parrent, result];
-			  		
-		  		}
-		  		
-		  		
-		  		
-		  	}
-    		
-    		
-		  	
-		  	
-		  	
-    		/*
-    		FONCTION			hauteur rectangle
-    		*/
-    		function hauteur_rect(feuilles_noeud_n, c){
-    			return feuilles_noeud_n * c;
-    		}
     		
     		
     		/*
@@ -112,50 +110,15 @@
     		/*
     		FONCTION			position_y rectangle
     		*/
-    		
     		/*
-    		FONCTION			supprimer rectangles
+
+    		
     		*/
-    		// Soit un tableau pour un niveau
-    		// Soit une dimension pour un noeud en hauteur
-    		// un tableau et une dimension peu être vide selon l'emplacement de celui ci
-    		//var cacher = [] 
     		
     		
-    		//var arbre = []
-    		
-    		/*
-    		Parcourire arbre
-    		
-    		pour chaque niveau de l'arbre
-    		Si l'emplacement du tableau et dimension n'es pas dans cacher
-    		afficher le niveau et le sous niveau // Voir si agrandire le niveau ou reduire la part
-    		*/
-    		/*
-    		const constante = 3;
-    		var marquer = [];
-    		function parcoure(sommet){
-    			//pour chaque sommet
-				for (s of sommet){
-					console.log(s);
-					//verifier sous noeud
-					let lst = Object.values(s).filter(f => f.constructor.name == "Array");
-					//si sous noeud
-					if (lst.length > 0){
-						sommet = lst[0];
-						//console.log(sommet);
-						//relancer
-						parcoure(sommet);
-					}
-					
-						
-				}
-					
-    				
-    		}*/
     		
 
-    			console.log(tableau);
+    			
 			/*
     		JEU D'ESSAI			branche_niveau
     		*/
@@ -173,44 +136,59 @@
 			let width;
 			let hight;
 			let constante;
+			
 
     		function redessiner(cnst){
     			constante = cnst;
     			for (i = 1;i < cnst+1;i++){
+    				
+    				if (i > cacher_parent){
+    		
+    				}
         			//creation du rectangle
-        			
-        			create_rect(tabl);
+        			if (!cacher_niveau.includes(i)){
+        				create_rect(tabl);
+        			}
+    				
         			parent = width[0];
         			x += width[1];
         			
         			//pour chaque element tableau
-        			
-        			let m = tabl.map(mp => Object.values(mp));
+        			let m = [];
+        			for (e in tabl){
+        				let profondeur = tabl[e].profondeur+";"+tabl[e].hauteur;
+        				if (cacher_branche.includes(profondeur)){
+
+                		} else {
+                			
+                			m = m.concat(Object.values(tabl[e]));
+          
+                		}
+        			}
+
+        			//let m = tabl.map(mp => Object.values(mp));
+
+        			//console.log(profondeur + ";" + hauteur, cacher);
         			
         			
         			let qsdfsdf = [];
         			
-        			tabl = [];
-        			
-        			for (z in m){
-        				//console.log(m[z]);
-        				qsdfsdf = m[z].filter(f => f.constructor.name == "Array")
-        				//console.log(i,parseInt(z)+1,m[z]);
-        				qsdfsdf = qsdfsdf.map(m => qsdfsdf[0]);
-        				//console.log(qsdfsdf);
-        				tabl = tabl.concat(qsdfsdf[0]);
-
-        				
-        				
-        			}
-        			
-
+        			                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    
+      
+        			tabl = m.filter(f => f.constructor.name == "Array")
+        			tabl = tabl.flat();
+  
 
         			
         			//renvoyer tableau
       
         			y = 0;
-        		}
+    			}
+
+    			
+    			
+    			
     		}
     		
     		
@@ -219,7 +197,7 @@
     		redessiner(3);
 			
     		function create_rect(sommet){
-    			
+
     			sommet.forEach(function(e){
     				if (e){
     					profondeur = e.profondeur;
@@ -233,7 +211,7 @@
         				
         				
         				//console.log(profondeur, width, parent);
-        				rectangle(element,x,y,width[1],hight, uid,uid);
+        				rectangle(element,x,y,width[1],hight, profondeur+ ";" + hauteur,uid);
         				text(element, uid,x,y);
     				} else {
     					console.log("nok");
