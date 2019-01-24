@@ -1,9 +1,38 @@
-
+  .color{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  }
+  
+    svg{ 
+      margin: auto;
+    }
+      #button{
+        cursor: pointer;
+      }
+      .graphe_container{
+       -moz-transform-origin: 160px 160px;
+        -ms-transform-origin:  160px 160px;
+        -o-transform-origin: 160px 160px;
+        -webkit-transform-origin:  160px 160px;
+        transform-origin: 160px 160px;
+      }
+      rect,circle{
+        user-select: none;
+        -webkit-user-select:none;
+        -moz-user-select:none;
+      }
+      
+      
+      
+      
+      
+      
+      
 
 rect {
-	
+
 	stroke: black;
-	stroke-width:0.7;
 	display: inline-block;
 }
 #hierarchypart{
@@ -82,5 +111,4 @@ body {
   border: 0px;
   border-radius: 2px;
   pointer-events: none;
-  opacity: 0;
 }

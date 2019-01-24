@@ -1,0 +1,319 @@
+<html>
+
+    <head>  
+        <script src="js/d3.v3.min.js"></script>
+        <script src="js/file_json.js"></script>
+        <script src="js/tree_largeur.js"></script>
+        <script src="js/tree_profondeur.js"></script>
+        <script src="js/profondeur et largeur.js"></script>
+        <script src="js/draw.js"></script>
+       
+        <link rel="stylesheet" type="text/css" href="csss.css">
+       <link rel="stylesheet" type="text/css" href="css/css.css">
+    </head>
+    
+    <body onclick="hide_color()">
+   		voir logs console
+   		
+   		<button type="button">Gauche</button>
+        <button type="button">Centrer</button>
+        <button type="button">Droite</button>
+        
+        <div id="timeline"></div>
+        <div class="tooltip"><a >Google</a></div>
+        <div class="contextmenu"></div>
+        <div id="hierarchypart"> </div>
+        
+    </body>
+ 
+    <script>
+		var laCouleur = "white";
+
+	
+    	var file = "mocks/mock2.json"; // Chemin du fichier json
+    	var request = open_json(file); // Requete d'ouverture du fichier json
+    	var hierarchypart = UnSvg("#hierarchypart",window.innerWidth,3000); // selection d'un svg sur l'id hierarchypart
+    	var element = hierarchypart.append("g"); // ajout dans cette hierarchypart une DIV "g" afin de grouper
+
+    	
+
+    	request.onload = function() {
+    		/*
+    		VARIABLE
+    		*/
+			let tableau; // variable temporaire
+			file = request.response; // recuperation de donnees la requette
+      	  	let nodelist = file['ownerlist'][0]['nodelist']; // variable temporaire indiquant le sommet (nodelist)
+      		
+
+	  	
+		  	
+      	  	/*
+    		FONCTION			Parcour en largeur sur le sommet nodelist
+    		*/
+    		parcourire_arbre(nodelist);
+    		
+      	  	//console.log(nodelist);
+
+		  	tableau = nodelist; // tableau vaut la sortie de la fonction branche_niveau
+		  	marquer = []; // on reintialise la sortie
+		  	
+		  	
+		
+		  	
+		  	
+		  	
+		  	
+			/*
+    		JEU D'ESSAI			branche_profondeur
+    		*/
+    		
+    		
+    		
+    		/*
+    		FONCTION			largeur rectangle
+    		*/
+    		function largeur_rect(niveau_actuel, width_max, somme_largeur_parrents,feuilles_noeud_n){
+		  		/* Exemple
+		  		sur 5 niveau
+		  		
+		  		niveau noeu source(root) = 5
+		  		
+		  		niveau actuelle = 3
+		  		width_max = 500
+		  		somme_largeur_parrents = 200
+		  		
+		  		
+		  		On soustrait width_max (500) par la somme_largeur_parrents (200) soit 500-200 = 300
+		  		qu'on divise par le niveau actuelle: 3 soit 300/3 = 100
+		  		qu'on ajoute à la largeur parrents: 200 soit 200+100 = 300
+		  		*/
+		  		
+		  		
+		  		/* si c'est une feuille
+		  		On soustrait width_max (500) par la somme_largeur_parrents (200) soit 500-200 = 300
+		  		*/
+		  		if (feuilles_noeud_n == 1){
+		  			let somme_parrent = somme_largeur_parrents;
+		  			let result = width_max - somme_largeur_parrents;
+		  			return [somme_parrent, result];
+		  		} else {
+		  			let somme_parrent = somme_largeur_parrents;
+			  		let result = width_max - somme_largeur_parrents;
+			  		result = result / niveau_actuel;
+			  		somme_parrent += result;
+			  		return [somme_parrent, result];
+			  		
+		  		}
+		  		
+		  		
+		  		
+		  	}
+    		
+    		
+		  	
+		  	
+		  	
+    		/*
+    		FONCTION			hauteur rectangle
+    		*/
+    		function hauteur_rect(feuilles_noeud_n, c){
+    			return feuilles_noeud_n * c;
+    		}
+    		
+    		
+    		/*
+    		FONCTION			position_x rectangle
+    		*/
+    		
+    		/*
+    		FONCTION			position_y rectangle
+    		*/
+    		
+    		/*
+    		FONCTION			supprimer rectangles
+    		*/
+    		// Soit un tableau pour un niveau
+    		// Soit une dimension pour un noeud en hauteur
+    		// un tableau et une dimension peu être vide selon l'emplacement de celui ci
+    		//var cacher = [] 
+    		
+    		
+    		//var arbre = []
+    		
+    		/*
+    		Parcourire arbre
+    		
+    		pour chaque niveau de l'arbre
+    		Si l'emplacement du tableau et dimension n'es pas dans cacher
+    		afficher le niveau et le sous niveau // Voir si agrandire le niveau ou reduire la part
+    		*/
+    		/*
+    		const constante = 3;
+    		var marquer = [];
+    		function parcoure(sommet){
+    			//pour chaque sommet
+				for (s of sommet){
+					console.log(s);
+					//verifier sous noeud
+					let lst = Object.values(s).filter(f => f.constructor.name == "Array");
+					//si sous noeud
+					if (lst.length > 0){
+						sommet = lst[0];
+						//console.log(sommet);
+						//relancer
+						parcoure(sommet);
+					}
+					
+						
+				}
+					
+    				
+    		}*/
+    			
+    			
+
+			let tabl = tableau;
+    		let width_max = 500; 		// largeur maximum
+    		let hight_max = 250; 		// hauteur maximum
+    		let parent = 0;
+    		let c = 15;
+    		let x = 0;
+    		let y = 0;
+    		let profondeur;
+			let uid;
+			let hauteur;
+			let feuilles_noeud;
+			let width;
+			let hight;
+			
+    		const constante = 3;
+    		for (i = 0;i < constante;i++){
+    			//creation du rectangle
+    			
+    			create_rect(tabl);
+    			parent = width[0];
+    			x += width[1];
+    			
+    			//pour chaque element tableau
+    			
+    			let m = tabl.map(mp => Object.values(mp));
+    			
+    			
+    			let qsdfsdf = [];
+    			
+    			tabl = [];
+    			for (z in m){
+    				qsdfsdf = m[z].filter(f => f.constructor.name == "Array")
+    				
+    				qsdfsdf = qsdfsdf.map(m => qsdfsdf[0]);
+
+    				tabl = tabl.concat(qsdfsdf[0]);
+
+    				
+    				
+    			}
+    			
+
+
+    			
+    			//renvoyer tableau
+  
+    			console.log(tabl);
+    			y = 0;
+    		}
+    		
+			
+    		function create_rect(sommet){
+    			
+    			sommet.forEach(function(e){
+    				if (e){
+    					profondeur = e.profondeur;
+        				uid = e.uid;
+        				hauteur = e.hauteur;
+        				feuilles_noeud = e.feuilles_noeud;
+        				width = largeur_rect(constante-profondeur+1, width_max, parent, feuilles_noeud); // largeur d'une part
+        				
+      
+        				hight =  hauteur_rect(feuilles_noeud, c);	// hauteur d'une part
+        				
+        				
+        				//console.log(profondeur, width, parent);
+        				rectangle(element,x,y,width[1],hight,uid,uid);
+        				text(element, uid,x,y);
+    				} else {
+    					console.log("nok");
+    				}
+    				
+    				
+    				y += hight;
+    				
+    			});
+    			
+    		}
+		  	
+    		
+
+    		
+			
+			
+	
+			/*
+			
+			let essai_p = tableau[0].profondeur;
+			let essai_h = tableau[0].hauteur;
+			
+*/
+			
+			
+
+			
+		
+			
+			/*
+    		JEU D'ESSAI			branche_niveau
+    		*/
+
+
+		  	/*
+			var x_max = 500;
+			var y_max = 200;
+			var nombre_niveau = tableau.length;
+			var x_niveau = x_max/nombre_niveau;
+			var y_niveau;
+			var y_sous_niveau;
+			var i = 0;
+			var x = 0;
+			var y = 10;
+			
+			
+			  for (key_element in tableau){
+				  i += 1;
+				  y = 0;
+				  console.log(x);
+				  text(element, "Niveau: "+i,x,y);
+				  
+				  for (key_feature in tableau[key_element]){
+					  y_niveau = y_max/tableau[key_element].length;
+					  //y_sous_niveau
+					  console.log(tableau[parseInt(key_element)+1]);
+	
+					  var feature = tableau[key_element][key_feature];
+					  rectangle(element,x,y,x_niveau-2,y_niveau-2);
+					  text(element, feature['uid'],x,y);
+					  y += y_niveau;
+					  
+				  }
+				  y_niveau = 0;
+				  x = x_niveau*i;
+			  }
+		*/
+	
+	
+	
+	
+      	}
+
+   </script>
+<script src="js/color.js"></script>
+</html>

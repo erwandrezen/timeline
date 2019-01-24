@@ -1,0 +1,38 @@
+<html>
+<!-- Essai de commit nouveau bureau : Chomphoo -->
+    <head>  
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+    </head>
+    
+    <body>
+        <div id="timeline">
+            <div id="hierarchypart"></div>
+        </div>
+    </body>
+
+    <script>
+
+    var partWidth  = window.innerWidth;
+    var partHeight = 3000;
+
+    // we create the SVG element
+    var hierarchypart = d3.select("#hierarchypart")
+        .append("svg")
+        .attr("width",  partWidth)
+        .attr("height", partHeight);
+
+    var g = hierarchypart.append("g");
+
+    g.append("rect")
+        .attr("x", 10)           .attr("y", 20)
+        .attr("width", 300)      .attr("height", 200);
+    	.attr("stroke", "black") .attr("fill", "#cccccc")
+
+    g.append("text")
+        .attr("x", 20)           .attr("y", 30)
+        .attr("dx", "0.2em")     .attr("dy", "0.9em")
+        .attr("fill", "#111111") .text(function(d) { return "item"; })
+
+   </script>
+
+</html>

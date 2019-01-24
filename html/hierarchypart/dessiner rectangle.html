@@ -17,7 +17,7 @@
         <div id="timeline"></div>
         <div class="tooltip"></div>
             <div id="hierarchypart"> </div>
-            
+            <div id="hierarchypart2"> </div>
     </body>
 
     <script>
@@ -26,8 +26,19 @@
 	
     	var file = "mocks/mock2.json"; // Chemin du fichier json
     	var hierarchypart = svg("#hierarchypart",window.innerWidth,3000); // selection d'un svg sur l'id hierarchypart
+    	var hierarchypart2 = svg("#hierarchypart2",window.innerWidth,3000); // selection d'un svg sur l'id hierarchypart
+    	
     	var element = hierarchypart.append("g"); // ajout dans cette hierarchypart une DIV "g" afin de grouper
-
+    	var element2 = hierarchypart.append("g"); // ajout dans cette hierarchypart une DIV "g" afin de grouper
+    	var w = h = 10;
+    	var treemap = d3.layout.treemap()
+        .round(false)
+        .size([w, h])
+        .sticky(true)
+//        .value(function(d) { return d["???"]; });
+        .value(function(d) { return d.total; });
+        
+        
     	d3.json(file, function(data) {
 			 
 
@@ -36,7 +47,19 @@
     		*/
 			let tableau; // variable temporaire
       	  	let nodelist = data['ownerlist'][0]['nodelist']; // variable temporaire indiquant le sommet (nodelist)
-      		/*
+      	  let nodelist2 = data['ownerlist'][0]['nodelist'][0];
+      	  	//console.log("e",nodelist);
+      	  	
+      	  	// Parcourre en profondeur
+      	  	let tree = treemap.nodes(nodelist2)
+            .filter(function(d) {
+            	console.log("d",d);
+            	return d.children; 
+            	});
+      	  console.log("e",tree);
+      	  
+      	  	
+      	  	/*
 			function d3_essai(){
 				let listeObjects = nodelist;
 				let un_i = 0;

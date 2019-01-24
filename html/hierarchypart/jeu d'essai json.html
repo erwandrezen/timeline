@@ -1,0 +1,30 @@
+<html>
+
+    <head>  
+        <script src="js/d3.v3.min.js"></script>
+        <script src="js/file_json.js"></script>
+        <script src="js/tree_largeur.js"></script>
+        <script src="js/tree_profondeur.js"></script>
+        <script src="js/draw.js"></script>
+        <link rel="stylesheet" type="text/css" href="csss.css">
+       <link rel="stylesheet" type="text/css" href="css/css.css">
+    </head>
+    
+    <body>
+
+    </body>
+    <script>
+
+    	let json = "mocks/mock2.json";
+    	open = open_json(json);
+    	open.onload = function(e){
+    		let r = open.response;
+    		let racine = r['ownerlist'][0]['nodelist'];
+    		console.log(racine[0]);
+    		console.log(Object.values(racine[0]).filter(a => a.constructor.name == "Array"));
+    		
+    	};
+    	
+ 	</script>
+
+</html>
