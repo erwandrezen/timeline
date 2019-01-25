@@ -8,21 +8,20 @@
         <script src="js/profondeur et largeur.js"></script>
         <script src="js/draw.js"></script>
        
-        <link rel="stylesheet" type="text/css" href="csss.css">
+
        <link rel="stylesheet" type="text/css" href="css/css.css">
     </head>
     
     <body onclick="hide_color()">
    		voir logs console
-   		
-   		<button type="button">Gauche</button>
-        <button type="button">Centrer</button>
-        <button type="button">Droite</button>
-        
+
+   		<button type="button" onclick="align_text(this)" id="gauche">Gauche</button>
+        <button type="button" onclick="align_text(this)" id="centrer">Centrer</button>
+        <button type="button" onclick="align_text(this)" id="droite">Droite</button>
+        <div class="tooltip"></div>
         <div id="timeline"></div>
-        <div class="tooltip"><a >Google</a></div>
-        <div class="contextmenu"></div>
-        <div id="hierarchypart"> </div>
+        <div id="hierarchypart">
+         </div>
         
     </body>
  
@@ -34,8 +33,8 @@
     	var request = open_json(file); // Requete d'ouverture du fichier json
     	var hierarchypart = UnSvg("#hierarchypart",window.innerWidth,3000); // selection d'un svg sur l'id hierarchypart
     	var element = hierarchypart.append("g"); // ajout dans cette hierarchypart une DIV "g" afin de grouper
-
-    	
+		
+		
 
     	request.onload = function() {
     		/*
@@ -240,7 +239,7 @@
         				
         				//console.log(profondeur, width, parent);
         				rectangle(element,x,y,width[1],hight,uid,uid);
-        				text(element, uid,x,y);
+        				text(element, uid,x,y,width[1],hight);
     				} else {
     					console.log("nok");
     				}

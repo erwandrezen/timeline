@@ -2,6 +2,7 @@
   position: absolute;
   left: 0px;
   top: 0px;
+  
   }
   
     svg{ 
@@ -101,6 +102,7 @@ body {
   display: none;
 }
 
+
 .tooltip {
   position: absolute;
   padding: 8px;
@@ -110,5 +112,7 @@ body {
   color: #fff;
   border: 0px;
   border-radius: 2px;
-  pointer-events: none;
+
+  opacity: 0;
 }
+

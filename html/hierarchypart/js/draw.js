@@ -10,7 +10,7 @@ function f_essai(unName){
 	let tooltip = d3.select(".tooltip");
 	// Modification du style de la div "tooltip" en transition
 	var e = window.event;
-	console.log();
+	console.log(tooltip);
 	tooltip.transition()
 	.style( "transition-delay", "0s")
 	// Changement d'opaciter
