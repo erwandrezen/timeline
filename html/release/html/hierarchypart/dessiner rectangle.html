@@ -2,9 +2,6 @@
 
     <head>  
         <script src="js/d3.v3.min.js"></script>
-        <script src="js/file_json.js"></script>
-        <script src="js/tree_largeur.js"></script>
-        <script src="js/tree_profondeur.js"></script>
         <script src="js/profondeur et largeur.js"></script>
         <script src="js/draw.js"></script>
        
@@ -170,7 +167,7 @@
     			
     			
 
-			let tabl = tableau;
+			let tmp_tableau = tableau;
     		let width_max = 500; 		// largeur maximum
     		let hight_max = 250; 		// hauteur maximum
     		let parent = 0;
@@ -188,26 +185,29 @@
     		for (i = 0;i < constante;i++){
     			//creation du rectangle
     			
-    			create_rect(tabl);
+    			create_rect(tmp_tableau);
     			parent = width[0];
     			x += width[1];
     			
     			//pour chaque element tableau
+    			let mapper;
+    			try{
+    				mapper = tmp_tableau.map(mp => Object.values(mp));
+    			} catch {
+    				console.log("catch error ligne 197");
+    			}
     			
-    			let m = tabl.map(mp => Object.values(mp));
     			
     			
-    			let qsdfsdf = [];
+    			let lesTableaux = [];
     			
-    			tabl = [];
-    			for (z in m){
-    				qsdfsdf = m[z].filter(f => f.constructor.name == "Array")
+    			tmp_tableau = [];
+    			for (unTable in mapper){
+    				lesTableaux = mapper[unTable].filter(f => f.constructor.name == "Array")
     				
-    				qsdfsdf = qsdfsdf.map(m => qsdfsdf[0]);
+    				lesTableaux = lesTableaux.map(mapper => lesTableaux[0]);
 
-    				tabl = tabl.concat(qsdfsdf[0]);
-
-    				
+    				tmp_tableau = tmp_tableau.concat(lesTableaux[0]);
     				
     			}
     			
@@ -216,7 +216,6 @@
     			
     			//renvoyer tableau
   
-    			console.log(tabl);
     			y = 0;
     		}
     		
@@ -238,9 +237,7 @@
         				//console.log(profondeur, width, parent);
         				rectangle(element,x,y,width[1],hight,uid,uid);
         				text(element, uid,x,y,width[1],hight);
-    				} else {
-    					console.log("nok");
-    				}
+    				} 
     				
     				
     				y += hight;
