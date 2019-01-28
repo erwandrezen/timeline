@@ -4,22 +4,26 @@
         <script src="js/d3.v3.min.js"></script>
         <script src="js/profondeur et largeur.js"></script>
         <script src="js/draw.js"></script>
+        <script src="js/context_menu.js"></script>
+       
        
 
        <link rel="stylesheet" type="text/css" href="css/css.css">
+       <link rel="stylesheet" type="text/css" href="css/menu_contextuel.css">
     </head>
     
-    <body onclick="hide_color()">
+    <body>
    		voir logs console
-
+		<div id="menu"> </div>
+		
    		<button type="button" onclick="align_text(this)" id="gauche">Gauche</button>
         <button type="button" onclick="align_text(this)" id="centrer">Centrer</button>
         <button type="button" onclick="align_text(this)" id="droite">Droite</button>
         <div class="tooltip"></div>
-        <div id="timeline"></div>
-        <div id="hierarchypart">
-         </div>
         
+        <div id="timeline"></div>
+        <div id="hierarchypart"> </div>
+       
     </body>
  
     <script>
@@ -29,9 +33,9 @@
     	var file = "mocks/mock2.json"; // Chemin du fichier json
     	var hierarchypart = UnSvg("#hierarchypart",window.innerWidth,3000); // selection d'un svg sur l'id hierarchypart
     	var element = hierarchypart.append("g"); // ajout dans cette hierarchypart une DIV "g" afin de grouper
-		
-		
-		//Ouvre un json en D3JS
+    	context_menu();
+    	
+    	//Ouvre un json en D3JS
     	d3.json(file,function(data) {
     		/*
     		VARIABLE
@@ -310,4 +314,5 @@
 
    </script>
 <script src="js/color.js"></script>
+
 </html>
