@@ -49,8 +49,9 @@ float:left;
 width:150px;
 
 }
-
-
+menu li.has-sub menu{
+	background-color: blue;
+}
 
 /************ Second Level ****************/
 #navigation menu {
@@ -71,4 +72,8 @@ display:none;
 menu menu li:hover menu{
 display:block;
 
+}
+
+li menu{
+	    background-color: blue
 }

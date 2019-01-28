@@ -1,7 +1,7 @@
 <html>
 
     <head>  
-        <script src="js/d3.v3.min.js"></script>
+        <script src="//d3js.org/d3.v4.min.js"></script>
         <script src="js/profondeur et largeur.js"></script>
         <script src="js/draw.js"></script>
         <script src="js/cacher_rect.js"></script>
@@ -11,7 +11,32 @@
     
     <body>
    		voir logs console
-   		
+   		<div>
+   			<svg>
+   				<g ><rect width=50 height=15 y=15 ></rect>
+   				
+   				
+	   				<g class="parent" transform=translate()><rect width=50 height=15 y=32></rect>
+	   					<g><rect width=50 height=15 y=49></rect>
+	   						<g><rect width=50 height=15 y=66></rect></g>
+	   					</g>
+	   					
+	   				</g>
+	   				
+	   				
+	   				
+	   				
+	   				<g ><rect width=50 height=15 y=32 x="60"></rect>
+	   					<g><rect width=50 height=15 y=49 x="60"></rect>
+	   						<g><rect width=50 height=15 y=66 x="60"></rect></g>
+	   					</g>
+	   					
+	   					
+	   					
+	   				</g>
+	   			</g>
+   			</svg>
+   		</div>
    		<button onclick="f_essai()">Click me</button>
    		<input id="text">
         <div id="timeline"></div>
@@ -21,9 +46,65 @@
     </body>
 
     <script>
-   
 
-	
+    	let rect = d3.selectAll("rect");
+		
+		rect.on("click", function(){
+			let g = d3.select(d3.select(this).node().parentNode);
+			g.attr("class","fill-blue");
+			if (["fill-blue"].includes(g.attr("class")) ){
+				console.log("in");
+			}
+    	})
+    
+		// Selectionner le parent
+		let p = d3.select(".parent");
+
+		
+		//Pour tout les noeuds
+		let noeud = p.selectAll("g");
+		
+		//Changer l'attribut
+
+		
+		//Recuperer les enfants
+		let enfant = p;
+		
+		//Pour chaque parent positionner en bas (noeud = hauteur = y)
+		/*enfant.each(function(e,i){
+			let d = d3.select(enfant[i]);
+			d.attr("x");
+			console.log(e);
+		});*/
+			//Pour chaque noeuds
+				//positionner à droite (noeud = profondeur = x)
+
+		//Quand on clique sur le neoud parrent
+			//Pour le parent
+			//&&
+			//Pour tout les enfants des enfants
+				//On ajoute une position a son attribut
+		
+				
+
+		//Selectionner tout les rectangle
+console.log(d3.selectAll("rect"));
+		d3.selectAll("rect")
+		.call(d3.drag()
+
+        .on("drag", dragged));
+
+
+function dragged(d) {
+			//console.log(d3.select(".parent").node());
+			let position = d3.mouse(this);
+			//console.log(d3.select(this).node().parentNode);
+			d3.select(d3.select(this).node().parentNode)
+			.attr("transform", "translate("+event.x+","+event.y+")")
+			//console.log(d3.select(this).node().parentNode);
+}
+
+
     	var file = "mocks/mock2.json"; // Chemin du fichier json
     	var hierarchypart = svg("#hierarchypart",window.innerWidth,3000); // selection d'un svg sur l'id hierarchypart
     	var hierarchypart2 = svg("#hierarchypart2",window.innerWidth,3000); // selection d'un svg sur l'id hierarchypart
@@ -47,16 +128,15 @@
     		*/
 			let tableau; // variable temporaire
       	  	let nodelist = data['ownerlist'][0]['nodelist']; // variable temporaire indiquant le sommet (nodelist)
-      	  let nodelist2 = data['ownerlist'][0]['nodelist'][0];
+      	  	let nodelist2 = data['ownerlist'][0]['nodelist'][0];
       	  	//console.log("e",nodelist);
       	  	
       	  	// Parcourre en profondeur
       	  	let tree = treemap.nodes(nodelist2)
             .filter(function(d) {
-            	console.log("d",d);
             	return d.children; 
             	});
-      	  console.log("e",tree);
+
       	  
       	  	
       	  	/*

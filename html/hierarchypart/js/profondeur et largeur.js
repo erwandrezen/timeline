@@ -117,7 +117,7 @@ function element_is_array(sommet,profondeur = {profondeur:0, hauteur:0,feuilles_
 				 * Mais la profondeur n'es pas sauvegarder à cette endroit dans le tableau
 				 * la hauteur est egal a l'indice d'un element
 				*/
-				console.log(sommet,  essai_var[profondeur.profondeur]);
+				//console.log(sommet,  essai_var[profondeur.profondeur]);
 				
 
 				

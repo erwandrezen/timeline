@@ -3,18 +3,22 @@
 
 
 
+function essai(){
+	console.log
+}
 /*///////////////////////////////////////
  * Permet d'afficher la palette de couleur
  ///////////////////////////////////////*/
-function show_color(element){
+function show_color(){
+
 	//Recupere la position de la souris
-	let position = d3.mouse(element);
-	
+	let position = [event.x,event.y];
+
 	// Affiche la couleur
 	console.log(c_color);
 
 	// Supprimer le menu contextuel
-	d3.event.preventDefault();
+	//d3.event.preventDefault();
 	
 	//Selectionne l'element de class 'color'
 	d3.select(".color").transition()
@@ -73,10 +77,6 @@ function rectangle(element, x, y, w, h, id=null, name= null, uneFonction = null)
 
     })
     
-    .on("contextmenu", function () {
-    	show_color(this);
-    	
-    })
     
 	.on("mouseout_", function () {
 	    	// Modification du style de la div "tooltip" en transition
@@ -88,7 +88,14 @@ function rectangle(element, x, y, w, h, id=null, name= null, uneFonction = null)
 	    })
     
     .on("contextmenu", function () {
-    	show_color(this);
+    	let x = event.x
+    	let y = event.y;
+    	d3.event.preventDefault();
+    	d3.select("#navigation")
+    	.style("visibility", "")
+    	.style("position","absolute")
+    	.style("left",x)
+    	.style("top",y);
     	
     })
 
