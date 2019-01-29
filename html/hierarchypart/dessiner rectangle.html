@@ -1,12 +1,14 @@
 <html>
 
     <head>  
-        <script src="//d3js.org/d3.v4.min.js"></script>
+
         <script src="js/profondeur et largeur.js"></script>
         <script src="js/draw.js"></script>
         <script src="js/cacher_rect.js"></script>
+        <script src="js/parcourire d3js.js"></script>
         <link rel="stylesheet" type="text/css" href="csss.css">
        <link rel="stylesheet" type="text/css" href="css/css.css">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
     </head>
     
     <body>
@@ -16,7 +18,7 @@
    				<g ><rect width=50 height=15 y=15 ></rect>
    				
    				
-	   				<g class="parent" transform=translate()><rect width=50 height=15 y=32></rect>
+	   				<g class="parent" ><rect width=50 height=15 y=32></rect>
 	   					<g><rect width=50 height=15 y=49></rect>
 	   						<g><rect width=50 height=15 y=66></rect></g>
 	   					</g>
@@ -46,7 +48,7 @@
     </body>
 
     <script>
-
+    
     	let rect = d3.selectAll("rect");
 		
 		rect.on("click", function(){
@@ -112,31 +114,95 @@ function dragged(d) {
     	var element = hierarchypart.append("g"); // ajout dans cette hierarchypart une DIV "g" afin de grouper
     	var element2 = hierarchypart.append("g"); // ajout dans cette hierarchypart une DIV "g" afin de grouper
     	var w = h = 10;
-    	var treemap = d3.layout.treemap()
+    	/*
+    	var treemap = d3.treemap()
         .round(false)
         .size([w, h])
         .sticky(true)
 //        .value(function(d) { return d["???"]; });
         .value(function(d) { return d.total; });
-        
-        
-    	d3.json(file, function(data) {
-			 
-
+        */
+       
+    	d3.json(file).then(function(data) {
+			
     		/*
     		VARIABLE
     		*/
 			let tableau; // variable temporaire
       	  	let nodelist = data['ownerlist'][0]['nodelist']; // variable temporaire indiquant le sommet (nodelist)
       	  	let nodelist2 = data['ownerlist'][0]['nodelist'][0];
-      	  	//console.log("e",nodelist);
       	  	
+      	  let root = d3.hierarchy(nodelist2);
+      	d3_Parcourir(root);
+      	let tree = d3.partition();
+      	tree(root);
+      	console.log(tree.size());
+      	tree.size([100,50]);
+      	  //Recuperer toutes les feuilles
+      	  let leaves = root.leaves();
+      
+      	  //Pour toutes les feuilles on recherche tout ses ancetres
+      	  //On ajoute 1
+      let root_leaves = leaves.map(m => {
+    	  
+    	  // recupere les ancetres
+    	  let ancetre = m.ancestors();
+    	  
+    	  
+    	  /*
+    	  Modifier l'objet
+    	  Pour chaque ancetre
+    	  Ajouter 1
+    	  */
+    	  ancetre.map(ancetre => {
+    		 
+    		  if (ancetre.feuilles){
+    			  ancetre.feuilles += 1;
+      		  } else {
+      			ancetre.feuilles = 1;
+      		  }
+
+    		  return ancetre;
+    	  });
+    	  
+    	  
+    	  //Retourne l'objet modifier
+    	  return m;
+      });
+      	  
+      let body = d3.select("body");
+      let svg =  body.append("svg");
+      let g = svg.append("g");
+ 	let uneConstante = 15;
+
+      let root_data = root.data;
+      let root_child = root.children;
+
+      let root_array = Object.values(root_child);
+      console.log("pass");
+      
+      //Parcourir en profondeur
+      parcourire_arbre(root);
+      
+      //console.log("*",d3.select("body").data(d3.select(root)));
+
+      //console.log("r",root.descendants());
+/*
+      		  */
+//console.log(leaves[0]);
+      	  
+      	/*root.descendants()
+      	//Largeur
+      	height = nombre d'enfant + 1
+      	depth = profondeur + 1
+      	  */
       	  	// Parcourre en profondeur
-      	  	let tree = treemap.nodes(nodelist2)
+      	  /*	let tree = treemap.nodes(nodelist2)
             .filter(function(d) {
+            	console.log(d.children);
             	return d.children; 
             	});
-
+*/
       	  
       	  	
       	  	/*
@@ -197,7 +263,7 @@ function dragged(d) {
       	  	/*
     		FONCTION			Parcour en largeur sur le sommet nodelist
     		*/
-    		parcourire_arbre(nodelist);
+    		//parcourire_arbre(nodelist);
     		
       	  	//console.log(nodelist);
 
@@ -236,13 +302,12 @@ function dragged(d) {
 			let uid;
 			let hauteur;
 			let feuilles_noeud;
-			let width;
-			let hight;
+	
 			let constante;
 			
 
-    		function redessiner(cnst){
-    			constante = cnst;
+    		function redessiner(cnst, tabl){
+    			let constante = cnst;
     			for (i = 1;i < cnst+1;i++){
     				
     				if (i > cacher_parent){
