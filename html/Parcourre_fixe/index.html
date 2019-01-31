@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+		<script src="parcourir.js"></script>
+		 <link rel="stylesheet" type="text/css" href="css.css">
+		
+	</head>
+	<body>
+		
+		<button type="button" onclick="move()">MOVE</button>
+		<button type="button" onclick="transition_0()">Transition y=0</button>
+		<button type="button" onclick="transition_50()">Transition y=50</button>
+		<button type="button" onclick="transtion_color()">Color</button>
+		<svg>
+			<g>
+				<rect id="rect"></rect>
+				<rect id="other" y="27px"></rect>
+			</g>
+		</svg>
+	</body>
+	<script src="js.js"></script>
+</html>
