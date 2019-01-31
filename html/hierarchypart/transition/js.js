@@ -1,6 +1,6 @@
 //comparaison
 function get_position(){
-	let y_height = d3.select("#other")
+	let y_height = d3.select("#rect")
 	.node()
 	.getBBox().height;
 	let y = d3.select("#rect")
@@ -11,10 +11,11 @@ function get_position(){
 	.node()
 	.getBBox().y;
 
-	let y_move = y+y_height;
-	
-	return [y_move,y_other];
+	//let y_move = y+y_height;
+	y_other -= y_height;
+	return [y,y_other];
 }
+
 
 function bool_essai(){
 	let position = get_position();
@@ -24,8 +25,29 @@ function bool_essai(){
 
 //Fonction principal
 function move(){
+	let y = d3.select("#rect")
+	.node()
+	.getBBox().y;
 	
-	transition_50();
+	let rect = d3.select("#rect");
+	rect
+	.attr("y",y);
+	
+	rect
+	.transition()
+	.duration(1000)
+	.tween("attr.y",function(){
+		let position = get_position();
+		var essai = d3.interpolateNumber(position[0], position[1]);
+		 return function(t) {
+			 rect.attr("y",essai(t));
+	        console.log(position,essai(t));
+	      };
+	})
+
+
+
+	.each('end',  function (){bool_essai()});
 	
 }
 
