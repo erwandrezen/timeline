@@ -18,11 +18,7 @@ function get_position(){
 
 function bool_essai(){
 	let position = get_position();
-	if (position[0] > position[1]){
-		return true;
-	} else {
-		return false;
-	}
+		(position[0] > position[1] ? transtion_color() : blue_color());
 	
 }
 
@@ -41,15 +37,24 @@ function transtion_color(){
 	.style("fill","#FFEB3B");
 }
 
+function blue_color(){
+	console.log("color");
+	d3.select("#rect")
+	.transition()
+	.style("fill","#03a9f4");
+}
+
 //Button y=0
 function transition_0(){
 	d3.select("#rect")
 	.transition()
-	.attr("y","0");
+	.attr("y","0")
+	.each('end',  function (){bool_essai()});
 }
 
 //Button y=50
 function transition_50(){
+	//(false ? console.log("true"):console.log("false"));
 	let y = d3.select("#rect")
 	.node()
 	.getBBox().y;
@@ -62,13 +67,6 @@ function transition_50(){
 	.transition()
 	.duration(1000)
 	.attr("y","56")
-	.each('end',  function(){
-		console.log(d,i);
-		let le_bool = bool_essai();
-		if (le_bool){
-			transtion_color();
-		}
-		 });
-
+	.each('end',  function (){bool_essai()});
 	
 }
