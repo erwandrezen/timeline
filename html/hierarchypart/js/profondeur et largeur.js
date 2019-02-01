@@ -1,8 +1,11 @@
 function element_is_object(sommet,profondeur = {profondeur:0, hauteur:0,feuilles_noeud:0}, noeud_max = 0,essai_var = [0,0]){
+	
+
 	// Si l'element est un objet (contient un noeud / feature)
 	if (sommet.constructor.name == "Object")
 	{
-		
+		sommet = sommet.data;
+		console.log("s",sommet);
 		//console.log(sommet,profondeur);
 		
 		//let profondeur = {profondeur : profondeur.profondeur};
@@ -92,7 +95,7 @@ function calcule_feuilles_noeud(noeuds){
 }
 
 function element_is_array(sommet,profondeur = {profondeur:0, hauteur:0,feuilles_noeud:0},noeud_max = 0,essai_var = [0,0]){
-	
+
 	
 	// Si l'element est une liste 
 	if (sommet.constructor.name == "Array" ){
@@ -204,12 +207,14 @@ function parcourire_arbre(sommet,profondeur = {profondeur:0, hauteur:0,feuilles_
 	}
 */
 	
-
+//sommet = sommet.data;
+console.log("s",sommet);
 	// Si l'element est une liste (contient des sous noeud)
 	let element_bool;
 
 	if (!element_is_array(sommet, profondeur, noeud_max,essai_var)){
 		element_bool = element_is_object(sommet, profondeur, noeud_max,essai_var);
+		
 	}
 	//console.log(essai_var);
 	//console.log(sommet);
