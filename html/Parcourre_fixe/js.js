@@ -13,24 +13,32 @@ function drawing(id, root, information = {tmp_d:0,y:0}){ // ENTRER: ARRAY
 		//Pour chaque element
 		root.map(m => {
 					//console.log("root: ", m);
+			
+			
+					//Si l'element doit être afficher
+					if (m.show == true){
+						
+						//On affiche
+						let g = d3.select("body").select("svg")
+						.selectAll("#"+m.name)
+						.data([m]).enter().append("g").attr("id",m.name);
+						
+						g
+						.append("rect")
+						.attr("x",function(d){return d.x})
+						.attr("y",function(d,i){return d.y})
+						.style("width", function(d){return d.width;})
+						.style("height", function(d){return d.height;});
+						
+						g
+						.append("text")
+						.attr("x",function(d){return d.x})
+						.attr("y",function(d,i){return d.y})
+						.attr("alignment-baseline","hanging")
+						.html(function(d){return d.uid;});
 
-					let g = d3.select("body").select("svg").select("#"+id)
-					.append("g").selectAll("g")
-					.data([m]).enter().append("g").attr("id",function(d,i){return d.name;})
+					}
 					
-					g
-					.append("rect")
-					.attr("x",function(d){return d.x})
-					.attr("y",function(d,i){return d.y})
-					.style("width", function(d){return d.width;})
-					.style("height", function(d){return d.height;});
-					
-					g
-					.append("text")
-					.attr("x",function(d){return d.x})
-					.attr("y",function(d,i){return d.y})
-					.attr("alignment-baseline","hanging")
-					.html(function(d){return d.uid;});
 					
 					let array_object = Object.values(m);
 					//console.log(array_object);
@@ -57,6 +65,10 @@ function drawing(id, root, information = {tmp_d:0,y:0}){ // ENTRER: ARRAY
 
 
 	} //RETURN NULL
+
+function resize(){
+	
+}
 
 let json = "mocks/mock2.json";
 d3.json(json).then(function(data){
