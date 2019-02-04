@@ -7,22 +7,23 @@
 
 
 //Ouvrire le json
-let branche = [];
-let x = 0;
-function drawing(element, root, w = 100, h = 25){ // ENTRER: ARRAY
 
+function drawing(id, root, information = {tmp_d:0,y:0}){ // ENTRER: ARRAY
 
-		//console.log("root: ", root);
-			
-
-	
-	/*.attr("x","")
-	.attr("y","");*/
-	
-	//Pour chaque element
-	let somme = 0;
+		//Pour chaque element
 		root.map(m => {
-				
+					//console.log("root: ", m);
+
+					d3.select("body").select("svg").select("#"+id)
+					.append("g").selectAll("g")
+					.data([m]).enter().append("g").attr("id",function(d,i){return d.name;})
+					.append("rect")
+					.attr("x",function(d){return d.x})
+					.attr("y",function(d,i){return d.y})
+					.style("width", function(d){return d.width;})
+					.style("height", function(d){return d.height;});
+					
+					
 					let array_object = Object.values(m);
 					//console.log(array_object);
 					
@@ -32,95 +33,49 @@ function drawing(element, root, w = 100, h = 25){ // ENTRER: ARRAY
 					//Mettre les enfants à plat
 					childrens = childrens.flat();
 					
-					branche = branche.concat(m);
+					
 					
 					
 					/* (S'il y'a des donnees (des enfants)) 
 					 * ? 
 					 * On reparcour 
 					 * : 
-					 * Sinon message dans la console
+					 * Renvoi null
 					*/
-					// (childrens.length > 0 ? parcourir(childrens) : feuilles())
+					 (childrens.length > 0 ? drawing(m.name, childrens,information) : null);
 
-					if(childrens.length > 0){
-						
-						
-						//console.log("*",root,childrens);
-						console.log("Parent: ",m);
-						console.log("Childrens: ",childrens);
-						//console.log(branche,"*");
-				
-						
-						x += 50;
-							d3.select("body").select("svg").select("#"+m.name)
-							.append("g").selectAll("g")
-							.data(childrens).enter().append("g").attr("id",function(d,i){
 
-								return d.name;
-							})
-							.append("rect")
-							.attr("x",x)
-							.style("height", function(d){
-								let this_height = d.feuilles*15;
-								return this_height;
-							})
-							.attr("y",function(d,i){
-
-								let this_height = d.feuilles*15;
-								somme += this_height;
-								return somme-this_height;
-							})
-							
-						
-						
-						branche = [];
-						
-						drawing(element, childrens);
-					} else {
-						somme += 15;
-					}
-					
-					//Retourne rien
-					return m;
 				});
-	x -= 52;
-	console.log("changement de niveau",root);
-		
-			//reintialiser
 
-		
-	return root;
-	} //RETURN ARRAY
+
+	} //RETURN NULL
 
 let json = "mocks/mock2.json";
 d3.json(json).then(function(data){
 	//console.log(data);
-	
+	let width = 500;
 	//root = data['ownerlist'][0]['nodelist'];
 	root = data['ownerlist'][0]['nodelist'];
-	
-	parcourir(root);
+
+	parcourir(root,width,15);
 
 	//console.log("*p",p)
 	//nombre max de profondeur
 
-	console.log(root[0].name);
-	
-	let svg = d3.select("body").append("svg");
-	let g = d3.select("body").select("svg").append("g")
-	.attr("id",root[0].name)
-	.append("rect")
-	.style("height",15*root[0].feuilles);
 	
 	
-	drawing(g, root);
+	let svg = d3.select("body").append("svg").attr("width",width);
+	let g = svg.append("g")
+	.attr("id","hierarchy");
+	
+	
+	drawing("hierarchy", root);
 	
 	//g.selectAll("rect").data(p).enter().append("rect");
 	
 });
 
-//let profondeur = depthCount(root[0],"children")+1;
+
 
 /*
 var depthCount = function (branch,children) {
