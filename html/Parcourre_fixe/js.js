@@ -19,16 +19,19 @@ function drawing(id, root, information = {tmp_d:0,y:0}){ // ENTRER: ARRAY
 					if (m.show == true){
 						
 						//On affiche
-						let g = d3.select("body").select("svg")
+						let g = d3.select("body").select("svg").selectAll("#"+id)
 						.selectAll("#"+m.name)
-						.data([m]).enter().append("g").attr("id",m.name);
+						.data([m]).enter().append("g")
+						.attr("id",m.name);
+						
 						
 						g
 						.append("rect")
 						.attr("x",function(d){return d.x})
 						.attr("y",function(d,i){return d.y})
 						.style("width", function(d){return d.width;})
-						.style("height", function(d){return d.height;});
+						.style("height", function(d){return d.height;})
+						.style("fill", "#03a9f4");
 						
 						g
 						.append("text")
@@ -91,6 +94,19 @@ d3.json(json).then(function(data){
 	
 	drawing("hierarchy", root);
 	
+	
+let rect = d3.selectAll("rect");
+	
+	rect.on("click", function(){
+		let parent = d3.select(this).node().parentNode
+		let select_parent = d3.select(parent);
+		let select_childrens = select_parent.selectAll("rect")
+		let g = select_childrens;
+		g.style("fill","red");
+		g = d3.select(d3.select(this).node().children.selectAll("g"))
+		g.style("fill","red");
+
+	})
 	//g.selectAll("rect").data(p).enter().append("rect");
 	
 });
