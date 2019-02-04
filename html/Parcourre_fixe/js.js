@@ -14,15 +14,23 @@ function drawing(id, root, information = {tmp_d:0,y:0}){ // ENTRER: ARRAY
 		root.map(m => {
 					//console.log("root: ", m);
 
-					d3.select("body").select("svg").select("#"+id)
+					let g = d3.select("body").select("svg").select("#"+id)
 					.append("g").selectAll("g")
 					.data([m]).enter().append("g").attr("id",function(d,i){return d.name;})
+					
+					g
 					.append("rect")
 					.attr("x",function(d){return d.x})
 					.attr("y",function(d,i){return d.y})
 					.style("width", function(d){return d.width;})
 					.style("height", function(d){return d.height;});
 					
+					g
+					.append("text")
+					.attr("x",function(d){return d.x})
+					.attr("y",function(d,i){return d.y})
+					.attr("alignment-baseline","hanging")
+					.html(function(d){return d.uid;});
 					
 					let array_object = Object.values(m);
 					//console.log(array_object);

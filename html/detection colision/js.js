@@ -61,9 +61,10 @@ points.each(function(d,i){
       nx2 = ntrans[0] + (+d3.select(this).attr("r")),
       ny1 = ntrans[1],
       ny2 = ntrans[1] + (+d3.select(this).attr("r"));
-  		console.log(nx1,nx2, ny1, ny2)
+  		console.log("Matrice ???",nx1,nx2, ny1, ny2)
+  		//Recuperation de matrice ??
 });
-
+var azei = 0;
 function collide(node){
     var trans = d3.transform(d3.select(node).attr("transform")).translate,
   		x1 = trans[0],
@@ -73,15 +74,28 @@ function collide(node){
   
   var colliding = false;
   points.each(function(d,i){
+	  
     var ntrans = d3.transform(d3.select(this).attr("transform")).translate,
-  		nx1 = ntrans[0],
+  	//x du cercle mouvant
+    nx1 = ntrans[0],
+    
       nx2 = ntrans[0] + (+d3.select(this).attr("r")),
       ny1 = ntrans[1],
       ny2 = ntrans[1] + (+d3.select(this).attr("r"));
-    	
 
-    	if(!(x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1))
-        colliding=true;
+    	if(!(x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1)){
+    		console.log("debug",nx1, nx2,ny1, ny2);
+    		if (azei > 140 ){
+    			console.log("azei",azei);
+    			debugger;
+    		} else {
+    			azei++;
+    		}
+    		 
+    	    	
+     		colliding=true;
+    	}
+       
   })
   
   return colliding;
