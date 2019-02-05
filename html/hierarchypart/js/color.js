@@ -1,4 +1,39 @@
- var Lesvg = d3.select('body').append('div').append('svg')
+function show_color(element){
+	//element = d3.select(element).node().parentNode;
+	//let unevent = event
+	//let event = new MouseEvent(null);
+	
+	
+	let x = event.clientX;
+	let y = event.clientY;
+	let mouse = [x+"px",y+"px"];
+	
+	let color = d3.selectAll("div").select(".color");
+	console.log("show color",mouse);
+	
+	color.style("position","absolute");
+	//translate(50px,50px)
+	color.style("transform","translate("+mouse+")");
+
+	color
+	.style("visibility","visible")
+	.style("z-index","2");
+	
+
+}
+	
+
+function hide_color(){
+	let color = d3.selectAll("div").select(".color");
+	
+	color
+	.style("visibility","hidden")
+	.style("z-index","-100");
+}
+
+
+
+var Lesvg = d3.select('body').append('div').append('svg')
  							.attr('class',"color")
                             .attr('width',320)
                             .attr('height',600)
@@ -6,6 +41,7 @@
 							 .on("contextmenu", function () {
 							 	d3.event.preventDefault();
 							 });
+
  var x1 = 160,
      y1 = 150;  
      var c_color ;
@@ -70,9 +106,8 @@
        c_color= d3.select(this).attr('fill');
        choosed_palet.addColor(c_color);
        laCouleur = c_color;
-       console.log("color picked: ", p_color);
-       d3.select(".color").transition()
-       .style("visibility", "hidden");
+       console.log("color picked: ",c_color);
+       hide_color();
 
 }  
 
