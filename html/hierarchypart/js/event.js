@@ -169,7 +169,9 @@ function nav_hide(element){
 	let hide = e.selectAll("*");
 	let datas = hide.data();
 	hide.data(datas, function (f){f.show = false});
-	console.log(e.data()[0], hide.data());
+	
+	
+	//console.log(e.data()[0], hide.data());
 	
 	update();
 	
@@ -206,7 +208,9 @@ function nav_expand(element){
 	
 	
 	expand.data(datas, function (f){f.show = true});
-	console.log("d",datas);
+	
+	
+	//console.log(datas);
 	
 	update();
 
@@ -220,7 +224,8 @@ function nav_collapse(element){
 	let expand = e.selectAll("g").selectAll("*")
 	let datas = expand.data();
 	expand.data(datas, function (f){f.show = false});
-	console.log(e.data()[0],datas);
+	
+	//console.log(e.data()[0],datas);
 	
 	update();
 	
@@ -232,6 +237,10 @@ function update(){
 	let hierarchy = d3.select("#hierarchypart").select("svg");
 	hierarchy.select("#hierarchy").remove();
 	hierarchy.append("g").attr("id","hierarchy");
+	
+	
+	parcourir(root,500,15);
+	//console.log(root);
 	drawing("hierarchy", root);
 	
 	event_rect(root);
