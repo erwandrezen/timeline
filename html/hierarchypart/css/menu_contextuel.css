@@ -25,6 +25,7 @@ text-decoration:none;
 
 #navigation li:hover {
 background: #EFEFEF;
+color: rgba(0, 0, 0, 0.8);
 position: relative;
 }
 

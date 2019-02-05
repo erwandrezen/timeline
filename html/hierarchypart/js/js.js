@@ -28,37 +28,13 @@ d3.json(json).then(function(data){
 	.append("g")
 	.attr("id","hierarchy");
 	
-	
 	drawing("hierarchy", root);
+	event_rect();
 	
 	
-let rect = d3.selectAll("rect");
 	
-	rect.on("click", function(){
-		let parent = d3.select(this).node().parentNode
-		let select_parent = d3.select(parent);
-		let select_childrens = select_parent.selectAll("rect")
-		let g = select_childrens;
-		
-		g
-		.transition()
-		.duration(170)
 
-		.tween("style.fill",function(){
-			var essai = d3.interpolate("white", "red");
-			 return function(t) {
-				 rect.attr("fill",essai(t));
-
-		      };
-		})
-		.style("fill","red");
-
-	})
-	//g.selectAll("rect").data(p).enter().append("rect");
-	
 });
-
-
 
 /*
 var depthCount = function (branch,children) {

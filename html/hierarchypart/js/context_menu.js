@@ -52,11 +52,16 @@ function context_menu(){
 	nav.style("visibility", "hidden");
 		//Ajout d'un menu
 		let menu = navigation_menu(nav);
-		
+		navigation_li(menu,"expand");
+		navigation_li(menu,"collapse");
+		navigation_li(menu,"hide");
+		navigation_li(menu,"color");
 			//Comportant des items
+		/*
 			navigation_li(menu,"item 1 <a href='google.fr'>url google</a>");
 			let li = navigation_li(menu,"item 2");
 				let menu2 = navigation_menu(li);
 					navigation_li(menu2,"item 2.1 Color picker","show_color()");
 			li = navigation_li(menu,"item 3");
+			*/
 }
