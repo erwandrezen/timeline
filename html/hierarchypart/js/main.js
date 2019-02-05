@@ -30,6 +30,8 @@ d3.json(json).then(function(data){
 	
 	drawing("hierarchy", root);
 	event_rect();
+	event_doc();
+	
 	
 	
 	

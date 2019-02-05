@@ -1,5 +1,5 @@
 function event_rect(){
-	let rect = d3.selectAll("rect");
+	let rect = d3.select("#hierarchypart").selectAll("rect");
 	
 	
 	rect.on("click", function(){
@@ -16,23 +16,21 @@ function event_rect(){
 		
 		g
 		.transition()
-		.duration(1500)
+		.duration(1000)
 		
 		//https://github.com/d3/d3-ease
 		.ease(d3.easeExpOut)
-		.style("fill","red");
+		.style("fill",laCouleur);
 
 	})
 	
-	let children = true;
+	
+	let children;
+	
+	
 	
 	rect.on("contextmenu", function(){
-		
 		//console.log("contextmenu");
-		
-		 d3.event.preventDefault();
-		 
-		 
 		 
 		//Recuperation des donnees cible
 			let data = d3.select(this).datum();
@@ -43,9 +41,8 @@ function event_rect(){
 			mapping = mapping.flat();
 			
 			//console.log(mapping);
-
 			//S'il y as  des enfants et que la variable children étais false
-			if (mapping.length > 0 && children == false){
+			if (mapping.length > 0 && (children == false || children == undefined)){
 				children = true;
 				console.log("Children");
 				
@@ -61,18 +58,22 @@ function event_rect(){
 				let nav = navigation(mon_menu);
 					//Ajout d'un menu
 					let menu = navigation_menu(nav);
-					navigation_li(menu,"expand");
-					navigation_li(menu,"collapse");
-					navigation_li(menu,"hide");
-					navigation_li(menu,"color");
+					let parent_node = d3.select(this).node().parentNode;
+					let parent_id = parent_node.id;
+					let idToString = String(parent_id);
+					
+					navigation_li(menu,"expand","nav_expand('"+idToString+"')");
+					navigation_li(menu,"collapse","nav_collapse('"+idToString+"')");
+					navigation_li(menu,"hide","nav_hide('"+idToString+"')");
+					navigation_li(menu,"color","show_color(this)");
 				
 				
 			}
 			
 			
 			//S'il n'y as pas d'enfant et que la variable children étais true
-			if (mapping.length < 1 && children == true){
-				//console.log("Not children",children == true);
+			if (mapping.length < 1 && (children == true || children == undefined)){
+				console.log("Not children");
 				children = false;
 				
 				
@@ -88,30 +89,22 @@ function event_rect(){
 				let nav = navigation(mon_menu);
 					//Ajout d'un menu
 					let menu = navigation_menu(nav);
-					navigation_li(menu,"hide");
-					navigation_li(menu,"color");
+					let parent_node = d3.select(this).node().parentNode;
+					let parent_id = parent_node.id;
+					let idToString = String(parent_id);
+					
+					navigation_li(menu,"hide","nav_hide('"+idToString+"')");
+					navigation_li(menu,"color","show_color(this)");
 						//Comportant des items
 			}
 		 
 		 
 		 
-		 
-		 
-		 
+			
+			show_nav(this);
 			
 			
-		let mouse = d3.mouse(this);
-		let menu = d3.select("#menu");
-		let nav = menu.select("#navigation");	
-		 
-		 
-		//console.log(mouse);
 		
-		menu.style("position","absolute");
-		menu.style("left",mouse[0]+"px");
-		menu.style("top",mouse[1]+"px");
-		
-		nav.style("visibility","");
 		
 		
 
@@ -119,5 +112,94 @@ function event_rect(){
 }
 
 
+
+function event_doc(){
+	let doc = d3.select(document);
+	doc.on("click", function (){
+		hide_nav();
+		//hide_color();
+	})
 	
+	
+	//Desactive le menu contextuelle
+	doc.on("contextmenu", function (){
+		d3.event.preventDefault();
+	});
+
+}
+
+
+function show_nav(element){
+	
+	let mouse = d3.mouse(element);
+	let menu = d3.select("#menu");
+	let nav = menu.select("#navigation");	
+	
+	 
+	//console.log(mouse);
+	
+	menu
+	.style("position","absolute")
+	.style("left",mouse[0]+"px")
+	.style("top",mouse[1]+"px")
+	.style("z-index","2");
+	
+	nav.style("visibility","");
+}
+	
+
+function hide_nav(){
+	let menu = d3.select("#menu");
+	let nav = menu.select("#navigation");	
+	
+	menu
+	.style("z-index","-100");
+	
+	
+	nav
+	.style("visibility","hidden")
+	
+}
+
+
+function nav_hide(element){
+	let e = d3.select("body").select("#hierarchypart").select("#"+element);
+	
+	//e.data()[0].width = 500;
+	let hide = e.selectAll("*");
+	let datas = hide.data();
+	hide.data(datas, function (f){f.show = false});
+	console.log(e.data()[0], hide.data());
+	/*e.data()[0].width = 500;
+	//console.log(e.data());
+	e.select("rect")
+	.transition()
+	.duration(500)
+	.style("width",function(d){return d.width+"px"});
+*/
+}
+
+function nav_expand(element){
+	let e = d3.select("body").select("#hierarchypart").select("#"+element);
+	
+	let expand = e.selectAll("g").selectAll("*")
+	let datas = expand.data();
+	expand.data(datas, function (f){f.show = true});
+	console.log(e.data()[0],datas);
+
+}
+
+function nav_collapse(element){
+	let e = d3.select("body").select("#hierarchypart").select("#"+element);
+	
+	let expand = e.selectAll("g").selectAll("*")
+	let datas = expand.data();
+	expand.data(datas, function (f){f.show = false});
+	console.log(e.data()[0],datas);
+	
+	//drawing("hierarchy", root);
+
+}
+
+
 
