@@ -15,20 +15,28 @@ function drawing(id, root, information = {tmp_d:0,y:0}){ // ENTRER: ARRAY
 						.attr("id",m.name);
 						
 						
-						g
-						.append("rect")
-						.attr("x",function(d){return d.x})
-						.attr("y",function(d,i){return d.y})
-						.style("width", function(d){return d.width;})
-						.style("height", function(d){return d.height;})
-						.style("fill", "white");
 						
-						g
-						.append("text")
-						.attr("x",function(d){return d.x})
-						.attr("y",function(d,i){return d.y})
-						.attr("alignment-baseline","hanging")
-						.html(function(d){return d.uid;});
+						if (m.show){
+							
+							//console.log(m);
+							
+							g
+							.append("rect")
+							.attr("x",function(d){return d.x})
+							.attr("y",function(d,i){return d.y})
+							.style("width", function(d){return d.width;})
+							.style("height", function(d){return d.height;})
+							.style("fill", "white");
+							
+							g
+							.append("text")
+							.attr("x",function(d){return d.x})
+							.attr("y",function(d,i){return d.y})
+							.attr("alignment-baseline","hanging")
+							.html(function(d){return d.uid;});
+						}
+		
+						
 
 					}
 					

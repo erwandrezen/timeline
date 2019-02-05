@@ -41,11 +41,12 @@ function parcourir(root, w = 100, h = 15, information = {d:0,x:0,y:0,max_d:0,tmp
 				// (childrens.length > 0 ? parcourir(childrens) : feuilles())
 				Object.assign(m,{y:information.y},{show:true});
 				
+				/*
 				if (m.uid == "ROOT/A/1/1"){
 					Object.assign(m,{y:information.y},{show:false});
 				} else {
 					Object.assign(m,{y:information.y},{show:true});
-				}
+				}*/
 				
 				if(childrens.length > 0){
 					//console.log("Parent: ",m);

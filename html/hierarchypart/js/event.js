@@ -170,6 +170,14 @@ function nav_hide(element){
 	let datas = hide.data();
 	hide.data(datas, function (f){f.show = false});
 	console.log(e.data()[0], hide.data());
+	
+	update();
+	
+	
+	
+	
+	
+	
 	/*e.data()[0].width = 500;
 	//console.log(e.data());
 	e.select("rect")
@@ -182,24 +190,77 @@ function nav_hide(element){
 function nav_expand(element){
 	let e = d3.select("body").select("#hierarchypart").select("#"+element);
 	
-	let expand = e.selectAll("g").selectAll("*")
-	let datas = expand.data();
+	let expand = e;
+	
+	let datas = [] //list d'objet
+	let tmp = e.data();
+	
+	while (tmp.length > 0){
+		tmp = get_childrens(tmp);
+		datas.push(tmp);
+	}
+	
+	datas = datas.flat();
+	
+	
+	
+	
 	expand.data(datas, function (f){f.show = true});
-	console.log(e.data()[0],datas);
+	console.log("d",datas);
+	
+	update();
 
 }
 
 function nav_collapse(element){
 	let e = d3.select("body").select("#hierarchypart").select("#"+element);
 	
+	
+	
 	let expand = e.selectAll("g").selectAll("*")
 	let datas = expand.data();
 	expand.data(datas, function (f){f.show = false});
 	console.log(e.data()[0],datas);
 	
-	//drawing("hierarchy", root);
+	update();
+	
 
 }
 
+
+function update(){
+	let hierarchy = d3.select("#hierarchypart").select("svg");
+	hierarchy.select("#hierarchy").remove();
+	hierarchy.append("g").attr("id","hierarchy");
+	drawing("hierarchy", root);
+	
+	event_rect(root);
+}
+
+
+function get_childrens(array){ //LISTE d'objet
+	let liste = [];
+	
+	// Pour chaque objet
+	array.map(obj => {
+		//Recupere sous forme de tableau les valeurs et les clees de l'objet
+		let obj_values = Object.values(obj);
+		
+		//Filtrer pour les valeurs de type liste
+		let filtre = obj_values.filter(f => f.constructor.name == "Array");
+		
+		filtrer = filtre.flat();
+		
+		liste.push(filtrer);
+		
+		//console.log(filtre);
+		
+		
+	}) //Retourne rien
+	
+	liste = liste.flat();
+	
+	return liste;
+} // RETOURNE LISTE
 
 

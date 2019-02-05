@@ -29,7 +29,7 @@ d3.json(json).then(function(data){
 	.attr("id","hierarchy");
 	
 	drawing("hierarchy", root);
-	event_rect();
+	event_rect(root);
 	event_doc();
 	
 	
