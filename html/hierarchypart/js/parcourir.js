@@ -13,16 +13,24 @@
 
 var i = 0;
 let essai = [];
-function parcourir(root, w = 100, h = 15, information = {d:0,x:0,y:0,max_d:0,tmp_d:0}){ // ENTRER: ARRAY
+function parcourir(root,
+		w = 100,
+		h = 15,
+		start_functions = [], //Liste de nom des fonctions a lancer au debut
+		parcour_functions = [],//Liste de nom des fonctions a lancer pendant
+		end_functions = [], //Liste de nom des fonctions a lancer a la fin
+		information = {d:0,x:0,y:0,max_d:0,tmp_d:0})
+{ // ENTRER: ARRAY
 	information.d += 1; // Ajout d'un niveau de profondeur
 	
-
-	//console.log("root: ", root);
-		//Pour chaque element
+	// S'il y'a des fonction les lancé sinon renvoyer null
+	(start_functions.length > 0 ? start_functions.forEach(function(f){f();}) : null);
 	
 	
 	let noeuds = root.map(m => {
-			
+				// S'il y'a des fonction les lancé sinon renvoyer null
+				(parcour_functions.length ? parcour_functions.forEach(function(f){f();}) : null);
+				
 				let array_object = Object.values(m);
 				//console.log(array_object);
 				
@@ -50,7 +58,19 @@ function parcourir(root, w = 100, h = 15, information = {d:0,x:0,y:0,max_d:0,tmp
 				} else {
 					Object.assign(m,{y:information.y},{show:true});
 				}*/
-				
+				if (m.show === undefined ){
+					if(childrens.length < 1){
+						information.y += 15;
+					}
+					//console.log("*undefined");
+					Object.assign(m,{show:true});
+					Object.assign(m,{color:"white"});
+					
+				} else if (m.show){
+					if(m.feuilles == 0){
+						information.y += 15;
+					}
+				}
 				
 				if(childrens.length > 0){
 					//console.log("Parent: ",m);
@@ -70,7 +90,10 @@ function parcourir(root, w = 100, h = 15, information = {d:0,x:0,y:0,max_d:0,tmp
 					
 					
 					//console.log("Childrens: ",childrens);
-					parcourir(childrens, w,h,information);
+					parcourir(childrens, w,h,
+							start_functions, 
+							parcour_functions,
+							end_functions, information);
 				} else {
 					//debugger
 					
@@ -80,7 +103,7 @@ function parcourir(root, w = 100, h = 15, information = {d:0,x:0,y:0,max_d:0,tmp
 					
 					//console.log("Feuille - no childrens: ",childrens);
 
-						Object.assign(m,{feuilles: 1});
+						Object.assign(m,{feuilles: 0});
 	
 							
 							
@@ -95,19 +118,7 @@ function parcourir(root, w = 100, h = 15, information = {d:0,x:0,y:0,max_d:0,tmp
 				
 				
 				
-				if (m.show === undefined ){
-					if(childrens.length < 1){
-						information.y += 15;
-					}
-					console.log("*undefined");
-					Object.assign(m,{show:true});
-					Object.assign(m,{color:"white"});
-					
-				} else if (m.show){
-					if(m.feuilles == 1){
-						information.y += 15;
-					}
-				}
+				
 				
 			
 				
@@ -116,8 +127,38 @@ function parcourir(root, w = 100, h = 15, information = {d:0,x:0,y:0,max_d:0,tmp
 			});
 
 //debugger;
+	
+	
+	
+	
+
+if (information.d > information.max_d ){
+	information.max_d = information.d;
+}
+
+set_feuilles(essai);
+set_rect_info(noeuds, w, h, information);
+
+//S'il y'a des fonction les lancé sinon renvoyer null
+(end_functions.length > 0 ? end_functions.forEach(function(f){f();}) : null);
+
+
+
+
+
+		//reintialiser
+		
+		information.d -= 1; // Enleve d'un niveau de profondeur
+
+		
+return root;
+} //RETURN ARRAY
+
+
+
+function set_feuilles(liste){
 	//Pour chaque elements show == true
-	essai.map(un_obj => {
+	liste.map(un_obj => {
 			
 		
 		//Valeurs et clées de l'objet un_obj
@@ -143,8 +184,12 @@ function parcourir(root, w = 100, h = 15, information = {d:0,x:0,y:0,max_d:0,tmp
 		
 				//L'ajoute au nombre total du noeud au parent
 			if (un_obj_enfant.show){
-				let feuilles = un_obj_enfant.feuilles;
-				compter += feuilles;
+				if (un_obj_enfant.feuilles == 0){
+					compter += 1;
+				} else {
+					compter += un_obj_enfant.feuilles;
+				}
+				
 			}
 				
 				
@@ -154,67 +199,50 @@ function parcourir(root, w = 100, h = 15, information = {d:0,x:0,y:0,max_d:0,tmp
 			});
 		
 		
-			(compter == 0 ? un_obj.feuilles = 1 : un_obj.feuilles = compter);
+			un_obj.feuilles = compter;
 
 		
 		 //un_obj.feuilles = compter;
 		 
-		 
+		 console.log(root);
 		//Retourne rien
 	});
-
-	
-
-
-if (information.d > information.max_d ){
-	information.max_d = information.d;
 }
 
 
-let obj_val = Object.values(noeuds);
-let max_depth = information.max_d;
-let width = w / max_depth;
-let depth = max_depth - information.d + 1;
-let x = information.x;
-
-
-console.log(root);
-obj_val.map(m => {
-
-	let height = m.feuilles*h;
-	//console.log(height,m.feuilles,m);
-
-	
-	Object.assign(
-			m,
-			{depth:depth},
-			{height:height});
-	
-	
-	x = width*(information.d-1);
-	Object.assign(m,{x:x});
-	
-	//console.log(m.depth);
-	//console.log(tmp_filter, tmp_filter.length);
-	
-	//Si enfant
-	if (m.feuilles != 1 && m.show == true){
-		Object.assign(m,{width:width});
-	} else {
-		Object.assign(m,{width:width*m.depth});
-	}
-	
-	
-	
-});
-
-
-
-
-		//reintialiser
+function set_rect_info(noeuds, w, h, information){
+	let obj_val = Object.values(noeuds);
+	let max_depth = information.max_d;
+	let width = w / max_depth;
+	let depth = max_depth - information.d + 1;
+	let x = information.x;
+	obj_val.map(m => {
 		
-		information.d -= 1; // Enleve d'un niveau de profondeur
+		//Si la feuilles = 0 la hauteur seras une ligne sinon on multipli la ligne
+		(m.feuilles == 0 ? height = h : height = m.feuilles*h);
+		//console.log(height,m.feuilles,m);
 
 		
-return root;
-} //RETURN ARRAY
+		Object.assign(
+				m,
+				{depth:depth},
+				{height:height});
+		
+		
+		x = width*(information.d-1);
+		Object.assign(m,{x:x});
+		
+		//console.log(m.depth);
+		//console.log(tmp_filter, tmp_filter.length);
+		
+		//Si enfant
+		if (m.feuilles != 0 && m.show == true){
+			Object.assign(m,{width:width});
+		} else {
+			Object.assign(m,{width:width*m.depth});
+		}
+		
+		
+		
+	});
+}

@@ -44,6 +44,7 @@ function event_rect(){
 	
 	
 	rect.on("contextmenu", function(){
+		console.log("clicked on: ", this);
 		//console.log("contextmenu");
 		 
 		//Recuperation des donnees cible
@@ -182,8 +183,7 @@ function nav_hide(element){
 	//e.data()[0].width = 500;
 	let hide = e.selectAll("*");
 	let datas = hide.data();
-	hide.data(datas, function (f){f.show = false});
-	
+	set_show(datas,false);
 	
 	//console.log(e.data()[0], hide.data());
 	
@@ -217,32 +217,27 @@ function nav_expand(element){
 	}
 	
 	datas = datas.flat();
-	
-	
-	
-	
-	expand.data(datas, function (f){f.show = true});
-	
-	
-	//console.log(datas);
+	set_show(datas,true);
 	
 	update();
 
 }
 
+
 function nav_collapse(element){
 	let e = d3.select("body").select("#hierarchypart").select("#"+element);
 	
+	let collapse = e.selectAll("g").selectAll("*"); //Selection rect,text enfant
+	let datas = collapse.data();
+	
+	set_show(datas,false);
 	
 	
-	let expand = e.selectAll("g").selectAll("*")
-	let datas = expand.data();
-	expand.data(datas, function (f){f.show = false});
 	
-	//console.log(e.data()[0],datas);
+	
+	//console.log(datas);
 	
 	update();
-	
 
 }
 
@@ -260,6 +255,12 @@ function update(){
 	event_rect(root);
 }
 
+function set_show(datas,bool){ // List d'objet
+	
+	datas.map(m => {
+		m.show = bool;
+	});
+}
 
 function get_childrens(array){ //LISTE d'objet
 	let liste = [];
