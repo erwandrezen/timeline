@@ -1,7 +1,37 @@
+
+
+
 function event_rect(){
 	let rect = d3.select("#hierarchypart").selectAll("rect");
 	
+	let focused;
 	
+	rect.on("mouseenter",function(){
+		console.log("enter");
+		let parent_node = d3.select(this).node().parentNode;
+		let parent_id = parent_node.id;
+		focused = String(parent_id);
+		
+		
+		d3.select("body")
+		.on("keydown", function(){
+			let event = d3.event;
+			
+			let alt = event.altKey;
+			let ctrl = event.ctrlKey;
+			let shift = event.shiftKey;
+			
+			if (ctrl){
+				nav_collapse(focused);
+			}
+			
+			return null;
+		});
+	});
+	
+	
+
+
 	rect.on("click", function(){
 		
 		/*
@@ -177,7 +207,7 @@ function hide_nav(){
 }
 
 
-function nav_hide(element){
+function nav_hide(element){  //nom de l'id
 	let e = d3.select("body").select("#hierarchypart").select("#"+element);
 	
 	//e.data()[0].width = 500;
@@ -203,7 +233,7 @@ function nav_hide(element){
 */
 }
 
-function nav_expand(element){
+function nav_expand(element){  //nom de l'id
 	let e = d3.select("body").select("#hierarchypart").select("#"+element);
 	
 	let expand = e;
@@ -224,7 +254,7 @@ function nav_expand(element){
 }
 
 
-function nav_collapse(element){
+function nav_collapse(element){ //nom de l'id
 	let e = d3.select("body").select("#hierarchypart").select("#"+element);
 	
 	let collapse = e.selectAll("g").selectAll("*"); //Selection rect,text enfant

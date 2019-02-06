@@ -1,0 +1,15 @@
+rect{
+
+	stroke-width: 0.5;
+	stroke:black;
+}
+
+#rect{
+	fill: #03a9f4;
+}
+
+div{
+	width: 100px;
+	height: 15px;
+	background-color: #03a9f4;
+}
