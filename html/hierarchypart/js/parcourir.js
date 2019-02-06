@@ -25,7 +25,7 @@ function parcourir(root,
 	
 	// S'il y'a des fonction les lancé sinon renvoyer null
 	(start_functions.length > 0 ? start_functions.forEach(function(f){f();}) : null);
-	
+	 
 	
 	let noeuds = root.map(m => {
 				// S'il y'a des fonction les lancé sinon renvoyer null
@@ -34,11 +34,22 @@ function parcourir(root,
 				let array_object = Object.values(m);
 				//console.log(array_object);
 				
-				//Recuperer l'enfant et le placer dans pour un element
-				var childrens = array_object.filter(f => f.constructor.name == "Array")
+				var childrens = [];
+				if (m.show == true || m.show == undefined){
+
+					//Recuperer l'enfant et le placer dans pour un element
+					childrens = array_object.filter(f => f.constructor.name == "Array");
+					
+					//Mettre les enfants à plat
+					childrens = childrens.flat();
+					childrens = childrens.filter(f => f.show == true || f.show == undefined);
+					
+				}
 				
-				//Mettre les enfants à plat
-				childrens = childrens.flat();
+	
+				console.log(childrens);
+				
+				
 				
 				/* (S'il y'a des donnees (des enfants)) 
 				 * ? 
@@ -48,9 +59,9 @@ function parcourir(root,
 				*/
 				// (childrens.length > 0 ? parcourir(childrens) : feuilles())
 				
-				
 				Object.assign(m,{y:information.y});
 				
+	
 				
 				/*
 				if (m.uid == "ROOT/A/1/1"){
@@ -59,19 +70,17 @@ function parcourir(root,
 					Object.assign(m,{y:information.y},{show:true});
 				}*/
 				if (m.show === undefined ){
-					if(childrens.length < 1){
-						information.y += 15;
-					}
+					
 					//console.log("*undefined");
 					Object.assign(m,{show:true});
 					Object.assign(m,{color:"white"});
 					
-				} else if (m.show){
-					if(m.feuilles == 0){
-						information.y += 15;
-					}
-				}
+				} 
 				
+				
+	
+				
+
 				if(childrens.length > 0){
 					//console.log("Parent: ",m);
 					//information.p[0] = m;
@@ -84,9 +93,9 @@ function parcourir(root,
 					//Ajouter l'element contenant des enfants
 					
 					//Si le parent à l'attribut show == true
-					if (m.show || m.show == undefined) {
+
 						essai.unshift(m); // En partant de la fin du tableau
-					}
+
 					
 					
 					//console.log("Childrens: ",childrens);
@@ -103,15 +112,9 @@ function parcourir(root,
 					
 					//console.log("Feuille - no childrens: ",childrens);
 
-						Object.assign(m,{feuilles: 0});
-	
-							
-							
-							
-		
-					
+							Object.assign(m,{feuilles: 0});
+							information.y += 15;
 
-				
 					
 					//console.log("i",information.d);
 				}
@@ -128,7 +131,7 @@ function parcourir(root,
 
 //debugger;
 	
-	
+
 	
 	
 
@@ -204,7 +207,7 @@ function set_feuilles(liste){
 		
 		 //un_obj.feuilles = compter;
 		 
-		 console.log(root);
+
 		//Retourne rien
 	});
 }
