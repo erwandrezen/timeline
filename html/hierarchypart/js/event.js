@@ -11,17 +11,31 @@ function event_rect(){
 			}));*/
 		let parent = d3.select(this).node().parentNode
 		let select_parent = d3.select(parent);
-		let select_childrens = select_parent.selectAll("rect")
+		let select_childrens = select_parent.selectAll("rect");
 		let g = select_childrens;
 		
 		g
-		.transition()
-		.duration(1000)
+		
 		
 		//https://github.com/d3/d3-ease
-		.ease(d3.easeExpOut)
-		.style("fill",laCouleur);
-
+		
+		
+		g.datum(function(d){
+			//Enregistrer la couleur
+			d.color = laCouleur;
+			let select = d3.select(this);
+			
+			//Modifier la couleur visuelle
+			select
+			.transition()
+			.duration(1000)
+			.ease(d3.easeExpOut)
+			.style("fill",d.color);
+			
+			return d;
+			});
+		
+		
 	})
 	
 	

@@ -39,12 +39,9 @@ function parcourir(root, w = 100, h = 15, information = {d:0,x:0,y:0,max_d:0,tmp
 				 * Sinon message dans la console
 				*/
 				// (childrens.length > 0 ? parcourir(childrens) : feuilles())
-				if (m.show === undefined){
-					console.log("*undefined");
-					Object.assign(m,{y:information.y},{show:true});
-					
-				} 
 				
+				
+				Object.assign(m,{y:information.y});
 				
 				
 				/*
@@ -54,26 +51,20 @@ function parcourir(root, w = 100, h = 15, information = {d:0,x:0,y:0,max_d:0,tmp
 					Object.assign(m,{y:information.y},{show:true});
 				}*/
 				
+				
 				if(childrens.length > 0){
 					//console.log("Parent: ",m);
 					//information.p[0] = m;
 					//console.log(information.p[0]);
-					if (m.show){
+	
+	
 						
-						if (m.feuilles == 1){
-							
-							Object.assign(m,{y:information.y});
-							information.y += 15;
-						}
-					
-					} else {
-						Object.assign(m,{feuilles: 0});
-					}
+		
 				
 					//Ajouter l'element contenant des enfants
 					
 					//Si le parent à l'attribut show == true
-					if (m.show) {
+					if (m.show || m.show == undefined) {
 						essai.unshift(m); // En partant de la fin du tableau
 					}
 					
@@ -88,23 +79,37 @@ function parcourir(root, w = 100, h = 15, information = {d:0,x:0,y:0,max_d:0,tmp
 					
 					
 					//console.log("Feuille - no childrens: ",childrens);
-					if (m.show){
+
 						Object.assign(m,{feuilles: 1});
-						if (m.feuilles == 1){
+	
 							
-							Object.assign(m,{y:information.y});
-							information.y += 15;
-						}
+							
+							
+		
 					
-					} else {
-						Object.assign(m,{feuilles: 0});
-					}
+
 				
 					
 					//console.log("i",information.d);
 				}
 				
 				
+				
+				if (m.show === undefined ){
+					if(childrens.length < 1){
+						information.y += 15;
+					}
+					console.log("*undefined");
+					Object.assign(m,{show:true});
+					Object.assign(m,{color:"white"});
+					
+				} else if (m.show){
+					if(m.feuilles == 1){
+						information.y += 15;
+					}
+				}
+				
+			
 				
 				//Retourne rien
 				return m;
@@ -137,17 +142,20 @@ function parcourir(root, w = 100, h = 15, information = {d:0,x:0,y:0,max_d:0,tmp
 			//Si l'enfant doit etre afficher
 		
 				//L'ajoute au nombre total du noeud au parent
+			if (un_obj_enfant.show){
 				let feuilles = un_obj_enfant.feuilles;
 				compter += feuilles;
-	
+			}
+				
+				
 			
 			
 
 			});
 		
-		if (un_obj.show){
+		
 			(compter == 0 ? un_obj.feuilles = 1 : un_obj.feuilles = compter);
-		}
+
 		
 		 //un_obj.feuilles = compter;
 		 

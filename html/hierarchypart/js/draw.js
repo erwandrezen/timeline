@@ -26,7 +26,7 @@ function drawing(id, root, information = {tmp_d:0,y:0}){ // ENTRER: ARRAY
 							.attr("y",function(d,i){return d.y})
 							.style("width", function(d){return d.width;})
 							.style("height", function(d){return d.height;})
-							.style("fill", "white");
+							.style("fill", function(d){return d.color;})
 							
 							g
 							.append("text")
