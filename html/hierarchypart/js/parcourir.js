@@ -13,6 +13,7 @@
 
 var i = 0;
 let essai = [];
+let root_passed = false;
 function parcourir(root,
 		w = 100,
 		h = 15,
@@ -47,7 +48,6 @@ function parcourir(root,
 				}
 				
 	
-				console.log(childrens);
 				
 				
 				
@@ -71,10 +71,15 @@ function parcourir(root,
 				}*/
 				if (m.show === undefined ){
 					
-					//console.log("*undefined");
-					Object.assign(m,{show:true});
+
+					if (root_passed){
+						Object.assign(m,{show:false});
+					} else {
+						Object.assign(m,{show:true});
+						root_passed = true;
+					}
 					Object.assign(m,{color:"white"});
-					
+					console.log(m);
 				} 
 				
 				

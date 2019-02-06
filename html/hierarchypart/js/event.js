@@ -7,7 +7,6 @@ function event_rect(){
 	let focused;
 	
 	rect.on("mouseenter",function(){
-		console.log("enter");
 		let parent_node = d3.select(this).node().parentNode;
 		let parent_id = parent_node.id;
 		focused = String(parent_id);
@@ -107,9 +106,10 @@ function event_rect(){
 					let parent_id = parent_node.id;
 					let idToString = String(parent_id);
 					
+					navigation_li(menu,"show","nav_show('"+idToString+"')");
+					navigation_li(menu,"hide","nav_hide('"+idToString+"')");
 					navigation_li(menu,"expand","nav_expand('"+idToString+"')");
 					navigation_li(menu,"collapse","nav_collapse('"+idToString+"')");
-					navigation_li(menu,"hide","nav_hide('"+idToString+"')");
 					navigation_li(menu,"color","show_color(this)");
 				
 				
@@ -138,6 +138,7 @@ function event_rect(){
 					let parent_id = parent_node.id;
 					let idToString = String(parent_id);
 					
+					navigation_li(menu,"show","nav_show('"+idToString+"')");
 					navigation_li(menu,"hide","nav_hide('"+idToString+"')");
 					navigation_li(menu,"color","show_color(this)");
 						//Comportant des items
@@ -207,6 +208,27 @@ function hide_nav(){
 }
 
 
+function nav_show(element){  //nom de l'id
+	let e = d3.select("body").select("#hierarchypart").select("#"+element);
+	
+	let show = e;
+	
+	let datas = [] //list d'objet
+	let tmp = show.data();
+	
+	while (tmp.length > 0){
+		tmp = get_childrens(tmp);
+		datas.push(tmp);
+	}
+	tmp = undefined;
+	
+	datas = datas.flat();
+	set_show(datas,true);
+	
+	update();
+
+}
+
 function nav_hide(element){  //nom de l'id
 	let e = d3.select("body").select("#hierarchypart").select("#"+element);
 	
@@ -233,19 +255,15 @@ function nav_hide(element){  //nom de l'id
 */
 }
 
+
+
+
 function nav_expand(element){  //nom de l'id
 	let e = d3.select("body").select("#hierarchypart").select("#"+element);
-	
 	let expand = e;
+	let datas = expand.data() //list d'objet
 	
-	let datas = [] //list d'objet
-	let tmp = e.data();
-	
-	while (tmp.length > 0){
-		tmp = get_childrens(tmp);
-		datas.push(tmp);
-	}
-	
+	datas = get_childrens(datas);
 	datas = datas.flat();
 	set_show(datas,true);
 	
