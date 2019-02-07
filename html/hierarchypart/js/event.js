@@ -12,7 +12,7 @@ function event_rect(){
 		focused = String(parent_id);
 		
 		
-		d3.select("body")
+		d3.select("svg")
 		.on("keydown", function(){
 			let event = d3.event;
 			
@@ -24,26 +24,51 @@ function event_rect(){
 				nav_collapse(focused);
 			}
 			
+
+			
 			return null;
 		});
 	});
-	
-	
+	var shift_cliked = false;
 
-
-	rect.on("click", function(){
+	d3.select("body")
+	
+	.on("keydown", function() {
+		shift_cliked = true;
 		
-		/*
-		console.log(d3.select(this).datum(function(d){
-			Object.assign(d,{color:"red"});
-			console.log(d)
-			}));*/
-		let parent = d3.select(this).node().parentNode
+		let shift = event.shiftKey;
+		if (shift){
+			d3.select("html")
+	    	.style("cursor", "crosshair");
+		}
+
+	})
+	.on("keyup", function() {
+		shift_cliked = false;
+		
+		console.log("key up")
+		let shift = event.shiftKey;
+		if (!shift){
+			d3.select("html")
+	    	.style("cursor", "inherit");
+		}
+		
+	})
+	.on("mousedown", function(){
+
+    	if (shift_cliked){
+
+        let target = event.target;
+        let select = d3.select(target);
+        
+        
+        
+        let parent = d3.select(target).node().parentNode
 		let select_parent = d3.select(parent);
 		let select_childrens = select_parent.selectAll("rect");
 		let g = select_childrens;
 		
-		g
+
 		
 		
 		//https://github.com/d3/d3-ease
@@ -63,9 +88,13 @@ function event_rect(){
 			
 			return d;
 			});
-		
-		
-	})
+    
+    
+    	} 
+	});
+
+
+
 	
 	
 	let children;
@@ -292,14 +321,19 @@ function nav_collapse(element){ //nom de l'id
 
 function update(){
 	let hierarchy = d3.select("#hierarchypart").select("svg");
-	hierarchy.select("#hierarchy").remove();
-	hierarchy.append("g").attr("id","hierarchy");
+	//hierarchy.select("#hierarchy").remove();
+	//hierarchy.append("g").attr("id","hierarchy");
 	
-	
+	//Recalcule le JSON
 	parcourir(root,500,15);
+	resize();
 	//console.log(root);
-	drawing("hierarchy", root);
+	//Redessiner
+	//drawing("hierarchy", root);
 	
+	
+	
+	//Reactiver les evenement des rectangles
 	event_rect(root);
 }
 

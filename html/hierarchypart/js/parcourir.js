@@ -69,9 +69,11 @@ function parcourir(root,
 				} else {
 					Object.assign(m,{y:information.y},{show:true});
 				}*/
+				
+				//Si la vue n'es pas definie
 				if (m.show === undefined ){
 					
-
+					//On affect seulement le root en true
 					if (root_passed){
 						Object.assign(m,{show:false});
 					} else {

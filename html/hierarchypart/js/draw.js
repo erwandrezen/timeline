@@ -156,6 +156,43 @@ function drawing(id, root, information = {tmp_d:0,y:0}){ // ENTRER: ARRAY
 	} //RETURN NULL
 
 function resize(){
+	let hierarchy = d3.select("#hierarchypart");
+	let svg = hierarchy.select("svg");
+	let elements = svg.selectAll("g,rect");
+	//let datas = elements.data();
+
+	
+	
+	
+	let datas = [] //list d'objet
+	let tmp = root;
+	
+	datas.push(tmp);
+	
+	while (tmp.length > 0){
+		tmp = get_childrens(tmp);
+		datas.push(tmp);
+	}
+	tmp = undefined;
+	
+	let mapping = datas.map(m => {
+		m.filter(f => f.show == true);
+		return m;
+	});
+
+	
+	datas = mapping;
+	let update = elements.data(datas);
+	update
+	.append("g")
+	.attr("id",function(d){console.log(d);return d.name})
+	.enter()
+	.append("rect")
+	.attr("x",function(d){x = d.x+d.width; return d.x})
+	.attr("y",function(d,i){y = d.y; return d.y})
+	.style("width", function(d){return d.width;})
+	.style("height", function(d){return d.height;})
+	console.log(update);
 	
 }
 
