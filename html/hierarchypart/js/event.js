@@ -107,7 +107,7 @@ function event_rect(){
 		 
 		//Recuperation des donnees cible
 			let data = d3.select(this).datum();
-			
+			let rect_id =  d3.select(this).attr("id");
 			//Recuperation des enfants
 			let object_values = Object.values(data);
 			let mapping = object_values.filter(f => f.constructor.name == "Array");
@@ -135,10 +135,11 @@ function event_rect(){
 					let parent_id = parent_node.id;
 					let idToString = String(parent_id);
 					
-					navigation_li(menu,"show","nav_show('"+idToString+"')");
-					navigation_li(menu,"hide","nav_hide('"+idToString+"')");
-					navigation_li(menu,"expand","nav_expand('"+idToString+"')");
-					navigation_li(menu,"collapse","nav_collapse('"+idToString+"')");
+					
+					navigation_li(menu,"show","nav_show('#"+rect_id+"')");
+					navigation_li(menu,"hide","nav_hide('#"+rect_id+"')");
+					navigation_li(menu,"expand","nav_expand('#"+rect_id+"')");
+					navigation_li(menu,"collapse","nav_collapse('#"+rect_id+"')");
 					navigation_li(menu,"color","show_color(this)");
 				
 				
@@ -167,8 +168,8 @@ function event_rect(){
 					let parent_id = parent_node.id;
 					let idToString = String(parent_id);
 					
-					navigation_li(menu,"show","nav_show('"+idToString+"')");
-					navigation_li(menu,"hide","nav_hide('"+idToString+"')");
+					navigation_li(menu,"show","nav_show('#"+rect_id+"')");
+					navigation_li(menu,"hide","nav_hide('#"+rect_id+"')");
 					navigation_li(menu,"color","show_color(this)");
 						//Comportant des items
 			}
@@ -237,63 +238,41 @@ function hide_nav(){
 }
 
 
-function nav_show(element){  //nom de l'id
-	let e = d3.select("body").select("#hierarchypart").select("#"+element);
+function nav_show(nom){  //nom de l'id
 	
-	let show = e;
+	let select = d3.select(nom);
+	let data = select.datum();
 	
-	let datas = [] //list d'objet
-	let tmp = show.data();
-	
-	while (tmp.length > 0){
-		tmp = get_childrens(tmp);
-		datas.push(tmp);
-	}
-	tmp = undefined;
-	
-	datas = datas.flat();
+	datas = get_all_childrens([data]);
+	console.log(datas);
 	set_show(datas,true);
 	
 	update();
 
 }
 
-function nav_hide(element){  //nom de l'id
-	let e = d3.select("body").select("#hierarchypart").select("#"+element);
+function nav_hide(nom){  //nom de l'id
 	
-	//e.data()[0].width = 500;
-	let hide = e.selectAll("*");
-	let datas = hide.data();
+	let select = d3.select(nom);
+	let data = select.datum();
+	
+	datas = get_all_childrens([data]);
 	set_show(datas,false);
 	
-	//console.log(e.data()[0], hide.data());
-	
 	update();
-	
-	
-	
-	
-	
-	
-	/*e.data()[0].width = 500;
-	//console.log(e.data());
-	e.select("rect")
-	.transition()
-	.duration(500)
-	.style("width",function(d){return d.width+"px"});
-*/
 }
 
 
 
 
-function nav_expand(element){  //nom de l'id
-	let e = d3.select("body").select("#hierarchypart").select("#"+element);
-	let expand = e;
-	let datas = expand.data() //list d'objet
+function nav_expand(nom){  //nom de l'id
+
+	let select = d3.select(nom);
+	let data = select.datum();
 	
-	datas = get_childrens(datas);
+	datas = get_childrens([data]);
 	datas = datas.flat();
+	
 	set_show(datas,true);
 	
 	update();
@@ -301,18 +280,14 @@ function nav_expand(element){  //nom de l'id
 }
 
 
-function nav_collapse(element){ //nom de l'id
-	let e = d3.select("body").select("#hierarchypart").select("#"+element);
+function nav_collapse(nom){ //nom de l'id
+	let select = d3.select(nom);
+	let data = select.datum();
 	
-	let collapse = e.selectAll("g").selectAll("*"); //Selection rect,text enfant
-	let datas = collapse.data();
+	datas = get_all_childrens([data]);
+	datas.shift();
 	
 	set_show(datas,false);
-	
-	
-	
-	
-	//console.log(datas);
 	
 	update();
 
@@ -320,21 +295,9 @@ function nav_collapse(element){ //nom de l'id
 
 
 function update(){
-	let hierarchy = d3.select("#hierarchypart").select("svg");
-	//hierarchy.select("#hierarchy").remove();
-	//hierarchy.append("g").attr("id","hierarchy");
-	
-	//Recalcule le JSON
 	parcourir(root,500,15);
-	resize();
-	//console.log(root);
-	//Redessiner
-	//drawing("hierarchy", root);
-	
-	
-	
-	//Reactiver les evenement des rectangles
-	event_rect(root);
+	datas = get_all_childrens(root, true);
+	resize(datas);
 }
 
 function set_show(datas,bool){ // List d'objet
@@ -346,7 +309,6 @@ function set_show(datas,bool){ // List d'objet
 
 function get_childrens(array){ //LISTE d'objet
 	let liste = [];
-	
 	// Pour chaque objet
 	array.map(obj => {
 		//Recupere sous forme de tableau les valeurs et les clees de l'objet
@@ -359,14 +321,38 @@ function get_childrens(array){ //LISTE d'objet
 		
 		liste.push(filtrer);
 		
-		//console.log(filtre);
+		
 		
 		
 	}) //Retourne rien
 	
 	liste = liste.flat();
-	
 	return liste;
 } // RETOURNE LISTE
 
+
+function get_all_childrens(array, filter = undefined){ //LISTE d'objet
+	let datas = [] //list d'objet
+	let tmp = array;
+	
+	datas.push(tmp);
+	
+	while (tmp.length > 0){
+		tmp = get_childrens(tmp);
+		datas.push(tmp);
+		
+	}
+	
+	tmp = undefined;
+	
+	datas = datas.flat();
+	
+	if (filter != undefined){
+		datas = datas.filter(f => f.show == filter);
+	}
+	
+	console.log("children",datas);
+	
+	return datas;
+}
 

@@ -155,44 +155,156 @@ function drawing(id, root, information = {tmp_d:0,y:0}){ // ENTRER: ARRAY
 
 	} //RETURN NULL
 
-function resize(){
+function resize(datas){
 	let hierarchy = d3.select("#hierarchypart");
 	let svg = hierarchy.select("svg");
-	let elements = svg.selectAll("g,rect");
-	//let datas = elements.data();
-
+	let g = svg.selectAll("g");
+	let elements = g.selectAll("rect");
+	var x = 0;
+	var y = 0;
 	
-	
-	
-	let datas = [] //list d'objet
-	let tmp = root;
-	
-	datas.push(tmp);
-	
-	while (tmp.length > 0){
-		tmp = get_childrens(tmp);
-		datas.push(tmp);
-	}
-	tmp = undefined;
-	
-	let mapping = datas.map(m => {
-		m.filter(f => f.show == true);
-		return m;
+	let updates = elements.data(datas, function(d){
+		return d;
 	});
 
 	
-	datas = mapping;
-	let update = elements.data(datas);
-	update
-	.append("g")
-	.attr("id",function(d){console.log(d);return d.name})
+
+	updates
 	.enter()
-	.append("rect")
-	.attr("x",function(d){x = d.x+d.width; return d.x})
-	.attr("y",function(d,i){y = d.y; return d.y})
-	.style("width", function(d){return d.width;})
-	.style("height", function(d){return d.height;})
-	console.log(update);
+	.append('rect')
 	
+	.merge(updates)
+	.transition()
+	.attr("id",function(d){return d.name})
+	.attr("x",function(d){x = d.x+20; return d.x+"px"})
+	.attr("y",function(d){y = d.y;return d.y+"px"})
+	.style("width", function(d){return d.width+"px";})
+	.style("height", function(d){return d.height+"px";})
+	.style("fill", function(d){return d.color;});
+	
+	
+	//Supression ancien element
+	updates.exit().remove();
+
+	
+	
+	
+	
+	elements = g.selectAll("polygon");
+	updates = elements.data(datas, function(d){
+		return d;
+	});
+	
+	
+	
+
+	
+	
+	
+	let bool;
+	let bool2;
+	
+	updates
+	.enter()
+	.append('polygon')
+	
+	.merge(updates)
+
+	.attr("points",function(d){
+		
+		let object_values = Object.values(d);
+		let mapping = object_values.filter(f => f.constructor.name == "Array");
+		
+		mapping = mapping.flat();
+		let mapping2 = mapping.filter(f => f.show == true);
+
+		
+		bool = (mapping.length > 0 ? true : false);
+		bool2 = (mapping2.length > 0 ? true : false);
+		
+		y = d.y;
+		x = d.x+d.width;
+
+		
+		
+		if (bool){
+			let hierarchy = d3.select("#hierarchypart");
+			let svg = hierarchy.select("svg");
+			let elements = svg.selectAll("rect,polygon");
+			let datas = elements.data();
+			let rect_data = [d];
+			
+			x -= 15;
+			y += 2;
+			let points = "";
+			if (bool2 == false){
+
+				let point1X = 0+x;
+				let point2X = 10+x;
+				let point3X = 0+x;
+				
+				let point1Y = 10+y;
+				let point2Y = 5+y;
+				let point3Y = 0+y;
+				
+				let point1 = point1X + " " + point1Y;
+				let point2 = point2X + " " + point2Y;
+				let point3 = point3X + " " + point3Y;
+				
+				points = [point1,point2,point3];
+				
+				d3.select(this).on("click",function(d){
+					nav_expand("#"+d.name);
+
+				})
+
+			
+			} else {
+
+				let point1X = 5+x;
+				let point2X = 10+x;
+				let point3X = 0+x;
+				
+				let point1Y = 10+y;
+				let point2Y = 0+y;
+				let point3Y = 0+y;
+				
+				let point1 = point1X + " " + point1Y;
+				let point2 = point2X + " " + point2Y;
+				let point3 = point3X + " " + point3Y;
+				
+				points = [point1,point2,point3];
+				d3.select(this).on("click",function(d){
+					nav_collapse("#"+d.name);
+	
+				})
+				
+		
+				
+				
+
+			}
+			
+			
+			//datas = get_all_childrens(datas);	
+			
+			
+			return points;
+			
+		} else {
+			this.remove();
+		}
+		
+		
+		
+		
+		
+	})
+	
+	//Supression ancien element
+	updates.exit().remove();
+	
+	event_rect(root);
+	event_doc();
 }
 

@@ -1,0 +1,45 @@
+﻿[Arrow]
+Path=The Future Normal.ani
+
+[Help]
+Path=The Future Help.ani
+
+[AppStarting]
+Path=The Future Working.ani
+
+[Wait]
+Path=The Future Busy.ani
+
+[Crosshair]
+Path=The Future Precision.ani
+
+[IBeam]
+Path=The Future Text.ani
+
+[NWPen]
+Path=The Future Handwriting.ani
+
+[No]
+Path=The Future Unavailable.ani
+
+[SizeNS]
+Path=The Future Vertical.ani
+
+[SizeWE]
+Path=The Future Horizontal.ani
+
+[SizeNWSE]
+Path=The Future Diagonal 1.ani
+
+[SizeNESW]
+Path=The Future Diagonal 2.ani
+
+[SizeAll]
+Path=The Future Move.ani
+
+[UpArrow]
+Path=The Future Alternate.ani
+
+[Hand]
+Path=The Future Link.ani
+

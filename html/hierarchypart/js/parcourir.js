@@ -81,7 +81,7 @@ function parcourir(root,
 						root_passed = true;
 					}
 					Object.assign(m,{color:"white"});
-					console.log(m);
+		
 				} 
 				
 				

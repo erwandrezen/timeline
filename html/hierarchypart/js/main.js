@@ -23,14 +23,24 @@ d3.json(json).then(function(data){
 	//nombre max de profondeur
 
 	
-	
+
 	let svg = d3.select("#hierarchypart").append("svg").attr("width",width)
-	.append("g")
-	.attr("id","hierarchy");
+	.append("g");
 	
-	drawing("hierarchy", root);
-	event_rect(root);
-	event_doc();
+	svg
+	.append("rect")
+	.attr("x","0")
+	.attr("y","0")
+	.style("width", "0px")
+	.style("height", "0px");
+	
+	svg
+	.append("polygon");
+	
+	//let datas = get_all_childrens(root);
+	resize(root)
+	//drawing("hierarchy", root);
+	
 	
 	
 	
