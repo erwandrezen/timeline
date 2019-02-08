@@ -257,19 +257,28 @@ function update_textes(datas){
 	
 	updates = elements.data(datas);
 	
+	let filtre = datas.map(m => {
+		
+		return {
+		text: m.uid,
+		x: m.x,
+		y:m.y,
+		height: m.height,
+		width: m.width
+		}
+	});
 	
-	//Supression ancien element
-	updates.exit().remove();
+	let text = new d3plus.TextBox()
+	text.select("#text")
+	.data(filtre)
 	
-	updates
-	.enter()
-	.append('text')
+	//start ; middle ; end
+	.textAnchor("middle")
 	
-	.merge(updates)
-	.html(function(d){return d.uid})
-	.attr("x",function(d){x = d.x+20; return d.x+"px"})
-	.attr("y",function(d){y = d.y;return d.y+"px"})
-	//    dominant-baseline: text-before-edge;
-	.style("dominant-baseline","text-before-edge");
+	//top ; middle ; bot
+	.verticalAlign("middle")
+	
+	.render();
+
 	
 }
