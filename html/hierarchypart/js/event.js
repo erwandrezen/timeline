@@ -82,6 +82,7 @@ function hide_tooltip(){
 }
 
 function event_rect(){
+	
 	let rect = d3.select("#hierarchypart").selectAll("rect");
 	
 	let focused;
@@ -119,6 +120,7 @@ function event_rect(){
 		
 		//#SHIFT
 		if (shift){
+			d3.selectAll("text").style("user-select","none");
 			d3.select("html")
 	    	.style("cursor", "crosshair");
 			
@@ -168,6 +170,7 @@ function event_rect(){
 	})
 	
 	.on("keyup", function() {
+		
 		let shift = event.shiftKey;
 		let ctrl = event.ctrlKey;
 		
@@ -422,7 +425,7 @@ function set_objects(datas,object){ // List d'objet
 
 
 function mouseup() {
-	  console.log("upp")
+	 d3.selectAll("text").style("user-select","select");
 	  hide_tooltip();
   w.on("mousedown", null).on("mouseup", null);
 }
