@@ -1,3 +1,19 @@
+#information{
+	background-color: #03A9F4;
+    color: white;
+    width: 460px;
+    font-size: small;
+    letter-spacing: 3px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px
+}
+
+#information b{
+	color: #003563;
+}
+
 .fill-blue{
 	fill: blue;
 }

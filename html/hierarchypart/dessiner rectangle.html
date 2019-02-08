@@ -8,6 +8,7 @@
 		<script src="js/parcourir.js"></script>
 		<script src="js/context_menu.js"></script>
 		<script >var laCouleur = "white"</script>
+		<script src="https://d3plus.org/js/d3plus.v2.0.0-alpha.17.full.min.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="css/css.css">
 		<link rel="stylesheet" type="text/css" href="css/color_picker.css">
@@ -15,9 +16,16 @@
 		
 	</head>
 	<body>
-		voir console
+
 		<div id="timeline">
             <div id="hierarchypart"></div>
+        </div>
+        <div id="information">
+            <i><b>Shift + Click:</b> Lors d'un click sur un rectangle => Changement de couleur</i>
+            <br/><br/><br/>
+            <i><b>CTRL + Click:</b> Lors d'un click sur un rectangle => Affiche ses informations</i>
+       		<br/><br/><br/>
+       		<i><b>CTRL + MAJ + I:</b>  Affiche la console</i>
         </div>
 	</body>
 	<script src="js/event.js"></script>

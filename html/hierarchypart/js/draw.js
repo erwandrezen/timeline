@@ -1,19 +1,38 @@
-function update(){
-	parcourir(root,500,15);
-	let datas = get_all_childrens(root, true);
-	let datas_hide = get_all_childrens(root, false);
-	
-	console.log("history",datas_hide);
-	//console_log(datas);
 
-	update_rectangles(datas);
-	//update_polygons(datas);
+
+
+
+/*///////////////////////////////////////
+ * REDESSINE LES ELEMENTS HIERARCHIQUE
+ ///////////////////////////////////////*/
+function update(){
+	parcourir(root,500,15); //Recalcule du json: root = noeud root	;	500 = width	;	15 = feuille constant => height dynamic
+	let datas = get_all_childrens(root, true); //Recupere tout les enfants avec show = true
 	
+	//Variable pas utile
+	let datas_hide = get_all_childrens(root, false);  //Recupere tout les enfants avec show = false
+	
+	//console.log("history",datas_hide);
+
+	/*Updates de tout les rectangles
+	 * 
+	 * A la fin des transition de ce rectangle
+	 * => updates de tout les polygons
+	 * => updates de tout les textes
+	 * */
+	update_rectangles(datas);
+	
+	//Reintegrer les evenements (clic droit etc ...)
 	event_rect(root);
 	event_doc();
 }
 
 
+
+
+/*///////////////////////////////////////
+ * FONCTION CONSOLE D'ESSAI
+ ///////////////////////////////////////*/
 function console_log(datas){
 	console.log(datas.map(m => m.name));
 	console.log(datas.map(m => [m.x,m.y]));
@@ -33,9 +52,14 @@ function console_log(datas){
 	
 }
 
+
+
+
+/*///////////////////////////////////////
+ * CHANGEMENT DE FORME DES RECTANGLES
+ ///////////////////////////////////////*/
 function update_rectangles(datas){
 	
-	let end = false;
 	let hierarchy = d3.select("#hierarchypart");
 	let svg = hierarchy.select("svg")
 	let part = svg.select("#part");
@@ -86,6 +110,7 @@ updates.exit().remove();
 		
 
         	update_polygons(datas);
+        	update_textes(datas);
         })
 
 
@@ -94,6 +119,12 @@ updates.exit().remove();
 
 }
 
+
+
+
+/*///////////////////////////////////////
+ * CHANGEMENT DE FORME DES POLYGONS
+ ///////////////////////////////////////*/
 function update_polygons(datas){
 	let hierarchy = d3.select("#hierarchypart");
 	let svg = hierarchy.select("svg").select("#part");
@@ -209,5 +240,36 @@ function update_polygons(datas){
 		
 	})
 	
+	
+}
+
+
+
+
+/*///////////////////////////////////////
+ * CHANGEMENT DE POSITION DES TEXTES
+ ///////////////////////////////////////*/
+function update_textes(datas){
+	let hierarchy = d3.select("#hierarchypart");
+	let svg = hierarchy.select("svg").select("#part");
+	let g = svg.select("#text");
+	elements = g.selectAll("text");
+	
+	updates = elements.data(datas);
+	
+	
+	//Supression ancien element
+	updates.exit().remove();
+	
+	updates
+	.enter()
+	.append('text')
+	
+	.merge(updates)
+	.html(function(d){return d.uid})
+	.attr("x",function(d){x = d.x+20; return d.x+"px"})
+	.attr("y",function(d){y = d.y;return d.y+"px"})
+	//    dominant-baseline: text-before-edge;
+	.style("dominant-baseline","text-before-edge");
 	
 }

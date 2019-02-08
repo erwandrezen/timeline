@@ -1,4 +1,7 @@
 let w;
+
+
+//AFF
 function show_tooltip(){
 	
 	let hierarchypart = d3.selectAll("#hierarchypart");
@@ -144,13 +147,13 @@ function event_rect(){
 		 {
 				w = d3.select(window)
 			      .on("mousedown", mousedown)
-			      .on("mouseup", mouseup);
-				
+			  
 				function mousedown() {
 					console.log("tooltip");
 					show_tooltip();
 					
 				}
+		
 		} 
 		
 		
@@ -189,11 +192,7 @@ function event_rect(){
 
 }
 
-function mouseup() {
-	  console.log("upp")
-	  
-  w.on("mousedown", null).on("mouseup", null);
-}
+
 
 
 
@@ -214,21 +213,11 @@ function event_doc(){
 		}
 		
 	}
+	
 	function click(){
 		hide_nav();
 	}
-	let doc = d3.select(document);
-	doc.on("mousedown", function (){
-		//
-		//hide_nav();
-		//
-		//hide_color();
-	})
-	
-	
-	
-	
-	
+
 	
 
 }
@@ -431,3 +420,9 @@ function set_objects(datas,object){ // List d'objet
 	});
 }
 
+
+function mouseup() {
+	  console.log("upp")
+	  hide_tooltip();
+  w.on("mousedown", null).on("mouseup", null);
+}

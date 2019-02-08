@@ -19,6 +19,9 @@ d3.json(json).then(function(data){
 	g
 	.append("g").attr("id","polygon");
 	
+	g
+	.append("g").attr("id","text");
+	
 	root = data['ownerlist'][0]['nodelist'];
 	update();
 

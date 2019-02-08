@@ -8,13 +8,22 @@ function show_color(element){
 	let color = d3.selectAll("div").select(".color");
 	console.log("show color",mouse);
 	
-	color.style("position","absolute");
-	//translate(50px,50px)
-	color.style("transform","translate("+mouse+")");
-
 	color
+	.style("position","absolute")
+	//translate(50px,50px)
+
+	.style("left",x+"px")
+	.style("top",y+"px")
+	//color.style("transform","translate("+mouse+")");
+
+
 	.style("visibility","visible")
-	.style("z-index","2");
+	.style("z-index","2")
+	.style("transform","translate(-49%, -26%)")
+
+	
+	//preserveAspectRatio=“xMaxYMax meet”
+	
 	
 
 }
