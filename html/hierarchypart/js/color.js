@@ -1,9 +1,6 @@
 function show_color(element){
-	//element = d3.select(element).node().parentNode;
-	//let unevent = event
-	//let event = new MouseEvent(null);
-	
-	
+	hide_nav();
+
 	let x = event.clientX;
 	let y = event.clientY;
 	let mouse = [x+"px",y+"px"];

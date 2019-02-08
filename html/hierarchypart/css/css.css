@@ -81,7 +81,7 @@ body {
   display: none;
 }
 
-.tooltip {
+#tooltip {
   position: absolute;
   padding: 8px;
   text-align: left;
@@ -91,5 +91,9 @@ body {
   border: 0px;
   border-radius: 2px;
   pointer-events: none;
+  
+  
+  /* /!\ Permet de cacher l'element  /!\ */
   opacity: 0;
+  z-index: -100;
 }

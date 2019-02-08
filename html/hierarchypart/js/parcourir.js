@@ -39,10 +39,7 @@ function parcourir(root,
 				if (m.show == true || m.show == undefined){
 
 					//Recuperer l'enfant et le placer dans pour un element
-					childrens = array_object.filter(f => f.constructor.name == "Array");
-					
-					//Mettre les enfants à plat
-					childrens = childrens.flat();
+					childrens = get_childrens([m]);
 					childrens = childrens.filter(f => f.show == true || f.show == undefined);
 					
 				}
@@ -77,7 +74,7 @@ function parcourir(root,
 					if (root_passed){
 						Object.assign(m,{show:false});
 					} else {
-						Object.assign(m,{show:true});
+						Object.assign(m,{show:true, root:true});
 						root_passed = true;
 					}
 					Object.assign(m,{color:"white"});
@@ -169,51 +166,20 @@ return root;
 function set_feuilles(liste){
 	//Pour chaque elements show == true
 	liste.map(un_obj => {
-			
-		
-		//Valeurs et clées de l'objet un_obj
-		let array_object = Object.values(un_obj);
 		
 		//Recuperation des enfants
-		let mapping = array_object.filter(un_obj => un_obj.constructor.name == "Array");
+		let mapping = get_childrens([un_obj], true);
 		
+		//Compter les feuilles des enfants
+		let i = 0;
+		let compteur = mapping.map(m => {
+			(m.feuilles == 0 ? i += 1 : i += m.feuilles);
+		})
 		
-		//Applatire la liste
-		mapping = mapping.flat();
-		
-		//Initialise le compteur pour ce noeud
-		let compter = 0;
-		
-		//Pour chaque enfant compter les feuilles avec show == true
-		let calcule = mapping.map((un_obj_enfant,i) => {
+		//Inscrire le nombre des feuilles pour ce noeud
+		un_obj.feuilles = i;
 
-			//Recupere le nombre de feuille de cet enfant
-			
-			
-			//Si l'enfant doit etre afficher
-		
-				//L'ajoute au nombre total du noeud au parent
-			if (un_obj_enfant.show){
-				if (un_obj_enfant.feuilles == 0){
-					compter += 1;
-				} else {
-					compter += un_obj_enfant.feuilles;
-				}
-				
-			}
-				
-				
-			
-			
 
-			});
-		
-		
-			un_obj.feuilles = compter;
-
-		
-		 //un_obj.feuilles = compter;
-		 
 
 		//Retourne rien
 	});
@@ -255,4 +221,61 @@ function set_rect_info(noeuds, w, h, information){
 		
 		
 	});
+}
+
+
+
+function get_childrens(array, filter = undefined){ //LISTE d'objet
+	let liste = [];
+	// Pour chaque objet
+	array.map(obj => {
+		//Recupere sous forme de tableau les valeurs et les clees de l'objet
+		let obj_values = Object.values(obj);
+		
+		//Filtrer pour les valeurs de type liste
+		let filtre = obj_values.filter(f => f.constructor.name == "Array");
+		
+		filtrer = filtre.flat();
+		
+		liste.push(filtrer);
+		
+		
+		
+		
+	}) //Retourne rien
+	
+	liste = liste.flat();
+	
+	if (filter != undefined){
+		liste = liste.filter(f => f.show == filter);
+		
+	}
+	
+	return liste;
+} // RETOURNE LISTE
+
+
+function get_all_childrens(array, filter = undefined){ //LISTE d'objet
+	let datas = [] //list d'objet
+	let tmp = array;
+	
+	datas.push(tmp);
+	
+	while (tmp.length > 0){
+		tmp = get_childrens(tmp);
+		datas.push(tmp);
+		
+	}
+	
+	tmp = undefined;
+	
+	datas = datas.flat();
+	
+	if (filter != undefined){
+		datas = datas.filter(f => f.show == filter);
+	}
+	
+	console.log("children",datas);
+	
+	return datas;
 }
