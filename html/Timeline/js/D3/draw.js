@@ -39,7 +39,6 @@ function change_color(id,color){
 	
 	//Recupere les donnees
 	let data = rect.datas_id(id);
-	console.log(id,"data color", data);
 	//Change les valeurs
 	rect.attr(["color"],color);
 	

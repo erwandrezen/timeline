@@ -57,7 +57,6 @@ function event_rect(){
 			        let select = d3.select(target);
 			        let tagName = select.node().tagName
 			        
-			        console.log(d3.event,"____________");
 			        
 			        //color_branch
 			        if (tagName == "rect"){

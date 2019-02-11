@@ -112,7 +112,6 @@ class elements{
 				
 				let select = d3.selectAll(this.elementName+ID).data();
 				
-				console.log("????",this.elementName+ID);
 				if (parent){
 					select = d3.selectAll(parent+" "+this.elementName+ID).data();
 				}
@@ -151,8 +150,7 @@ class elements{
 		let datas = get_all_childrens(root, true);
 		parent = d3.select(parent).selectAll(this.elementName).data(datas);
 		
-		console.log(parent);
-		//Suppressio des anciens elements
+		//Suppression des anciens elements
 		parent.exit().remove();
 		
 		

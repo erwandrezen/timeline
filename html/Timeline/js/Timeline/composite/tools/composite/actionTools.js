@@ -50,16 +50,28 @@ function show_tooltip(){
 	//Information donnees de l'elements
 	let select = d3.select(target);
 	let data = select.datum();
-	let color = data.color;
-	let depth = data.depth;
-	let height = data.height;
-	let width = data.width;
-	let d_x = data.x;
-	let d_y = data.y;
-	let d_pos = [d_x,d_y];
-	let detail = data.detail;
+	let color;
+	let depth;
+	let height;
+	let width;
+	let d_x;
+	let d_y;
+	let d_pos;
+	let detail;
+	if (tagName == "rect" || tagName == "polygon" || tagName == "text"){
+		color = data.color;
+		depth = data.depth;
+		height = data.height;
+		width = data.width;
+		d_x = data.x;
+		d_y = data.y;
+		d_pos = [d_x,d_y];
+		detail = data.detail;
+	} else {
+		console.log("tooltip: Les informations ne font pas parties du SVG et ne sont pas disponible")
+	}
 	
-	console.log(data);
+	
 	
 	tooltip
 	
@@ -116,15 +128,12 @@ function show_nav(element){
 	let mon_menu = d3.select("body #tools")
 	.append("div")
 	.attr("id","menu")
-	
-	console.log("clicked on: ", this);
 	//console.log("contextmenu");
 	 
 	//Recuperation des donnees cible
 		let data = d3.select(element).datum();
 		let children;
 		let isRoot = (data.root != undefined ? true : false);
-		console.log(isRoot);
 		let rect_id =  element.getAttribute("id");
 		//Recuperation des enfants
 		let object_values = Object.values(data);
@@ -136,7 +145,6 @@ function show_nav(element){
 		//S'il y as  des enfants et que la variable children étais false
 		if (mapping.length > 0 && (children == false || children == undefined)){
 			children = true;
-			console.log("Children");
 			
 			//suppresion de l'ancien menu
 			
@@ -161,7 +169,6 @@ function show_nav(element){
 		
 		//S'il n'y as pas d'enfant et que la variable children étais true
 		if (mapping.length < 1 && (children == true || children == undefined)){
-			console.log("Not children");
 			children = false;
 			
 			

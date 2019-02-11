@@ -6,7 +6,6 @@ function show_color(element){
 	let mouse = [x+"px",y+"px"];
 	
 	let color = d3.selectAll("div").select(".color");
-	console.log("show color",mouse);
 	
 	color
 	.style("position","absolute")

@@ -275,7 +275,6 @@ function get_all_childrens(array, filter = undefined){ //LISTE d'objet
 		datas = datas.filter(f => f.show == filter);
 	}
 	
-	console.log("children",datas);
 	
 	return datas;
 }
