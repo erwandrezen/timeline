@@ -110,6 +110,12 @@ function hide_tooltip(){
 
 
 function show_nav(element){
+	d3.select("body #tools #menu").remove();
+	
+	
+	let mon_menu = d3.select("body #tools")
+	.append("div")
+	.attr("id","menu")
 	
 	console.log("clicked on: ", this);
 	//console.log("contextmenu");
@@ -133,12 +139,6 @@ function show_nav(element){
 			console.log("Children");
 			
 			//suppresion de l'ancien menu
-			d3.select("#menu").remove();
-			
-			
-			let mon_menu = d3.select("body")
-			.append("div")
-			.attr("id","menu")
 			
 			//Ajout d'une div principal
 			let nav = navigation(mon_menu);
@@ -166,12 +166,7 @@ function show_nav(element){
 			
 			
 			//suppresion de l'ancien menu
-			d3.select("#menu").remove();
-			
-			
-			let mon_menu = d3.select("body")
-			.append("div")
-			.attr("id","menu");
+
 			
 			//Ajout d'une div principal
 			let nav = navigation(mon_menu);
@@ -193,8 +188,8 @@ function show_nav(element){
 		
 		
 		
-		let menu = d3.select("#menu");
-		let nav = menu.select("#navigation");	
+		let menu = d3.select("body #tools #menu");
+		let nav = menu.select("body #tools #menu #navigation");		
 
 		menu
 		.style("z-index","10")
@@ -213,8 +208,8 @@ function show_nav(element){
 	
 
 function hide_nav(){
-	let menu = d3.select("#menu");
-	let nav = menu.select("#navigation");	
+	let menu = d3.select("body #tools #menu");
+	let nav = menu.select("body #tools #menu #navigation");	
 	
 	menu
 	.style("z-index","-100");

@@ -50,13 +50,18 @@ function event_rect(){
 		      .on("mousedown", mousedown)
 		      .on("mouseup", mouseup);
 	
+			
 		      function mousedown() {
+
 					let target = event.target;
 			        let select = d3.select(target);
 			        let tagName = select.node().tagName
 			        
+			        console.log(d3.event,"____________");
+			        
 			        //color_branch
 			        if (tagName == "rect"){
+	
 			        	let id = select.attr("id");
 			        	change_color(id,laCouleur);
 			        
