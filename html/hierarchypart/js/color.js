@@ -38,8 +38,7 @@ function hide_color(){
 }
 
 
-
-var Lesvg = d3.select('body').append('div').append('svg')
+var Lesvg = d3.select('body #timeline #tools #colorpicker').append('svg')
  							.attr('class',"color")
                             .attr('width',320)
                             .attr('height',600)

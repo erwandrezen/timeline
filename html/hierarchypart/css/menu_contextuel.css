@@ -1,3 +1,27 @@
+menu li{
+	user-select: none;
+	text-decoration:none;
+	font-family: sans-serif;
+	font-weight: bold;
+    padding: 8px;
+}
+
+menu li:hover{
+	background: #EFEFEF;
+	color: rgba(0, 0, 0, 0.8);
+	position: relative;
+}
+menu .show{
+	cursor: pointer;
+}
+
+menu .hide{
+	cursor: initial;
+	color: #efefef21;
+}
+
+
+
 #navigation {
 font-size:0.75em; 
 width:150px;
@@ -9,25 +33,10 @@ padding: 5px;
 menu {background:#fff;
 margin:0px; padding:0px;
 font-size: small;}
-menu li {
-	cursor: pointer;
-	font-family: sans-serif;
-    font-weight: bold;
-    padding: 8px;
-}
-
-
-#navigation a:hover{
-text-decoration:none;
-}
 
 
 
-#navigation li:hover {
-background: #EFEFEF;
-color: rgba(0, 0, 0, 0.8);
-position: relative;
-}
+
 
 menu li menu {
 display: none;

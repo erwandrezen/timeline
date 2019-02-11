@@ -24,17 +24,19 @@ function navigation_menu(element){
 
 
  //Creation d'un li (item)
-function navigation_li(element,html,uneFonction = null){
+function navigation_li(element,html,unId = null, uneClass = null, uneFonction = null){
 	let e = element
 	.append("li")
 	.html(html)
+	.attr("id",unId)
+	.attr("class",uneClass)
 	.attr("onclick",uneFonction);
+	
 	return e;
 } //Retourne un element
 	//Ajout possible d'une fonction
 	//Ajout possible d'un text
 	//Ajout possible d'un menu dans li
-
 
 /*///////////////////////////////////////
  * Permet de créer un menu contextuelle

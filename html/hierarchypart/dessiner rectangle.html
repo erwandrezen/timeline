@@ -3,7 +3,13 @@
 
 	<head>
 		<meta charset="utf-8">
+		<script src="js/elements.js"></script>
+		<script src="js/D_SVG.js"></script>
+		<script src="js/D_RECT.js"></script>
+		<script src="js/D_POLYGON.js"></script>
+		<script src="js/D_TEXT.js"></script>
 		<script src="js/draw.js"></script>
+		<script src="js/tools.js"></script>
 		<script src="js/parcourir.js"></script>
 		<script src="js/context_menu.js"></script>
 		<script >var laCouleur = "white"</script>
@@ -28,6 +34,35 @@
        		<i><b>CTRL + MAJ + I:</b>  Affiche la console</i>
         </div>
 	</body>
+	<script>
+	let width = 500;
+	let timeline = d3.select("#timeline");
+	
+	let divTools = timeline
+	.append("div").attr("id","tools")
+	
+	divTools
+	.append("div").attr("id","tooltip");
+	
+	divTools
+	.append("div").attr("id","colorpicker");
+	let hierarchypart = timeline.select("#hierarchypart");
+	
+	hierarchypart
+	
+	
+	let svg = hierarchypart.append("svg").attr("width",width);
+	
+	svg 
+	.append("g").attr("id","rect");
+	
+	svg 
+	.append("g").attr("id","polygon");
+	
+	svg 
+	.append("g").attr("id","text");
+	
+	</script>
 	<script src="js/event.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/color.js"></script>
