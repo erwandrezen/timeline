@@ -1,106 +1,79 @@
 class tools{
-	constructor(parent){
-		this.parent = parent;
+	constructor(element){
+		this.element = element;
 	}
 	
-	get parent(){
-		return this._parent;
+	get element(){
+		return this._element;
 	}
 	
-	set parent(value){
-		this._parent = value;
+	set element(value){
+		console.log(value);
+		this._element = value;
+	}
+	
+
+	get position(){
+		let MouseX = event.clientX;
+		let MouseY = event.clientY;
+		
+		let position = [MouseX, MouseY];
+
+		return position;
 	}
 	
 	
 	
 	show(){
-		let select = this.parent + " *";
-		d3.selectAll(select)
-		.style("visibility","visible");
+		//selection du constructeur courant
+		let tools_constructor = this;
+		
+		
+		
+		//selection de l'element
+		let select = d3.select(this.element);
+
+		select
+		.style("z-index","10")
+		.style("opacity","1")
+		.style("visibility","visible")
+		.on("blur",function(){
+			tools_constructor.hide();
+		});
+		
+		//lancement de la configuration d'affichage de l'outils
+		this.showConfig();
+		
+		
+		select.node().focus();
+	}
+	
+	showConfig(){
+		return null;
 	}
 	
 	hide(){
-		let select = this.parent + " *";
-		d3.selectAll(select)
-		.style("visibility","hidden");
-	}
-}
 
+		let select = d3.select(this.element);
 
-
-
-function show_tooltip(){
-	
-	let tool = d3.selectAll("#tools");
-	let tooltip = tool.selectAll("#tooltip");
-	//Information de l'element
-	let target = event.target;
-	let tagName = target.tagName;
-	let id = target.getAttribute("id");
-	let x = target.getAttribute("x");
-	let y = target.getAttribute("y");
-	let pos = [x,y];
-	
-	
-	//Information souris
-	let mouseX = event.clientX;
-	let mouseY = event.clientY;
-	
-	
-	//Information donnees de l'elements
-	let select = d3.select(target);
-	let data = select.datum();
-	let color;
-	let depth;
-	let height;
-	let width;
-	let d_x;
-	let d_y;
-	let d_pos;
-	let detail;
-	if (tagName == "rect" || tagName == "polygon" || tagName == "text"){
-		color = data.color;
-		depth = data.depth;
-		height = data.height;
-		width = data.width;
-		d_x = data.x;
-		d_y = data.y;
-		d_pos = [d_x,d_y];
-		detail = data.detail;
-	} else {
-		console.log("tooltip: Les informations ne font pas parties du SVG et ne sont pas disponible")
+		select
+		.style("visibility","hidden")
+		.style("z-index","-10");
 	}
 	
 	
-	
-	tooltip
-	
-	.html( //Retourne du html
-			"INFORMATION ELEMENT <br/>"+
-			"tag: "+tagName + "<br/>" +
-			"id: " + id  + "<br/>" +
-			"pos: " + pos  + "<br/>" +
-			
-			
-			"<br/><br/><br/>"+
-			"INFORMATION DONNEES <br/>"+
-			"color: "+color + "<br/>" +
-			"depth: " + depth  + "<br/>" +
-			"height: " + height  + "<br/>" +
-			"width: "+width + "<br/>" +
-			"d_pos: " + d_pos  + "<br/>" +
-			"detail: " + detail  + "<br/>"
-			)
-	
-	.style("z-index","10")
-	.transition()
-	.duration(250)
-	.style("left",mouseX+"px")
-	.style("top",mouseY+"px")
-	.style("opacity","1");
-	
-	
+	hideConfig(element){
+		return null;
+	}
 }
+
+function lancement(){
+	let untools = new tools("");
+	let pos = untools.position;
+	console.log(pos);
+}
+
+
 
 function hide_tooltip(){
 	let tool = d3.selectAll("#tools");

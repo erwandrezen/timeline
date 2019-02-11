@@ -13,8 +13,8 @@ function hierarchy(data){
 
 function readMultipleFiles(evt) {
     //Retrieve all the files from the FileList object
-
-	
+	tools = new tools("#tooltip")
+	tools.position;
     var files = evt.target.files;
     if (files) {
         for (var i = 0, f; f = files[i]; i++) {

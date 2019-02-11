@@ -19,6 +19,7 @@
 	<script src="js/Timeline/timeline.js"></script>
 	<script src="js/Timeline/composite/parts/hierarchypart.js"></script>
 	<script src="js/Timeline/composite/tools/tools.js"></script>
+	<button onclick="lancement()">bouton</button>
 		<input type="file" id="fileinput" multiple />
         <div id="information">
             <i><b>Shift + Click:</b> Lors d'un click sur un rectangle => Changement de couleur</i>
@@ -41,12 +42,18 @@
 		<script src="js/D3/parcourir.js"></script>
 		<script src="js/D3/event.js"></script>
 		<script src="js/Timeline/composite/tools/composite/actionTools.js"></script>
+		<script src="js/Timeline/composite/tools/composite/tooltip.js"></script>
 		<script src="js/Timeline/composite/tools/composite/context_menu.js"></script>
 		<script src="js/Timeline/composite/tools/composite/color.js"></script>
 		<script >var laCouleur = "white"</script>
 		
 	<script>
-	
+	function show_tooltip(){
+		mytooltip = new tooltip("#tools #tooltip");
+		console.log("tooltip2");
+		mytooltip.show();
+		
+	}
 	
 	</script>
 	
