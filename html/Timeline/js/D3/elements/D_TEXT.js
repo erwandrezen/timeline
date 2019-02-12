@@ -18,14 +18,7 @@ class D_TEXT extends elements{
 		.enter()
 		.append('text')
 		.html(function(d){
-			//Taille d'un caracteres
-			let unCaractere = 10;
-			let length = d.name.length * unCaractere;
-			
-			//Nombre de caracteres disponible
-			let nombre_max = d.width / unCaractere
-			let text = d.name.slice(0, nombre_max);
-
+			let text = wrap(d.name, d.width);
 			return text;
 			})
 		.attr("x",function(d){return d.x+5})
@@ -33,13 +26,9 @@ class D_TEXT extends elements{
 		
 		.merge(parent)
 		.html(function(d){
-			//Taille d'un caracteres
-			let unCaractere = 10;
-			let length = d.name.length * unCaractere;
 			
-			//Nombre de caracteres disponible
-			let nombre_max = d.width / unCaractere
-			let text = d.name.slice(0, nombre_max);
+			let text = wrap(d.name, d.width);
+			
 			return text;
 			})
 		.attr("x",function(d){return d.x+5})
@@ -62,4 +51,20 @@ class D_TEXT extends elements{
 		
 		.render();*/
 	}
+}
+
+function wrap(text, width){
+	//Taille d'un caracteres
+	let unCaractere = 10;
+	let length = text.length * unCaractere;
+	
+	
+	//Nombre de caracteres disponible
+	let nombre_max = width / unCaractere -1;
+	let text_wrap = text.slice(0, nombre_max);
+	if (length > width){
+		text_wrap += " ...";
+	}
+	
+	return text_wrap;
 }
