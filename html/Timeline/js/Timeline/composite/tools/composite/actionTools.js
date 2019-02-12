@@ -28,28 +28,41 @@ class tools{
 		//selection du constructeur courant
 		let tools_constructor = this;
 		
-		
-		
-		//selection de l'element
-		let select = d3.select(this.element);
-
-		select
-		.style("z-index","10")
-		.style("opacity","1")
-		.style("visibility","visible")
+		let pos = this.position;
 		
 		
 		//lancement de la configuration d'affichage de l'outils
 		this.showConfig();
 		
-		select = d3.select(this.element);
+		//selection de l'element
+		let select = d3.select(this.element);
+		
+		select
+		.transition()
+		.duration(150)
+		.on("start", function(d,i,e){
+			select
+			.style("z-index","10")
+			
+		})
+		.on("end", function(d){
+			select.node().focus();
+		})
+		.style("left",pos[0]+"px")
+		.style("top",pos[1]+"px")
+		.style("visibility","visible")
+		.style("opacity","1");
+		
 		select
 		.on("blur",function(){
-			console.log("bluuur");
-			tools_constructor.hide();
-		});
+			
+				tools_constructor.hide();
+			})
 		
-		select.node().focus();
+		 
+		
+		
+		
 	}
 	
 	showConfig(){
@@ -57,26 +70,30 @@ class tools{
 	}
 	
 	hide(){
-
+		
+		//selection de l'element
 		let select = d3.select(this.element);
-
+		let tools_constructor = this;
+		
 		select
-		.style("visibility","hidden")
-		.style("z-index","-10");
+		.transition()
+		.duration(150)
+		.on("end", function(d){
+			select
+			.style("z-index","-10")
+			.style("visibility","hidden");
+			
+			tools_constructor.hideConfig();
+			
+		})
+		.style("opacity","0");
 	}
 	
 	
-	hideConfig(element){
+	hideConfig(){
 		return null;
 	}
 }
-
-function lancement(){
-	let untools = new tools("");
-	let pos = untools.position;
-	console.log(pos);
-}
-
 
 
 function hide_tooltip(){

@@ -64,16 +64,22 @@ class tooltip extends tools{
 				"d_pos: " + d_pos  + "<br/>" +
 				"detail: " + detail  + "<br/>"
 				)
-		.transition()
-		.duration(150)
-		.style("left",pos[0]+"px")
-		.style("top",pos[1]+"px");
+		//IMPORTANT PERMET LE FOCUS DE L'ELEMENT
+		.attr("tabindex","0") ;
+		
+		
 		/*
 		.style("z-index","10")
 		.transition()
 		.duration(250)
 		
 		.style("opacity","1");*/
+	}
+
+	hideConfig(){
+		let select = d3.select(this.element);
+		console.log("hiide config")
+		select.html("");
 	}
 }
 
