@@ -96,21 +96,6 @@ class tools{
 }
 
 
-function hide_tooltip(){
-	let tool = d3.selectAll("#tools");
-	let tooltip = tool.selectAll("#tooltip");
-	
-	tooltip
-	.transition()
-	.duration(250)
-	.style("opacity","0")
-	.on("end", function(){
-		tooltip
-		.html("")
-		.style("z-index","-10");
-	});
-	
-}
 
 
 

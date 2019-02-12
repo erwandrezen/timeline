@@ -65,6 +65,9 @@ rect {
 
 
 
+svg:focus{
+	outline: none;
+}
 
 
 

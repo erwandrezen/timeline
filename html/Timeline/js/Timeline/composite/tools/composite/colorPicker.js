@@ -1,41 +1,11 @@
 function show_color(element){
-	hide_nav();
-
-	let x = event.clientX;
-	let y = event.clientY;
-	let mouse = [x+"px",y+"px"];
+	let select = "#tools .color";
 	
-	let color = d3.selectAll("div").select(".color");
-	
-	color
-	.style("position","absolute")
-	//translate(50px,50px)
+	let colorpicker = new color(select);
+	colorpicker.show();
 
-	.style("left",x+"px")
-	.style("top",y+"px")
-	//color.style("transform","translate("+mouse+")");
-
-
-	.style("visibility","visible")
-	.style("z-index","2")
-	.style("transform","translate(-49%, -26%)")
-
-	
-	//preserveAspectRatio=“xMaxYMax meet”
-	
-	
 
 }
-	
-
-function hide_color(){
-	let color = d3.selectAll("div").select(".color");
-	
-	color
-	.style("visibility","hidden")
-	.style("z-index","-100");
-}
-
 
 var Lesvg = d3.select('body #timeline #tools #colorpicker').append('svg')
  							.attr('class',"color")
@@ -111,8 +81,12 @@ var Lesvg = d3.select('body #timeline #tools #colorpicker').append('svg')
        choosed_palet.addColor(c_color);
        laCouleur = c_color;
        console.log("color picked: ",c_color);
-       hide_color();
-
+       
+       //Cacher la couleur
+       let select = "#tools .color";
+   	
+   	   let colorpicker = new color(select);
+   	   colorpicker.hide();
 }  
 
  function setColor(el,color){
