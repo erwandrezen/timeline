@@ -153,7 +153,7 @@ function event_doc(){
 	}
 	
 	function click(){
-		hide_nav();
+		//hide_nav();
 	}
 
 	

@@ -1,8 +1,10 @@
 //Creation de la div .navigation
 function navigation(element){
-	let e = element
+	let e = element.html("")
+	.attr("tabindex","0")
 	.append("div")
 	.attr("id", "navigation");
+	
 	
 	return e;
 } //Retourne un element

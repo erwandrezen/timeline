@@ -65,7 +65,7 @@ rect {
 
 
 
-svg:focus{
+svg:focus, #menu:focus{
 	outline: none;
 }
 
