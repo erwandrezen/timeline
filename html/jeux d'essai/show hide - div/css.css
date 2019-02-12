@@ -1,10 +1,12 @@
-rect{
-	fill: coral;
+#rect1{
+	background-color: coral;
 	height: 15px;
 	width: 50px;
 }
 
-#rect{
+#rect2{
 	
-	fill: #03a9f4;
+	background-color: #03a9f4;
+	height: 15px;
+	width: 50px;	
 }

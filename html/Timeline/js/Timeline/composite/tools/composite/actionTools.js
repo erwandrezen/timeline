@@ -37,13 +37,17 @@ class tools{
 		.style("z-index","10")
 		.style("opacity","1")
 		.style("visibility","visible")
-		.on("blur",function(){
-			tools_constructor.hide();
-		});
+		
 		
 		//lancement de la configuration d'affichage de l'outils
 		this.showConfig();
 		
+		select = d3.select(this.element);
+		select
+		.on("blur",function(){
+			console.log("bluuur");
+			tools_constructor.hide();
+		});
 		
 		select.node().focus();
 	}

@@ -75,11 +75,17 @@ function event_rect(){
 		    	
 		 {
 				w = d3.select(window)
-			      .on("mousedown", mousedown)
+			      .on("mousedown", mousedown);
 			  
 				function mousedown() {
-					console.log("tooltip");
-					show_tooltip();
+					let target = d3.event.target;
+					let tagName = target.tagName;
+					if (tagName == 'rect' || tagName == 'text' || tagName == 'polygon')
+						{
+						
+						show_tooltip();
+						}
+					
 					
 				}
 		
@@ -95,16 +101,18 @@ function event_rect(){
 
 
 	})
-	
+	//Si une touche est levé
 	.on("keyup", function() {
 		
 		let shift = event.shiftKey;
 		let ctrl = event.ctrlKey;
 		
-		w = d3.select(window)
-		.on("mouseup", mouseup);
 		
-		
+		//Cette touche correspond au CTRL
+		if (!ctrl){
+			//On arrette la fonction mousedown
+			w.on("mousedown", null);
+		}
 		if (!shift){
 			d3.select("html")
 	    	.style("cursor", "inherit");
@@ -164,6 +172,6 @@ function set_objects(datas,object){ // List d'objet
 
 function mouseup() {
 	 d3.selectAll("text").style("user-select","select");
-	  hide_tooltip();
+	//  hide_tooltip();
   w.on("mousedown", null).on("mouseup", null);
 }
