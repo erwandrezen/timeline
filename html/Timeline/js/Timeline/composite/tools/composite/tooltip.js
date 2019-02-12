@@ -44,8 +44,14 @@ class tooltip extends tools{
 			console.log("tooltip: Les informations ne font pas parties du SVG et ne sont pas disponible")
 		}
 		
+		let keys = Object.keys(data);
+		let values = Object.values(data);
+		let data_values = "";
+		for (i in keys){
+			data_values += keys[i] + ": " + values[i] + "<br/>";
+		}
 		
-		
+		console.log(data_values);
 		select
 		
 		.html( //Retourne du html
@@ -57,12 +63,7 @@ class tooltip extends tools{
 				
 				"<br/><br/><br/>"+
 				"INFORMATION DONNEES <br/>"+
-				"color: "+color + "<br/>" +
-				"depth: " + depth  + "<br/>" +
-				"height: " + height  + "<br/>" +
-				"width: "+width + "<br/>" +
-				"d_pos: " + d_pos  + "<br/>" +
-				"detail: " + detail  + "<br/>"
+				data_values
 				)
 		//IMPORTANT PERMET LE FOCUS DE L'ELEMENT
 		.attr("tabindex","0") ;
