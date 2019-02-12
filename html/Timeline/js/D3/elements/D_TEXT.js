@@ -24,11 +24,8 @@ class D_TEXT extends elements{
 			
 			//Nombre de caracteres disponible
 			let nombre_max = d.width / unCaractere
-			let text;
-			if (d.width < length){
-				text = d.name.slice(0, nombre_max);
-				
-			}
+			let text = d.name.slice(0, nombre_max);
+
 			return text;
 			})
 		.attr("x",function(d){return d.x+5})
@@ -42,11 +39,7 @@ class D_TEXT extends elements{
 			
 			//Nombre de caracteres disponible
 			let nombre_max = d.width / unCaractere
-			let text;
-			if (d.width < length){
-				text = d.name.slice(0, nombre_max);
-				
-			}
+			let text = d.name.slice(0, nombre_max);
 			return text;
 			})
 		.attr("x",function(d){return d.x+5})
