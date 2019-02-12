@@ -142,7 +142,7 @@ function nav_hide(){  //nom de l'id
 
 function nav_expand(){  //nom de l'id
 	
-
+	console.log(rect);
 	rect.attr("show",true,"fils");
 	
 	update();
