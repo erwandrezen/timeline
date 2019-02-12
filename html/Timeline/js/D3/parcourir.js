@@ -229,7 +229,12 @@ function get_childrens(array, filter = undefined){ //LISTE d'objet
 	let liste = [];
 	// Pour chaque objet
 	array.map(obj => {
-
+		
+		if (obj.children != undefined){
+			liste.push(obj.children);
+		}
+		
+/*
 		//Supprime les occurances comme enfants
 		delete obj.occurs;
 
@@ -251,7 +256,7 @@ function get_childrens(array, filter = undefined){ //LISTE d'objet
 		filtrer = filtre.flat();
 		
 		liste.push(filtrer);
-		
+		*/
 		
 		
 		

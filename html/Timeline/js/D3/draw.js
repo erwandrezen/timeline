@@ -7,6 +7,7 @@
  ///////////////////////////////////////*/
 function update(){
 	parcourir(root,500,15); //Recalcule du json: root = noeud root	;	500 = width	;	15 = feuille constant => height dynamic
+
 	let datas = get_all_childrens(root, true); //Recupere tout les enfants avec show = true
 	
 	//Variable pas utile
@@ -35,10 +36,14 @@ function update(){
 }
 
 function change_color(id,color){
-	let rect = new D_RECT(null);
+	console.log(d3.selectAll("rect").data())
 	
-	//Recupere les donnees
-	let data = rect.datas_id(id);
+	let target = d3.event.target;
+	let data = d3.select(target).data();
+	
+	//Modifier les donnees
+	rect.datas = data;
+	
 	//Change les valeurs
 	rect.attr(["color"],color);
 	

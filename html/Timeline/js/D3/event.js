@@ -60,9 +60,19 @@ function event_rect(){
 			        
 			        //color_branch
 			        if (tagName == "rect"){
-	
-			        	let id = select.attr("id");
-			        	change_color(id,laCouleur);
+			        	let rect = new D_RECT();
+			        	let data = d3.select(target).data();
+			        	
+			        	//Modifier les donnees
+			        	rect.datas = data;
+			        	
+			        	//Change les valeurs
+			        	rect.attr(["color"],laCouleur);
+			        	
+			        	console.log(rect);
+			        	//div parent
+			        	rect.update("#rect");
+			        	//change_color(id,laCouleur);
 			        
 			        }
 			  

@@ -118,7 +118,7 @@ function show_nav(element){
 		
 }
 	
-let rect = new D_RECT(null);
+
 
 function nav_show(){  //nom de l'id
 

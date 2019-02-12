@@ -31,6 +31,7 @@
 		
 		
 	<footer>
+	
 		<script src="js/main.js"></script>
 		<script src="js/D3/elements/elements.js"></script>
 		<script src="js/D3/elements/D_SVG.js"></script>
@@ -46,8 +47,11 @@
 		<script src="js/Timeline/composite/tools/composite/context_menu.js"></script>
 		<script src="js/Timeline/composite/tools/composite/color.js"></script>
 		<script src="js/Timeline/composite/tools/composite/colorPicker.js"></script>
-		<script >var laCouleur = "white"</script>
 		
+		<script >
+		var laCouleur = "white";
+		var rect = new D_RECT(null);
+		</script>
 	<script>
 	function show_tooltip(){
 		mytooltip = new tooltip("#tools #tooltip");
