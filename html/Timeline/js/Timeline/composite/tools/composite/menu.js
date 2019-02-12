@@ -18,7 +18,6 @@ class menu extends tools{
 		
 			let children;
 			let isRoot = (data.root != undefined ? true : false);
-			let rect_id =  target.getAttribute("class");
 			//Recuperation des enfants
 			let object_values = Object.values(data);
 			let mapping = object_values.filter(f => f.constructor.name == "Array");
@@ -37,16 +36,15 @@ class menu extends tools{
 				//Ajout d'un menu
 				let menu = navigation_menu(nav);
 				
-				console.log(rect_id);
-				navigation_li(menu,"show",null,"show","nav_show('"+rect_id+"')");
+				navigation_li(menu,"show",null,"show","nav_show()");
 				if (isRoot){
 					children = false;
 					navigation_li(menu,"hide",null,"hide","");
 				} else {
-					navigation_li(menu,"hide",null,"show","nav_hide('"+rect_id+"')");
+					navigation_li(menu,"hide",null,"show","nav_hide()");
 				}
-				navigation_li(menu,"expand",null,"show","nav_expand('"+rect_id+"')");
-				navigation_li(menu,"collapse",null,"show","nav_collapse('"+rect_id+"')");
+				navigation_li(menu,"expand",null,"show","nav_expand()");
+				navigation_li(menu,"collapse",null,"show","nav_collapse()");
 				navigation_li(menu,"color",null,"show","show_color(this)");
 			//Comportant des items
 		}
@@ -71,7 +69,7 @@ class menu extends tools{
 						children = true;
 						navigation_li(menu,"hide",null,"hide","");
 					} else {
-						navigation_li(menu,"hide",null,"show","nav_hide('"+rect_id+"')");
+						navigation_li(menu,"hide",null,"show","nav_hide()");
 					}
 					navigation_li(menu,"color",null,"show","show_color(this)");
 						//Comportant des items

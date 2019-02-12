@@ -29,7 +29,7 @@ class D_RECT extends elements{
 		    	 let childrens = get_childrens([d]);
 		    	 let filter = childrens.filter(f => f.show == true);
 		    	
-		    	 (filter.length > 0 ? nav_collapse(d.name) : nav_expand(d.name));
+		    	 //(filter.length > 0 ? nav_collapse(d.uid) : nav_expand(d.uid));
 		    	 
 
 		     })
@@ -55,25 +55,30 @@ class D_RECT extends elements{
 		.transition()
 		.duration(150)
 			
-		.attr("id",function(d){return d.name})
 		.attr("x",function(d){return d.x+"px";})
 		.attr("y",function(d){return d.y+"px";})
 
 			.style("width", function(d){return d.width+"px";})
 			.style("height", function(d){
-				if (d.root){
-					/*
-					let bbox = d3.select("#part").node().getBBox();
-					let height = d.height;
+				
+/*
+			
+					let svg = d3.select("#hierarchypart svg");
 					
-					svg.attr("height",height);*/
-				}
+					let bbox = svg.node().getBBox();
+					//console.log(bbox);
+					let height = bbox.height;
+					(height == 0 ? height = d.height : height)
+		
+					console.log(height);
+					svg.attr("height",height+"px");
+		*/
 				return d.height+"px";})
 			.style("fill",function(d){return d.color;})
 			
 			.on('end', function () {
 				
-/*
+/*		
 		        	update_polygons(datas);
 		        	update_textes(datas);*/
 		        })

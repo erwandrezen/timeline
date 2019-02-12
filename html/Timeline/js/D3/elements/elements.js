@@ -34,7 +34,7 @@ class elements{
 	
 	//Recuperer l'id de cet objet
 	get ID(){
-		return "#"+this._ID;
+		return this._ID;
 	}
 	
 	//Modifier l'id de cet objet
@@ -48,7 +48,7 @@ class elements{
 	
 	//Recuperer la class de cet objet
 	get CLASS(){
-		return "."+this._CLASS;
+		return document.getElementsByClassName(this._CLASS);
 	}
 	
 	//Modifier la class de cet objet
@@ -81,7 +81,14 @@ class elements{
 			}
 			
 			
-			let setting = datas.map(m => m[attribute] = value);
+			let setting = datas.map(m => {
+				
+				if (m.constructor.name == "Object"){
+					return m[attribute] = value};
+				}
+			);
+			
+			
 			return setting;
 		} else {
 			
@@ -108,13 +115,16 @@ class elements{
 	//Recuperer les donnees des tout les ID
 	datas_id (ID, parent = null){
 			try{
-				ID = "#"+ID;
+				ID = document.getElementById(ID);
 				
-				let select = d3.selectAll(this.elementName+ID).data();
+				let select = d3.select(ID).data();
 				
+				/*
 				if (parent){
-					select = d3.selectAll(parent+" "+this.elementName+ID).data();
-				}
+					console.log("select",d3.selectAll(parent),ID );
+					select = d3.selectAll(parent).select(ID).data();
+					
+				}*/
 				
 				this.datas = select;
 				return this.datas;
@@ -128,13 +138,13 @@ class elements{
 	//Recuperer les donnees des toute les class
 	datas_class (CLASS, parent = null){
 		try{
-			CLASS = "#"+CLASS;
-
-			let select = d3.selectAll(this.elementName).selectAll(CLASS).data();
-			
+			CLASS = document.getElementsByClassName(CLASS);
+		
+			let select = d3.selectAll(CLASS).data();
+			console.log("data",select);
 			
 			if (parent){
-				select = d3.select(parent).selectAll(this.elementName).selectAll(CLASS).data();
+				//select = d3.select(parent).selectAll(this.elementName).selectAll(CLASS).data();
 			}
 			
 			this.datas = select;

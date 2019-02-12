@@ -23,6 +23,8 @@ class D_POLYGON extends elements{
 		.attr("points",function(d){
 			let y = d.y;
 			let x = d.x;
+			
+
 			let mapping = get_childrens([d]);
 			let mapping2 = mapping.filter(f => f.show == true);
 
@@ -60,7 +62,9 @@ class D_POLYGON extends elements{
 					
 					d3.select(this).on("click",function(d){
 						d3.selectAll("polygon").remove();
-						nav_expand(d.name);
+						let datas = d3.select(d3.event.target).data();
+						rect.datas = datas;
+						nav_expand();
 
 					})
 
@@ -81,8 +85,10 @@ class D_POLYGON extends elements{
 					
 					points = [point1,point2,point3];
 					d3.select(this).on("click",function(d){
-						d3.selectAll("polygon").remove();
-						nav_collapse(d.name);
+						d3.selectAll("polygon").remove()
+						let datas = d3.select(d3.event.target).data();
+						rect.datas = datas;
+						nav_collapse();
 		
 					})
 					

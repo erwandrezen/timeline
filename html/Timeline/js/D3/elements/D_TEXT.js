@@ -16,11 +16,11 @@ class D_TEXT extends elements{
 		let filtre = datas.map(m => {
 			
 			return {
-			text: m.uid,
+			text: m.name,
 			x: m.x,
 			y:m.y,
 			height: m.height,
-			width: m.width
+			width: m.width-18
 			}
 		});
 		

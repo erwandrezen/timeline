@@ -118,23 +118,20 @@ function show_nav(element){
 		
 }
 	
+let rect = new D_RECT(null);
+
+function nav_show(){  //nom de l'id
 
 
-function nav_show(nom){  //nom de l'id
-
-	let rect = new D_RECT(null);
-	rect.datas_class(nom, "svg");
 	rect.attr("show",true);
 	
 	update();
 
 }
 
-function nav_hide(nom){  //nom de l'id
+function nav_hide(){  //nom de l'id
 	
 
-	let rect = new D_RECT(null);
-	rect.datas_id(nom, "svg");
 	rect.attr("show",false);
 	
 	update();
@@ -143,10 +140,9 @@ function nav_hide(nom){  //nom de l'id
 
 
 
-function nav_expand(nom){  //nom de l'id
+function nav_expand(){  //nom de l'id
+	
 
-	let rect = new D_RECT(null);
-	rect.datas_class(nom, "svg");
 	rect.attr("show",true,"fils");
 	
 	update();
@@ -154,9 +150,8 @@ function nav_expand(nom){  //nom de l'id
 }
 
 
-function nav_collapse(nom){ //nom de l'id
-	let rect = new D_RECT(null);
-	rect.datas_class(nom, "svg");
+function nav_collapse(){ //nom de l'id
+
 	rect.attr("show",false,"childrens");
 	
 	update();

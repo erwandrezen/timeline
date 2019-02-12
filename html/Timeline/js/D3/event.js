@@ -145,8 +145,10 @@ function event_doc(){
 		d3.event.preventDefault();
 		let target = event.target;
 		let tagName = target.tagName;
-
+		
 		if(tagName == "rect"){
+			let datas = d3.select(d3.event.target).data();
+			rect.datas = datas;
 			show_nav(target);
 		}
 		

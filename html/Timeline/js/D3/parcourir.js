@@ -224,16 +224,29 @@ function set_rect_info(noeuds, w, h, information){
 }
 
 
-
+i = 0;
 function get_childrens(array, filter = undefined){ //LISTE d'objet
 	let liste = [];
 	// Pour chaque objet
 	array.map(obj => {
+
+		//Supprime les occurances comme enfants
+		delete obj.occurs;
+
+		
 		//Recupere sous forme de tableau les valeurs et les clees de l'objet
 		let obj_values = Object.values(obj);
+
+		
 		
 		//Filtrer pour les valeurs de type liste
-		let filtre = obj_values.filter(f => f.constructor.name == "Array");
+		let filtre = obj_values.filter((f) => {
+			
+
+			
+			return f.constructor.name == "Array"
+			
+		});
 		
 		filtrer = filtre.flat();
 		
