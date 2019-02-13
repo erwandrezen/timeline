@@ -6,6 +6,8 @@ function hierarchy(data){
 	
 	
 	root = data['ownerlist'][0]['nodelist'];
+	let d_json = new data_json(root);
+	console.log("root",d_json);
 	update();
 }
 
