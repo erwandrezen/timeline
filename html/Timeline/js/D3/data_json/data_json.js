@@ -124,6 +124,47 @@ class data_json{
 }
 	
 	
+	set_attr(expand = "branch", attribute, value,  node){
+		//node = this.node_null(node);
+		
+		let datas = node;
+		
+		if (expand == "branch"){
+			datas = this.branch(node);
+		}
+		
+		
+		if (expand == "cousin"){
+			datas = this.cousin(node,"children");
+		}
+		
+		if (expand == "brothers"){
+			datas = this.brothers(node,"children");
+		}
+		
+		if (expand == "childrens"){
+			datas = this.childrens(node);
+		}
+		
+		
+		
+		if (datas != undefined){
+
+				
+
+		
+					let setting = datas.map(obj => {
+							return obj[attribute] = value;
+						})
+
+					setting = setting.flat();
+					return setting;
+
+	}
+		
+}
+	
+	
 	attr(expand = "branch", attribute, value = undefined,  node = undefined){
 		node = this.node_null(node);
 		let datas = node;
@@ -241,7 +282,6 @@ class data_json{
 	set_feuilles(node){
 		node = this.node_null(node);
 		let branch = this.branch(node);
-		console.log(branch.flat());
 		let root = branch[0];
 		Object.assign(root,{root:true});
 		
@@ -255,7 +295,6 @@ class data_json{
 			obj = branch.pop(); //Dernier objet (celui supprimer)
 			
 			let haveBrothers = this.get_attr("brothers","show",true,obj);
-			console.log(haveBrothers);
 			let feuilles = 0;
 			
 			//S'il a des freres qui ont un attributs show
@@ -267,7 +306,6 @@ class data_json{
 				});
 				
 				
-				console.log(feuilles);
 				//Object.assign(obj, {feuilles: feuilles});
 				
 			} else { //Sinon on le considere comme une feuille
@@ -344,7 +382,6 @@ class data_json{
 							brothers = false;
 						}
 						
-						console.log("bb",brothers);
 						//childrens = this.son(m);
 							//childrens = this.attr("brothers",["show"],undefined,m);
 	
@@ -353,7 +390,6 @@ class data_json{
 					
 					if(brothers != false){
 						
-						console.log("childrens",childrens)
 						//console.log("Parent: ",m);
 						//console.log("Childrens: ",childrens);
 						
@@ -377,7 +413,6 @@ class data_json{
 						informations.y += this.min_rect_height;
 						//marquer la feuille
 
-						console.log("feuilles",m)
 						//debugger
 					
 					}

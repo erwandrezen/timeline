@@ -64,19 +64,28 @@ function event_rect(){
 			        	let data = d3.select(target).data();
 			        	
 			        	//Modifier les donnees
-			        	rect.datas = data;
+			        	
 			        	
 			        	//Change les valeurs
-			        	rect.attr(["color"],laCouleur);
-			        	
+			        	d_json.set_attr("branch","color",laCouleur,data);
+			        	console.log(d_json);
+			        	//rect.datas = d_json.node;
 			        	console.log(rect);
 			        	//div parent
+			        	rect.datas = d_json.root;
 			        	rect.update("#rect");
 			        	//change_color(id,laCouleur);
 			        
 			        }
 			  
 				} 
+		      function mouseup() {
+
+					w.on("mousedown", null)
+				      .on("mouseup", null);
+			  
+				} 
+		      
 		}
 		   
 		
@@ -158,7 +167,7 @@ function event_doc(){
 		
 		if(tagName == "rect"){
 			let datas = d3.select(d3.event.target).data();
-			d_json.datas = datas;
+			d_json.node = datas;
 			show_nav(target);
 		}
 		

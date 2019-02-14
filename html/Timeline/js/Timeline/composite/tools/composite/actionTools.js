@@ -132,7 +132,7 @@ function nav_show(){  //nom de l'id
 function nav_hide(){  //nom de l'id
 	
 
-	d_json.attr("cousin",["show"],false);
+	d_json.attr("branch",["show"],false);
 	
 	update();
 }

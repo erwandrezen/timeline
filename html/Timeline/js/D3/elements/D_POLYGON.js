@@ -29,19 +29,20 @@ class D_POLYGON extends elements{
 			let mapping = d_json.son(d);
 			
 			//S'il a des enfant qui ont show = true;
-			let mapping2 = d_json.attr("brothers",["show"],undefined, d);
+			let mapping2 = d_json.get_attr("cousin","show",true,[d]);
 			
+
 			bool = (mapping != undefined ? true : false);
-			bool2 = (mapping2 != undefined ? true : false);
+			bool2 = ( mapping2.length > 0 ? true : false);
 			
 			y = d.y;
 			x = d.x+d.width;
-			
-			console.log(bool)
-			if (bool2 == undefined){
-				console.log("")
-			}
-			
+			/*
+			if (mapping2 == undefined){
+				bool2 = false;
+			} else {
+				bool2 = true;
+			}*/
 			
 			if (bool){
 
@@ -70,7 +71,6 @@ class D_POLYGON extends elements{
 						debugger;
 						d3.selectAll("polygon").remove();
 						let datas = d3.select(d3.event.target).data();
-						//console.log(d);
 						d_json.node = datas;
 						nav_expand();
 						
