@@ -14,7 +14,6 @@ class D_RECT extends elements{
 	 * CONFIG CHANGEMENT DE FORME DES RECTANGLES
 	 /////////////////////////////////////////*/
 	updateConfig(parent){
-
 		parent
 		.enter()
 		.append('rect')
@@ -26,8 +25,8 @@ class D_RECT extends elements{
 
 		//Fonction collapse & expand lors d'un clic
 		.on("click",function(d){
-		    	 let childrens = get_childrens([d]);
-		    	 let filter = childrens.filter(f => f.show == true);
+		    	// let childrens = get_childrens([d]);
+		    	 //let filter = childrens.filter(f => f.show == true);
 		    	
 		    	 //(filter.length > 0 ? nav_collapse(d.uid) : nav_expand(d.uid));
 		    	 
@@ -36,9 +35,9 @@ class D_RECT extends elements{
 		     
 		  //Surligner le rectangle s'il peux s'etendre
 		 .on("mouseover",function(d){
-			 let childrens = get_childrens([d]);
-	    	 let color = "";
-	    	 (childrens.length > 0 ? d3.select(this).style("fill","#ffc107")  : null);
+			 //let childrens = get_childrens([d]);
+	    	// let color = "";
+	    	 //(childrens.length > 0 ? d3.select(this).style("fill","#ffc107")  : null);
 	    	 
 
 		     })

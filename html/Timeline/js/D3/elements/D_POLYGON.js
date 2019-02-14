@@ -25,12 +25,14 @@ class D_POLYGON extends elements{
 			let x = d.x;
 			
 
-			let mapping = get_childrens([d]);
-			let mapping2 = mapping.filter(f => f.show == true);
-
+			//S'il a des enfant
+			let mapping = d_json.son(d);
 			
-			bool = (mapping.length > 0 ? true : false);
-			bool2 = (mapping2.length > 0 ? true : false);
+			//S'il a des enfant qui ont show = true;
+			let mapping2 = d_json.attr("brothers",["show"],undefined, d);
+			
+			bool = (mapping != undefined ? true : false);
+			bool2 = (mapping2 != undefined ? true : false);
 			
 			y = d.y;
 			x = d.x+d.width;
@@ -63,7 +65,8 @@ class D_POLYGON extends elements{
 					d3.select(this).on("click",function(d){
 						d3.selectAll("polygon").remove();
 						let datas = d3.select(d3.event.target).data();
-						rect.datas = datas;
+						//console.log(d);
+						d_json.node = datas;
 						nav_expand();
 
 					})
@@ -87,7 +90,7 @@ class D_POLYGON extends elements{
 					d3.select(this).on("click",function(d){
 						d3.selectAll("polygon").remove()
 						let datas = d3.select(d3.event.target).data();
-						rect.datas = datas;
+						d_json.node = datas;
 						nav_collapse();
 		
 					})

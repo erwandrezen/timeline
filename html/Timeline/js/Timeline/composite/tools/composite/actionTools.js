@@ -142,8 +142,9 @@ function nav_hide(){  //nom de l'id
 
 function nav_expand(){  //nom de l'id
 	
-	console.log(rect);
-	rect.attr("show",true,"fils");
+	//console.log(rect);
+	//rect.attr("show",true,"fils");
+	d_json.attr("b",["show"],true);
 	
 	update();
 
@@ -152,8 +153,7 @@ function nav_expand(){  //nom de l'id
 
 function nav_collapse(){ //nom de l'id
 
-	rect.attr("show",false,"childrens");
-	
+	d_json.attr("childrens",["show"],false);
 	update();
 
 

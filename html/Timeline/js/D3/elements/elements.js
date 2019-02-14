@@ -2,6 +2,7 @@ class elements{
 	
 	constructor(newData, ID = null, CLASS = null){
 		this.newData = newData;
+		this.datas = newData;
 		this.ID = ID;
 		this.CLASS = CLASS;
 		
@@ -56,7 +57,7 @@ class elements{
 		this._CLASS = value;
 	}
 	
-	
+	/*
 	
 	//Modifier une liste d'objet
 	attr(attribute, value = undefined, expand = "branch"){
@@ -108,8 +109,7 @@ class elements{
 		
 	}
 	
-	
-	
+	*/
 	
 	
 	//Recuperer les donnees des tout les ID
@@ -157,9 +157,9 @@ class elements{
 	
 	
 	update(parent = "*"){
-		let datas = get_all_childrens(root, true);
+		let datas = this.datas;
 		parent = d3.select(parent).selectAll(this.elementName).data(datas);
-		
+
 		//Suppression des anciens elements
 		parent.exit().remove();
 		

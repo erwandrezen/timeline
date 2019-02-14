@@ -2,10 +2,58 @@
 class data_json{
 	
 	constructor(root = undefined){ //node et root = liste d'objet
-		this.node = root;
+		
 		this.root = root;
+		this.node = root;
+		this.max_width = 500;
+		this.min_rect_height = 15;
+		this.max_depth = 0;
 		this.feuilles = 0;
-		this.depth = this.depth_node();
+		
+		
+		this.depth = 0;
+		this.total_depth();
+		
+		this.min_rect_width = this.max_width / this.max_depth ;
+		
+		this.parcourir();
+		this.set_feuilles();
+		//this.initialise();
+		
+		
+		
+		//this.depth = this.depth_node();
+	}
+	
+	get max_width(){
+		return this._max_width;
+	}
+	
+	
+	
+	set max_width(value){
+		this._max_width = value;
+	}
+	
+	get min_rect_height(){
+		return this._min_rect_height;
+	}
+	
+	
+	
+	set min_rect_height(value){
+		this._min_rect_height = value;
+	}
+	
+	
+	get min_rect_width(){
+		return this._min_rect_width;
+	}
+	
+	
+	
+	set min_rect_width(value){
+		this._min_rect_width = value;
 	}
 	
 	get node(){
@@ -23,17 +71,24 @@ class data_json{
 	}
 	
 	
-	attr(expand = "branch", attribute, value = undefined,  node = undefined){
+	get max_depth(){
+		return this._max_depth;
+	}
+	
+	
+	
+	set max_depth(value){
+		this._max_depth = value;
+	}
+	get_attr(expand = "branch", attribute, value,  node){
+		//node = this.node_null(node);
 		
-		node = this.node_null(node);
 		let datas = node;
 		
-		
 		if (expand == "branch"){
-			
 			datas = this.branch(node);
-			
 		}
+		
 		
 		if (expand == "cousin"){
 			datas = this.cousin(node,"children");
@@ -48,43 +103,93 @@ class data_json{
 		}
 		
 		
-		if (value != undefined){
-			
-			
-			
-			let setting = datas.map(m => {
-				
-				if (m.constructor.name == "Object"){
-					return m[attribute] = value};
-				}
-			);
-			
-			
-			return setting;
-		} else {
+		
+		if (datas != undefined){
 
-			let setting = [];
-				let liste = datas.map(m => {
-					let obj = {};
-					let attributes = attribute.forEach(function(d){
-						
-						if (m[d] != undefined){
-							obj[d] = m[d];
-							setting.push(obj)
-							return obj;
-						}
-						
-					});
-					
 				
+					let setting = []; 
+		
+						datas.map(obj => {
+							let values = Object.values(obj);
+							if (obj[attribute] == value){
+								setting = setting.concat([obj]);
+							}
+						})
 
-					
-				});
-				return setting;
+					setting = setting.flat();
+					return setting;
+
+	}
+		
+}
+	
+	
+	attr(expand = "branch", attribute, value = undefined,  node = undefined){
+		node = this.node_null(node);
+		let datas = node;
+		
+		if (expand == "branch"){
+			
+			datas = this.branch(node);
 			
 		}
 		
+		
+		if (expand == "cousin"){
+			datas = this.cousin(node,"children");
+		}
+		
+		if (expand == "brothers"){
+			datas = this.brothers(node,"children");
+		}
+		
+		if (expand == "childrens"){
+			datas = this.childrens(node);
+		}
+		
+		
+		
+		if (datas != undefined){
+
+			if (value != undefined){
+				
+				
+				
+				let setting = datas.map(m => {
+					
+					if (m.constructor.name == "Object"){
+						return m[attribute] = value};
+					}
+				);
+				
+				
+				return setting;
+			} else {
+				
+					let setting = [];
+					let liste = datas.map(m => {
+						let obj = {};
+						let attributes = attribute.forEach(function(d){
+
+								//obj[d] = m[d];
+								//setting.push(obj)
+							setting.push(m);
+								return obj;
+		
+							
+						});
+						
+					
+	
+						
+					});
+					return setting;
+				
+				
+			}
 	}
+		
+}
 	
 	
 	get depth(){
@@ -103,20 +208,20 @@ class data_json{
 		this._feuilles = value;
 	}
 	
-	
+	/*
 	
 	depth_node (array = this.node, depth = [1]) {
 	    let constr = this;
 	    
 	    //Pour chaque objet d'une liste
 	    array = array.map(obj => {
-	    		let brothers = constr.brothers(obj,"children");
+	    		let brothers = constr.son(obj);
 	    		if (brothers != undefined){return brothers;
 	    		} else {
 	    			if (obj != undefined){
 	    				
 	    				//Dire que c'est une feuille
-	    				Object.assign(obj, {feuilless:0});
+	    				Object.assign(obj, {feuilles:0});
 		    			constr.feuilles += 1;
 		    		}
 	    		}
@@ -131,98 +236,176 @@ class data_json{
 	    }
 	    
 	    return depth[0];
-	}
+	}*/
 
 	set_feuilles(node){
 		node = this.node_null(node);
 		let branch = this.branch(node);
-		
+		console.log(branch.flat());
+		let root = branch[0];
+		Object.assign(root,{root:true});
 		
 		//Longueur du tableau
 		let length = branch.length - 1; //0 et le depart
+		let obj = {};
 		
-		for (length ; length >= 0 ; length -= 1){
-			let obj = branch[length];
-			//console.log(obj);
-			let brothersBool = this.have_brothers(obj,"children");
-			if (brothersBool){
-				//console.log(brothersBool);
-				
-				//Recuperer les feuilles
-				let attribute = "feuilless";
-				let feuilles = this.attr("brothers", [attribute], undefined, obj)
-				console.log(feuilles);
-				let somme = 0;
-				feuilles.map(f => {
-					(f[attribute] <= 0 ? somme += feuilles.length : somme += f[attribute]);
-					
-					});
-	
-				//Calculer la somme des enfants
-				
-
-				
-				//Assigner
-				Object.assign(obj,{feuilless:somme})			
-				console.log(obj,somme);
-			}
+		while (obj != undefined){
 			
-
-		}
-		
-	}
-	
-	initialise(node = undefined){ // root
-		
-		node = this.node_null(node);
-		node = this.toArray(node);
-		
-		let constr = this;
-		let depth = this.depth-1;
-		
-		//w = max_width / depth
-		let height_const = 15;
-		let x = 0;
-		let y = 0;
-		let w = 500/this.depth;
-		for (i = depth-1 ; i>= 0 ; i-= 1){
-			//console.log(i);
-			//Recuperer les cousins
-			node = this.cousin(node,"children");
-			y = 0;
-			//x += w
-			x += w;
-			//Pour chaque cousin
-			node.map((obj,obj_indice) => {
+			//Recuperer le dernier objet et le supprimer
+			obj = branch.pop(); //Dernier objet (celui supprimer)
+			
+			let haveBrothers = this.get_attr("brothers","show",true,obj);
+			console.log(haveBrothers);
+			let feuilles = 0;
+			
+			//S'il a des freres qui ont un attributs show
+			if (haveBrothers != undefined){
+				//Recuperer ses freres ci et compter ses feuilles
 				
-				//height = feuilles * height_const
-				
-				//y += height
-				//y += y_const;
-				
-				
-				//Marquer la profondeur
-				//Marquer la hauteur
-				//Marquer x,y
-				//console.log(obj);
-				Object.assign(obj, {
-					depths:i,
-					hights:obj_indice,
-					xx:x,
-					yy:y,
+				haveBrothers.map(unObj => {
+					(unObj.feuilles > 0 ? feuilles += unObj.feuilles : feuilles += 1);
 				});
 				
 				
-			//recuperer cousin
-			})
+				console.log(feuilles);
+				//Object.assign(obj, {feuilles: feuilles});
 				
-			//console.log(node);
+			} else { //Sinon on le considere comme une feuille
+			}
+			
+			let height = (feuilles <= 0 ? this.min_rect_height : this.min_rect_height * feuilles );
+			if (obj != undefined){
+				
+				Object.assign(obj, {feuilles: feuilles, height: height});
+			}	
+			
 			
 		}
 		
-		
+		//this.root = this.node;
 	}
 	
+	total_depth(liste = this.node){
+		this.max_depth += 1;
+		let lesCousins = this.cousin(liste,"children");
+		if (lesCousins.length > 0 ){
+			this.total_depth(lesCousins);
+		}
+		
+		return this.max_depth;
+	}
+	
+	parcourir(root = this.root,informations = {depth:this.max_depth,x:0,y:0,w:0,h:0}){
+		
+		
+		let depth = informations.depth;
+		let width = this.min_rect_width;
+
+		let noeuds = root.map(m => {
+					//Recuperer l'enfant
+					
+
+					
+					
+					
+					
+					/* (S'il y'a des donnees (des enfants)) 
+					 * ? 
+					 * On reparcour 
+					 * : 
+					 * Sinon message dans la console
+					*/
+					// (childrens.length > 0 ? parcourir(childrens) : feuilles())
+
+					Object.assign(m,{
+						depth:depth,
+						x:informations.x,
+						y:informations.y,
+						width:width,
+						color:"white"
+						})
+						
+						
+						//Si show n'es pas assigner le faire
+						if (m.show == undefined){
+							Object.assign(m,{show:true})
+						}
+					
+						let childrens = this.son(m);
+						
+						let trueBrothers = this.get_attr("brothers","show",true,m);
+						let undefinedBrothers = this.get_attr("brothers","show",undefined,m);
+						
+						let brothers;
+						if (trueBrothers != undefined && undefinedBrothers != undefined){
+							brothers = (trueBrothers.length > 0 || undefinedBrothers.length > 0? true : false);
+							
+						} else {
+							brothers = false;
+						}
+						
+						console.log("bb",brothers);
+						//childrens = this.son(m);
+							//childrens = this.attr("brothers",["show"],undefined,m);
+	
+					//Children identifie les freres avec attributs show
+					
+					
+					if(brothers != false){
+						
+						console.log("childrens",childrens)
+						//console.log("Parent: ",m);
+						//console.log("Childrens: ",childrens);
+						
+						
+						informations.x += this._min_rect_width;
+						//Profondeur = this.max_depth -1
+						informations.depth -= 1;
+						
+						//Reparcourire
+						this.parcourir(childrens, informations);
+
+						
+						
+						
+					} else {
+						
+						let width_feuille = width*(depth);
+						Object.assign(m,{feuilles:0,width:width_feuille})
+							
+							
+						informations.y += this.min_rect_height;
+						//marquer la feuille
+
+						console.log("feuilles",m)
+						//debugger
+					
+					}
+					
+					
+					
+					
+					
+				
+					
+					//Retourne rien
+				});
+		informations.depth += 1;
+		informations.x -= this._min_rect_width;
+		
+		//this.root = this.node;
+	}
+	//debugger;
+		
+
+		
+
+	initialise(node = undefined){ // root
+
+		this.parcourir();
+		this.set_feuilles(this.root);
+	}
+
 	son(node = undefined, number = undefined/*, filter = undefined*/){ //objet
 		
 		node = this.node_null(node);

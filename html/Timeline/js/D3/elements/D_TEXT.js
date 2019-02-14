@@ -11,9 +11,8 @@ class D_TEXT extends elements{
 
 	
 	updateConfig(parent){
-		let datas = get_all_childrens(root, true);
+		let datas = this.datas;
 		
-		console.log(parent);
 		parent
 		.enter()
 		.append('text')
