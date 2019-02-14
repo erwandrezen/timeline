@@ -123,7 +123,7 @@ function show_nav(element){
 function nav_show(){  //nom de l'id
 
 
-	rect.attr("show",true);
+	d_json.attr("branch",["show"],true);
 	
 	update();
 
@@ -132,7 +132,7 @@ function nav_show(){  //nom de l'id
 function nav_hide(){  //nom de l'id
 	
 
-	rect.attr("show",false);
+	d_json.attr("cousin",["show"],false);
 	
 	update();
 }
@@ -144,8 +144,7 @@ function nav_expand(){  //nom de l'id
 	
 	//console.log(rect);
 	//rect.attr("show",true,"fils");
-	d_json.attr("b",["show"],true);
-	
+	d_json.attr("cousin",["show"],true);
 	update();
 
 }

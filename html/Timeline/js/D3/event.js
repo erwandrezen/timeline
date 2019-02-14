@@ -158,7 +158,7 @@ function event_doc(){
 		
 		if(tagName == "rect"){
 			let datas = d3.select(d3.event.target).data();
-			rect.datas = datas;
+			d_json.datas = datas;
 			show_nav(target);
 		}
 		
