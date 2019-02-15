@@ -44,7 +44,6 @@ class tools{
 			
 			select
 			.style("opacity","0")
-			.style("position","absolute")
 			.style("z-index","10");
 			
 		})
@@ -59,6 +58,7 @@ class tools{
 			
 			let pos = this.position;
 			select
+			.style("position","absolute")
 			.style("left",pos[0]+"px")
 			.style("top",pos[1]+"px");
 			

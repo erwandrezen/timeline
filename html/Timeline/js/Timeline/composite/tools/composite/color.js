@@ -12,7 +12,7 @@ class color extends tools{
 		let y = pos[1];
 		
 		color
-		.style("position","absolute")
+		.style("position","fixed")
 		.style("left",x+"px")
 		.style("top",y+"px")
 		.style("visibility","visible")
