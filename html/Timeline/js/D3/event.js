@@ -53,13 +53,14 @@ function event_rect(){
 			
 		      function mousedown() {
 
-					let target = event.target;
-			        let select = d3.select(target);
-			        let tagName = select.node().tagName
-			        
-			        
-			        //color_branch
-			        if (tagName == "rect"){
+			        let target = event.target;
+					let tagName = target.tagName;
+					
+					let parentNode = target.parentNode;
+					let parenId = parentNode.id;
+					
+					
+					if(tagName == "rect" && parenId == "rect"){
 			        	//Selection des donnees cibles
 			        	let data = d3.select(target).data();
 			        	
@@ -160,7 +161,12 @@ function event_doc(){
 		let target = event.target;
 		let tagName = target.tagName;
 		
-		if(tagName == "rect"){
+		let parentNode = target.parentNode;
+		let parenId = parentNode.id;
+		
+		
+		if(tagName == "rect" && parenId == "rect"){
+			console.log(parenId);
 			let datas = d3.select(d3.event.target).data();
 			d_json.node = datas;
 			show_nav(target);

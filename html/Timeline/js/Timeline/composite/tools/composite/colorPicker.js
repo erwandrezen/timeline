@@ -2,7 +2,16 @@ function show_color(element){
 	let select = "#tools .color";
 	
 	let colorpicker = new color(select);
-	colorpicker.show();
+	colorpicker.show(false);
+
+
+}
+
+function hide_color(element){
+	let select = "#tools .color";
+	
+	let colorpicker = new color(select);
+	colorpicker.hide();
 
 
 }
@@ -73,7 +82,6 @@ var Lesvg = d3.select('body #timeline #tools #colorpicker').append('svg')
     d3.select('#color_code').text(s_color).attr('fill',s_color).attr('stroke',s_color); 
 }
  function mouseClick(){
-  
        p_color =d3.select(this.parentNode).attr('data-color');
        d3.select('#button_show_color').attr('fill',p_color);
 
@@ -162,10 +170,17 @@ var Lesvg = d3.select('body #timeline #tools #colorpicker').append('svg')
 
 function buttonClicked(){
           // toggle_color('#button');
-           toggle_palet();
-           toggle_cirle();
-           toggle_text_graphe();
-           show_choosed_bar();
+	try {
+		toggle_palet();
+        toggle_cirle();
+        toggle_text_graphe();
+        show_choosed_bar();
+	} catch (e){
+		//e = l'erreur
+		console.log("Clique dans le vide");
+		hide_color();
+	}
+           
      };
 
 

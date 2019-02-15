@@ -7,7 +7,16 @@ class color extends tools{
 	showConfig(){
 		let color = d3.selectAll("#tools .color");
 		
+		let pos = this.position;
+		let x = pos[0];
+		let y = pos[1];
+		
 		color
-		.style("position","absolute");
+		.style("position","absolute")
+		.style("left",x+"px")
+		.style("top",y+"px")
+		.style("visibility","visible")
+		.style("z-index","2")
+		.style("transform","translate(-49%, -26%)")
 	}
 }

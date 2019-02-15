@@ -23,11 +23,11 @@ class tools{
 	
 	
 	
-	show(){
+	show(setPosition = true){
 		//selection du constructeur courant
 		let tools_constructor = this;
 		
-		let pos = this.position;
+		
 		
 		
 		//lancement de la configuration d'affichage de l'outils
@@ -48,8 +48,17 @@ class tools{
 		.on("end", function(d){
 			select.node().focus();
 		})
-		.style("left",pos[0]+"px")
-		.style("top",pos[1]+"px")
+		
+		
+		if (setPosition){
+			let pos = this.position;
+			select
+			.style("left",pos[0]+"px")
+			.style("top",pos[1]+"px")
+		}
+		
+		
+		select
 		.style("visibility","visible")
 		.style("opacity","1");
 		
