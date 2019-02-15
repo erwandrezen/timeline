@@ -38,29 +38,36 @@ class tools{
 		
 		select
 		.transition()
-		.duration(150)
-		.on("start", function(d,i,e){
+		.duration(350)
+		.style("opacity","1")
+		.on("start", function(d,i,e){ //Avant toute transition
+			
 			select
+			.style("opacity","0")
 			.style("position","absolute")
-			.style("z-index","10")
+			.style("z-index","10");
 			
 		})
-		.on("end", function(d){
+		.on("end", function(d){ //Après toute transition
+			
 			select.node().focus();
+			
 		})
 		
 		
 		if (setPosition){
+			
 			let pos = this.position;
 			select
 			.style("left",pos[0]+"px")
-			.style("top",pos[1]+"px")
+			.style("top",pos[1]+"px");
+			
 		}
 		
 		
 		select
 		.style("visibility","visible")
-		.style("opacity","1");
+
 		
 		select
 		.on("blur",function(){

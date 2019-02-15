@@ -56,11 +56,12 @@ function event_rect(){
 			        let target = event.target;
 					let tagName = target.tagName;
 					
+					/*
 					let parentNode = target.parentNode;
 					let parenId = parentNode.id;
+					*/
 					
-					
-					if(tagName == "rect" && parenId == "rect"){
+					if(tagName == "rect" ){
 			        	
 						//Indiquer qu'on veux modifier ses donnnees dans le json
 						d_json.node = d3.select(target).data(); //Selection des donnees cibles
@@ -152,21 +153,24 @@ function event_doc(){
 	
 	
 	w = d3.select(window)
-	.on("contextmenu",contextmenu);
+	.on("contextmenu",contextmenu)
+	.on("mouseup",mouseup);
 	
 	function contextmenu(){
 		d3.event.preventDefault();
 		let target = event.target;
 		let tagName = target.tagName;
 		
+		/*
 		let parentNode = target.parentNode;
 		let parenId = parentNode.id;
+		*/
 		
-		
-		if(tagName == "rect" && parenId == "rect"){
-			console.log(parenId);
+		if(tagName == "rect"){
+			//console.log(parenId);
 			let datas = d3.select(d3.event.target).data();
 			d_json.node = datas;
+			//debugger
 			show_nav(target);
 		}
 		
@@ -180,7 +184,6 @@ function event_doc(){
 
 
 function mouseup() {
-	 d3.selectAll("text").style("user-select","select");
 	//  hide_tooltip();
   w.on("mousedown", null).on("mouseup", null);
 }
