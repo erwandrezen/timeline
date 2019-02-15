@@ -97,7 +97,6 @@ function event_rect(){
 					let tagName = target.tagName;
 					if (tagName == 'rect' || tagName == 'text' || tagName == 'polygon')
 						{
-						
 						show_tooltip();
 						}
 					

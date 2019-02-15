@@ -47,11 +47,10 @@ class tooltip extends tools{
 		let keys = Object.keys(data);
 		let values = Object.values(data);
 		let data_values = "";
-		for (i in keys){
+		for (let i in keys){
 			data_values += keys[i] + ": " + values[i] + "<br/>";
 		}
 		
-		console.log(data_values);
 		select
 		
 		.html( //Retourne du html
@@ -79,7 +78,6 @@ class tooltip extends tools{
 
 	hideConfig(){
 		let select = d3.select(this.element);
-		console.log("hiide config")
 		select.html("");
 	}
 }
