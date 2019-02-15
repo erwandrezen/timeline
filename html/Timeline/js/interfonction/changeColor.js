@@ -7,9 +7,10 @@ function changeColor(uid, newColor, expand = "branch", ownNode = true){
 	//Recupere tout les identifiant qui correspand
 	let allUid = d_json.get_attr("branch", "uid",uid, root);
 	
+	thisNode = allUid[0];
 	//Si on souhaite modifier le propre noeud
 	if (ownNode){
-		Object.assign(allUid[0], {color:newColor});
+		Object.assign(thisNode, {color:newColor});
 	}
 	
 	d_json.set_attr(expand, "color",newColor, allUid);
