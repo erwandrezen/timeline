@@ -1,7 +1,7 @@
 
 class data_json{
 	
-	constructor(root = undefined){ //node et root = liste d'objet
+	constructor(root = undefined, childrenName = "children"){ //node et root = liste d'objet
 		
 		this.root = root;
 		this.node = root;
@@ -9,7 +9,7 @@ class data_json{
 		this.min_rect_height = 15;
 		this.max_depth = 0;
 		this.feuilles = 0;
-		
+		this.childrenName = childrenName;
 		
 		this.depth = 0;
 		this.total_depth();
@@ -23,6 +23,16 @@ class data_json{
 		
 		
 		//this.depth = this.depth_node();
+	}
+	
+	get childrenName(){
+		return this._childrenName;
+	}
+	
+	
+	
+	set childrenName(value){
+		this._childrenName = value;
 	}
 	
 	get max_width(){
@@ -81,23 +91,37 @@ class data_json{
 		this._max_depth = value;
 	}
 	
+	
+	//Recupere les donnees selon le mode choisi
 	selectDatas(datas, expand = "branch"){
 		
-		if (expand == "branch"){
+		
+		
+		
+		
+		if (expand == "branch"){ // Objet
 			datas = this.branch(datas);
 		}
 		
-		if (expand == "cousin"){
-			datas = this.cousin(datas,"children");
-		}
-		
-		if (expand == "brothers"){
-			datas = this.brothers(datas,"children");
-		}
-		
-		if (expand == "childrens"){
+		if (expand == "childrens"){ // Liste d'objets
 			datas = this.childrens(datas);
 		}
+		
+		if (expand == "cousin"){ // Liste d'objets
+			datas = this.cousin(datas);
+		}
+		
+		if (expand == "brothers"){ //N'existe plus (ou cas ou il reste des morceaux de cette fonction
+			console.log("brothers n'existe plus il est remplacé par son")
+		}
+		
+		if (expand == "son"){ // Objet
+			datas = this.son(datas);
+		}
+		
+		
+		
+		
 		
 		return datas;
 	}
@@ -293,14 +317,14 @@ class data_json{
 			//Recuperer le dernier objet et le supprimer
 			obj = branch.pop(); //Dernier objet (celui supprimer)
 			
-			let haveBrothers = this.getAttr(obj,{show:true},"brothers");
+			let haveSon = this.getAttr(obj,{show:true},"son");
 			let feuilles = 0;
 			
 			//S'il a des freres qui ont un attributs show
-			if (haveBrothers != undefined){
+			if (haveSon != undefined){
 				//Recuperer ses freres ci et compter ses feuilles
 				
-				haveBrothers.map(unObj => {
+				haveSon.map(unObj => {
 					(unObj.feuilles > 0 ? feuilles += unObj.feuilles : feuilles += 1);
 				});
 				
@@ -375,15 +399,15 @@ class data_json{
 					
 						let childrens = this.son(m);
 						
-						let trueBrothers = this.getAttr(m,{show:true},"brothers");
-						let undefinedBrothers = this.getAttr(m,{show:undefined},"brothers");
+						let trueSon = this.getAttr(m,{show:true},"son");
+						let undefinedSon = this.getAttr(m,{show:undefined},"son");
 						
-						let brothers;
-						if (trueBrothers != undefined && undefinedBrothers != undefined){
-							brothers = (trueBrothers.length > 0 || undefinedBrothers.length > 0? true : false);
+						let son;
+						if (trueSon != undefined && undefinedSon != undefined){
+							son = (trueSon.length > 0 || undefinedSon.length > 0? true : false);
 							
 						} else {
-							brothers = false;
+							son = false;
 						}
 						
 						//childrens = this.son(m);
@@ -393,7 +417,7 @@ class data_json{
 					
 						//S'applique seulement au noeud qui sont (show = true ou show non identifier(par default))
 					if (m.show == true || m.show == undefined){
-						if(brothers != false){
+						if(son != false){
 							
 							//console.log("Parent: ",m);
 							//console.log("Childrens: ",childrens);
@@ -449,7 +473,7 @@ class data_json{
 	son(node = undefined, number = undefined/*, filter = undefined*/){ //objet
 		
 		node = this.node_null(node);
-		
+		let children = this.childrenName;
 		//Si le noeud est une liste
 		/*
 		if (node.constructor.name == "Array"){
@@ -460,11 +484,11 @@ class data_json{
 			}
 		}
 */
-		return node.children;
+		return node[children];
 	}
 
-	
-	
+	/*
+	//Enfant du noeud
 	brothers(node = undefined, nom = "*"){ //objet
 		node = this.node_null(node);
 		//number = this.number_null(number);
@@ -482,7 +506,7 @@ class data_json{
 			return node;
 		}
 		
-	}
+	}*/
 
 	have_brothers(node, nom = "*"){
 		let brothers = this.brothers(node,nom);
@@ -535,19 +559,18 @@ class data_json{
 	}
 
 	//Enfant de chaque freres
-	cousin(liste, children = "*"){ //liste d'objet
+	cousin(liste){ //liste d'objet
 		let save = [];
 		liste.map(obj =>{
-			let brothers = this.brothers(obj, children);
-			if (brothers != undefined){
-				save = save.concat(brothers);
+			let son = this.son(obj);
+			if (son != undefined){
+				save = save.concat(son);
 			}
 			
 			
 			
 		})
 		
-		//liste = liste.flat();
 		return save;
 	}
 	

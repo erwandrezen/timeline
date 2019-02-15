@@ -14,6 +14,5 @@ function changeColor(uid, newColor, expand = "branch", ownNode = true){
 	}
 	
 	d_json.setAttr(allUid, {color:newColor}, expand);
-
 	update();
 }
