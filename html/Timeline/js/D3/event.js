@@ -61,14 +61,12 @@ function event_rect(){
 					
 					
 					if(tagName == "rect" && parenId == "rect"){
-			        	//Selection des donnees cibles
-			        	let data = d3.select(target).data();
 			        	
-			        	//Indiquer qu'on veux modifier ses donnnees dans le json
-			        	d_json.node = data;
+						//Indiquer qu'on veux modifier ses donnnees dans le json
+						d_json.node = d3.select(target).data(); //Selection des donnees cibles
 			        	
 			        	//Modifier ses donnees
-			        	d_json.set_attr("branch","color",laCouleur);
+			        	d_json.set_attr(null,{color:laCouleur},"branch");
 			        	
 			        	//Update l'affichage
 			        	update();

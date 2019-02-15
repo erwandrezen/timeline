@@ -80,28 +80,33 @@ class data_json{
 	set max_depth(value){
 		this._max_depth = value;
 	}
-	get_attr(expand = "branch", attribute, value,  node){
-		//node = this.node_null(node);
-		
-		let datas = node;
+	
+	selectDatas(datas, expand = "branch"){
 		
 		if (expand == "branch"){
-			datas = this.branch(node);
+			datas = this.branch(datas);
 		}
 		
-		
 		if (expand == "cousin"){
-			datas = this.cousin(node,"children");
+			datas = this.cousin(datas,"children");
 		}
 		
 		if (expand == "brothers"){
-			datas = this.brothers(node,"children");
+			datas = this.brothers(datas,"children");
 		}
 		
 		if (expand == "childrens"){
-			datas = this.childrens(node);
+			datas = this.childrens(datas);
 		}
 		
+		return datas;
+	}
+	
+	get_attr(expand = "branch", attribute, value,  node){
+		
+		node = this.node_null(node); // S'il est null récupere le noeud du JSON
+		
+		let datas = this.selectDatas(node, expand);
 		
 		
 		if (datas != undefined){
@@ -124,27 +129,11 @@ class data_json{
 }
 	
 	
-	set_attr(expand = "branch", attribute, value,  node){
-		//node = this.node_null(node);
+	setAttr(node, newAttribute, expand = "branch" ){
 		
-		let datas = node;
+		node = this.node_null(node); // S'il est null récupere le noeud du JSON
 		
-		if (expand == "branch"){
-			datas = this.branch(node);
-		}
-		
-		
-		if (expand == "cousin"){
-			datas = this.cousin(node,"children");
-		}
-		
-		if (expand == "brothers"){
-			datas = this.brothers(node,"children");
-		}
-		
-		if (expand == "childrens"){
-			datas = this.childrens(node);
-		}
+		let datas = this.selectDatas(node, expand);
 		
 		
 		
@@ -154,11 +143,14 @@ class data_json{
 
 		
 					let setting = datas.map(obj => {
-						console.log(obj,attribute, value,obj[attribute])
-							obj[attribute] = value;
+						
+						//Assigne le nouvel objet
+						Object.assign(obj, newAttribute);
+						
+						//Retourne l'objet
 						return obj;
-						})
-						console.log(setting)
+					})
+					
 					setting = setting.flat();
 					return setting;
 

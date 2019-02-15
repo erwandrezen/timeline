@@ -13,7 +13,7 @@ function changeColor(uid, newColor, expand = "branch", ownNode = true){
 		Object.assign(thisNode, {color:newColor});
 	}
 	
-	d_json.set_attr(expand, "color",newColor, allUid);
+	d_json.set_attr(allUid, {color:newColor}, expand);
 
 	update();
 }
