@@ -1,8 +1,8 @@
 class tools{
 	constructor(element){
 		this.element = element;
-		this.durationStart = 350;
-		this.durationEnd = 350;
+		this.durationStart = 328;
+		this.durationEnd = 80;
 	}
 
 
@@ -67,7 +67,7 @@ class tools{
 		
 		select
 		.transition()
-		.duration(this.durationStart)
+		.duration(this.durationStart) // Control la duree de transition
 		.style("opacity","1")
 		.on("start", function(d,i,e){ //Avant toute transition
 			
@@ -124,7 +124,7 @@ class tools{
 		
 		select
 		.transition()
-		.duration(this.durationEnd)
+		.duration(this.durationEnd) // Control la duree de transition
 		.on("end", function(d){
 			select
 			.style("z-index","-10")

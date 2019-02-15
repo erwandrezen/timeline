@@ -9,27 +9,7 @@ function event_rect(){
 	
 	let focused;
 	
-	rect.on("mouseenter",function(){
-		let parent_node = d3.select(this).node().parentNode;
-		let parent_id = parent_node.id;
-		focused = String(parent_id);
-		
-		
-		d3.select("svg")
-		.on("keydown", function(){
-			let event = d3.event;
-			
-			let alt = event.altKey;
-			let ctrl = event.ctrlKey;
-			let shift = event.shiftKey;
-			
-	
-			
 
-			
-			return null;
-		});
-	});
 	var shift_cliked = false;
 	
 	

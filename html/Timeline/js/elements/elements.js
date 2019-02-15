@@ -4,8 +4,6 @@ class elements{
 	constructor(newData, onStart = null, onEnd = null){
 		this.newData = newData;
 		this.datas = newData;
-		//this.ID = ID;
-		//this.CLASS = CLASS;
 		
 	}
 	
