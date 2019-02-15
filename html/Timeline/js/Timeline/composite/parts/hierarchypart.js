@@ -1,5 +1,5 @@
 width = 500;
-height = 800
+height = 800;
 body = d3.select("body");
 timeline = body.select("#timeline");
 hierarchypart = timeline.append("div").attr("id","hierarchypart");

@@ -68,7 +68,6 @@ class D_POLYGON extends elements{
 					points = [point1,point2,point3];
 					
 					d3.select(this).on("click",function(d){
-						debugger;
 						d3.selectAll("polygon").remove();
 						let datas = d3.select(d3.event.target).data();
 						d_json.node = datas;

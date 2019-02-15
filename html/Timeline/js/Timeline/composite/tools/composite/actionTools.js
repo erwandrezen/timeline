@@ -124,7 +124,6 @@ function nav_show(){  //nom de l'id
 
 
 	d_json.attr("branch",["show"],true);
-	
 	update();
 
 }
@@ -133,7 +132,6 @@ function nav_hide(){  //nom de l'id
 	
 
 	d_json.attr("branch",["show"],false);
-	
 	update();
 }
 

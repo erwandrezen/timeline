@@ -1,3 +1,7 @@
+svg #text text{
+	pointer-events:none;
+}
+
 #information{
 	background-color: #03A9F4;
     color: white;

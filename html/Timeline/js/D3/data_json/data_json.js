@@ -387,34 +387,36 @@ class data_json{
 	
 					//Children identifie les freres avec attributs show
 					
-					
-					if(brothers != false){
-						
-						//console.log("Parent: ",m);
-						//console.log("Childrens: ",childrens);
-						
-						
-						informations.x += this._min_rect_width;
-						//Profondeur = this.max_depth -1
-						informations.depth -= 1;
-						
-						//Reparcourire
-						this.parcourir(childrens, informations);
-
-						
-						
-						
-					} else {
-						
-						let width_feuille = width*(depth);
-						Object.assign(m,{feuilles:0,width:width_feuille})
+						//S'applique seulement au noeud qui sont (show = true ou show non identifier(par default))
+					if (m.show == true || m.show == undefined){
+						if(brothers != false){
+							
+							//console.log("Parent: ",m);
+							//console.log("Childrens: ",childrens);
 							
 							
-						informations.y += this.min_rect_height;
-						//marquer la feuille
-
-						//debugger
-					
+							informations.x += this._min_rect_width;
+							//Profondeur = this.max_depth -1
+							informations.depth -= 1;
+							
+							//Reparcourire
+							this.parcourir(childrens, informations);
+	
+							
+							
+							
+						} else {
+							
+							let width_feuille = width*(depth);
+							Object.assign(m,{feuilles:0,width:width_feuille})
+								
+								
+							informations.y += this.min_rect_height;
+							//marquer la feuille
+	
+							//debugger
+						
+						}
 					}
 					
 					
