@@ -39,19 +39,3 @@ function update(){
 	event_rect(root);
 	event_doc();
 }
-
-function change_color(id,color){
-	console.log(d3.selectAll("rect").data())
-	
-	let target = d3.event.target;
-	let data = d3.select(target).data();
-	
-	//Modifier les donnees
-	rect.datas = data;
-	
-	//Change les valeurs
-	rect.attr(["color"],color);
-	
-	//div parent
-	rect.update("#rect");
-}
