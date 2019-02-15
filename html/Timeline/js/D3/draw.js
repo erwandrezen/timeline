@@ -9,18 +9,16 @@ function update(){
 	//parcourir(root,500,15); //Recalcule du json: root = noeud root	;	500 = width	;	15 = feuille constant => height dynamic
 
 	//let datas = get_all_childrens(root, true); //Recupere tout les enfants avec show = true
-	
-	
+	console.log(d_json);
 	let root = d_json.root;
 	d_json.initialise(root);
 	//let datas = d_json.branch(root);
 	let datas = d_json.get_attr("branch","show",true,root);
 	
-	
 	//Variable pas utile
 	//let datas_hide = get_all_childrens(root, false);  //Recupere tout les enfants avec show = false
 	
-	console.log("history",datas);
+	//console.log("history",datas);
 
 	/*Updates de tout les rectangles
 	 * 

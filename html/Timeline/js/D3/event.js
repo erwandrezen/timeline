@@ -60,21 +60,17 @@ function event_rect(){
 			        
 			        //color_branch
 			        if (tagName == "rect"){
-			        	let rect = new D_RECT();
+			        	//Selection des donnees cibles
 			        	let data = d3.select(target).data();
 			        	
-			        	//Modifier les donnees
+			        	//Indiquer qu'on veux modifier ses donnnees dans le json
+			        	d_json.node = data;
 			        	
+			        	//Modifier ses donnees
+			        	d_json.set_attr("branch","color",laCouleur);
 			        	
-			        	//Change les valeurs
-			        	d_json.set_attr("branch","color",laCouleur,data);
-			        	console.log(d_json);
-			        	//rect.datas = d_json.node;
-			        	console.log(rect);
-			        	//div parent
-			        	rect.datas = d_json.root;
-			        	rect.update("#rect");
-			        	//change_color(id,laCouleur);
+			        	//Update l'affichage
+			        	update();
 			        
 			        }
 			  
@@ -157,8 +153,7 @@ function event_doc(){
 	
 	
 	w = d3.select(window)
-	.on("contextmenu",contextmenu)
-	.on("click",click)
+	.on("contextmenu",contextmenu);
 	
 	function contextmenu(){
 		d3.event.preventDefault();
@@ -173,9 +168,7 @@ function event_doc(){
 		
 	}
 	
-	function click(){
-		//hide_nav();
-	}
+
 
 	
 

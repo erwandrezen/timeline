@@ -154,9 +154,11 @@ class data_json{
 
 		
 					let setting = datas.map(obj => {
-							return obj[attribute] = value;
+						console.log(obj,attribute, value,obj[attribute])
+							obj[attribute] = value;
+						return obj;
 						})
-
+						console.log(setting)
 					setting = setting.flat();
 					return setting;
 
@@ -359,15 +361,20 @@ class data_json{
 						depth:depth,
 						x:informations.x,
 						y:informations.y,
-						width:width,
-						color:"white"
-						})
+						width:width})
 						
 						
 						//Si show n'es pas assigner le faire
 						if (m.show == undefined){
 							Object.assign(m,{show:true})
 						}
+						
+						if (m.color == undefined){
+							Object.assign(m,{color:"white"})
+							
+						}
+					
+					
 					
 						let childrens = this.son(m);
 						
@@ -438,9 +445,11 @@ class data_json{
 		
 
 	initialise(node = undefined){ // root
-
-		this.parcourir();
+debugger
+		this.parcourir(this.root);
+		debugger
 		this.set_feuilles(this.root);
+		debugger
 	}
 
 	son(node = undefined, number = undefined/*, filter = undefined*/){ //objet
