@@ -1,12 +1,12 @@
 
 class data_json{
 	
-	constructor(root = undefined, childrenName = "children"){ //node et root = liste d'objet
+	constructor(root = undefined, max_width = 500, min_rect_height = 15, childrenName = "children"){ //node et root = liste d'objet
 		
 		this.root = root;
 		this.node = root;
-		this.max_width = 500;
-		this.min_rect_height = 15;
+		this.max_width = max_width;
+		this.min_rect_height = min_rect_height;
 		this.max_depth = 0;
 		this.feuilles = 0;
 		this.childrenName = childrenName;
