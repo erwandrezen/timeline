@@ -445,11 +445,8 @@ class data_json{
 		
 
 	initialise(node = undefined){ // root
-debugger
 		this.parcourir(this.root);
-		debugger
 		this.set_feuilles(this.root);
-		debugger
 	}
 
 	son(node = undefined, number = undefined/*, filter = undefined*/){ //objet
