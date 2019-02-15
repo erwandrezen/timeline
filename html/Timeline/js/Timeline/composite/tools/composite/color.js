@@ -15,8 +15,6 @@ class color extends tools{
 		.style("position","fixed")
 		.style("left",x+"px")
 		.style("top",y+"px")
-		.style("visibility","visible")
-		.style("z-index","2")
 		.style("transform","translate(-49%, -26%)")
 	}
 }
