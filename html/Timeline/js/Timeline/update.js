@@ -6,20 +6,17 @@
  * REDESSINE LES ELEMENTS HIERARCHIQUE
  ///////////////////////////////////////*/
 function update(){
-	//parcourir(root,500,15); //Recalcule du json: root = noeud root	;	500 = width	;	15 = feuille constant => height dynamic
 
-	//let datas = get_all_childrens(root, true); //Recupere tout les enfants avec show = true
-	console.log(d_json);
+	//Selectionne le root
 	let root = d_json.root;
-	d_json.initialise(root);
-	//let datas = d_json.branch(root);
 	
+	//Le recalculer
+	d_json.initialise(root);
+	
+	//Recuperer tous les noeud du root avec l'attributs show = true
 	let datas = d_json.getAttr(root,{show:true},"branch");
 	
-	//Variable pas utile
-	//let datas_hide = get_all_childrens(root, false);  //Recupere tout les enfants avec show = false
 	
-	//console.log("history",datas);
 
 	/*Updates de tout les rectangles
 	 * 
@@ -27,14 +24,9 @@ function update(){
 	 * => updates de tout les polygons
 	 * => updates de tout les textes
 	 * */
-	let rect = new D_RECT(datas);
-	let polygon = new D_POLYGON(datas);
-	let text = new D_TEXT(datas);
-	
+	let lesElements = new elements(datas);
 
-	rect.update("#rect");
-	polygon.update("#polygon");
-	text.update("#text");
+	lesElements.update("#hierarchypart");
 	
 	//Reintegrer les evenements (clic droit etc ...)
 	event_rect(root);

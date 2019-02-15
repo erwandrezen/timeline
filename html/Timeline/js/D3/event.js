@@ -170,7 +170,7 @@ function event_doc(){
 			let datas = d3.select(d3.event.target).data();
 			d_json.node = datas;
 			//debugger
-			show_nav(target);
+			show_context_menu(target);
 		}
 		
 	}

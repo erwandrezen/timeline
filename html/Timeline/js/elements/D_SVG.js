@@ -1,12 +1,20 @@
 class D_SVG extends elements{
 	
-
-	constructor(data, ID = null, CLASS = null){
-		super(data, ID, CLASS);
+	
+	constructor(data, onStart = null, onEnd = null){
+		super(data, onStart, onEnd);
 	}
-
+	
+	
+	
+	
+	
 	get elementName(){
 		return "svg";
 	}
-
+	
+	
+	
+	
+	
 }

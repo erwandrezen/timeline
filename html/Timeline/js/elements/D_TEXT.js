@@ -1,14 +1,21 @@
 class D_TEXT extends elements{
 	
-
-	constructor(data, ID = null, CLASS = null){
-		super(data, ID, CLASS);
+	
+	constructor(data, onStart = null, onEnd = null){
+		super(data, onStart, onEnd);
 	}
-
+	
+	
+	
+	
+	
 	get elementName(){
 		return "text";
 	}
-
+	
+	
+	
+	
 	
 	updateConfig(parent){
 		let datas = this.datas;
@@ -50,7 +57,16 @@ class D_TEXT extends elements{
 		
 		.render();*/
 	}
+	
+	
+	
+	
+	
 }
+
+
+
+
 
 function wrap(text, width){
 	//Taille d'un caracteres

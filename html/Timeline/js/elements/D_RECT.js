@@ -1,8 +1,8 @@
 class D_RECT extends elements{
 	
 
-	constructor(data, ID = null, CLASS = null){
-		super(data, ID, CLASS);
+	constructor(data, onStart = null, onEnd = null){
+		super(data, onStart, onEnd);
 	}
 
 	get elementName(){
@@ -14,6 +14,7 @@ class D_RECT extends elements{
 	 * CONFIG CHANGEMENT DE FORME DES RECTANGLES
 	 /////////////////////////////////////////*/
 	updateConfig(parent){
+		let constr = this;
 		parent
 		.enter()
 		.append('rect')
@@ -53,7 +54,15 @@ class D_RECT extends elements{
 		.merge(parent)
 		.transition()
 		.duration(150)
-			
+		.on('end', function () {
+		/*
+			let datas = constr.datas;
+
+			let polygon = new D_POLYGON(datas);
+			let text = new D_TEXT(datas);
+			polygon.update("#polygon");
+			text.update("#text");*/
+	     })
 		.attr("x",function(d){return d.x+"px";})
 		.attr("y",function(d){return d.y+"px";})
 
@@ -75,12 +84,7 @@ class D_RECT extends elements{
 				return d.height+"px";})
 			.style("fill",function(d){return d.color;})
 			
-			.on('end', function () {
-				
-/*		
-		        	update_polygons(datas);
-		        	update_textes(datas);*/
-		        })
+			
 
 		}
 

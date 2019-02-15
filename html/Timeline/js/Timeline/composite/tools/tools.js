@@ -6,3 +6,5 @@ divTools
 	.append("div").attr("id","tooltip");
 divTools
 	.append("div").attr("id","colorpicker");
+divTools
+.append("div").attr("id","menu");

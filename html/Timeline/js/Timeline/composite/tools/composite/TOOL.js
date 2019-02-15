@@ -1,8 +1,14 @@
 class tools{
 	constructor(element){
 		this.element = element;
+		this.durationStart = 350;
+		this.durationEnd = 350;
 	}
-	
+
+
+
+
+
 	get element(){
 		return this._element;
 	}
@@ -10,8 +16,29 @@ class tools{
 	set element(value){
 		this._element = value;
 	}
-	
 
+	
+	
+	get durationStart(){
+		return this._durationStart;
+	}
+	
+	set durationStart(value){
+		this._durationStart = value;
+	}
+
+	
+	
+	get durationEnd(){
+		return this._durationEnd;
+	}
+	
+	set durationEnd(value){
+		this._durationEnd = value;
+	}
+
+	
+	
 	get position(){
 		let MouseX = event.clientX;
 		let MouseY = event.clientY;
@@ -20,9 +47,11 @@ class tools{
 
 		return position;
 	}
-	
-	
-	
+
+
+
+
+
 	show(setPosition = true){
 		//selection du constructeur courant
 		let tools_constructor = this;
@@ -38,7 +67,7 @@ class tools{
 		
 		select
 		.transition()
-		.duration(350)
+		.duration(this.durationStart)
 		.style("opacity","1")
 		.on("start", function(d,i,e){ //Avant toute transition
 			
@@ -85,6 +114,8 @@ class tools{
 		return null;
 	}
 	
+	
+	
 	hide(){
 		
 		//selection de l'element
@@ -93,7 +124,7 @@ class tools{
 		
 		select
 		.transition()
-		.duration(150)
+		.duration(this.durationEnd)
 		.on("end", function(d){
 			select
 			.style("z-index","-10")
@@ -105,69 +136,17 @@ class tools{
 		.style("opacity","0");
 	}
 	
-	
 	hideConfig(){
 		return null;
 	}
-}
 
 
 
 
-select = d3.select("body #tools");
-select.append("div")
-.attr("id","menu");
-function show_nav(element){
-	
-	let target = d3.event.target;
-	let tagName = target.tagName;
-	
-	
-	
-	if (tagName == "rect" || tagName == "text" || tagName == "polygon"){
-
-		let select = "body #tools #menu";
-		let menuContextuel = new menu(select);
-		menuContextuel.show();
-	}
-	
-		
-}
-	
-
-
-function nav_show(){  //nom de l'id
-
-
-	d_json.attr("branch",["show"],true);
-	update();
-
-}
-
-function nav_hide(){  //nom de l'id
-	
-
-	d_json.attr("branch",["show"],false);
-	update();
-}
-
-
-
-
-function nav_expand(){  //nom de l'id
-	
-	//console.log(rect);
-	//rect.attr("show",true,"fils");
-	d_json.attr("cousin",["show"],true);
-	update();
 
 }
 
 
-function nav_collapse(){ //nom de l'id
-
-	d_json.attr("childrens",["show"],false);
-	update();
 
 
-}
+

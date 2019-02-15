@@ -16,9 +16,7 @@
 	</head>
 	
 	<body>
-	<script src="js/Timeline/timeline.js"></script>
-	<script src="js/Timeline/composite/parts/hierarchypart.js"></script>
-	<script src="js/Timeline/composite/tools/tools.js"></script>
+	
 		<input type="file" id="fileinput" multiple />
         <div id="information">
             <i><b>Shift + Click:</b> Lors d'un click sur un rectangle => Changement de couleur</i>
@@ -33,46 +31,44 @@
 	<footer>
 	
 		
+		<!-- SCRIPT PRINCIPAL: lors d'un choix du json -->
+		<script src="js/main.js">
 		
+			var laCouleur = "white";
+			var rect = new D_RECT(null);
+		
+		</script>
+
 		
 		<script src="js/D3/event.js"></script>
 		
+		<!-- INTERFONCTION -->
 		<script src="js/interfonction/changeColor.js"></script>
 		
+		<!-- DATA_JSON -->
+		<script src="js/DATA_JSON/data_json.js"></script>
 		
-		<script src="js/data_json/data_json.js"></script>
-		
-		
+		<!-- ELEMENTS -->
 		<script src="js/elements/elements.js"></script>
 		<script src="js/elements/D_SVG.js"></script>
 		<script src="js/elements/D_RECT.js"></script>
 		<script src="js/elements/D_POLYGON.js"></script>
 		<script src="js/elements/D_TEXT.js"></script>
 		
+		<!-- TIMELINE 				creation de la structure html		-->
+		<script src="js/Timeline/timeline.js"></script>
+		<script src="js/Timeline/composite/parts/hierarchypart.js"></script>
+		<script src="js/Timeline/composite/tools/tools.js"></script>
 		
+		<!-- TIMELINE				scripts								-->
 		<script src="js/Timeline/update.js"></script>
-		<script src="js/Timeline/composite/tools/composite/actionTools.js"></script>
-		<script src="js/Timeline/composite/tools/composite/tooltip.js"></script>
-		<script src="js/Timeline/composite/tools/composite/menu.js"></script>
+		<script src="js/Timeline/composite/tools/composite/TOOL.js"></script>
+		<script src="js/Timeline/composite/tools/composite/TOOLTIP.js"></script>
+		<script src="js/Timeline/composite/tools/composite/MENU.js"></script>
 		<script src="js/Timeline/composite/tools/composite/context_menu.js"></script>
-		<script src="js/Timeline/composite/tools/composite/color.js"></script>
+		<script src="js/Timeline/composite/tools/composite/COLOR.js"></script>
 		<script src="js/Timeline/composite/tools/composite/colorPicker.js"></script>
 		
-		
-		<script src="js/main.js"></script>
-		<script >
-		var laCouleur = "white";
-		var rect = new D_RECT(null);
-		</script>
-	<script>
-	function show_tooltip(){
-		mytooltip = new tooltip("#tools #tooltip");
-		console.log("tooltip2");
-		mytooltip.show();
-		
-	}
-	
-	</script>
 	
 	
 	

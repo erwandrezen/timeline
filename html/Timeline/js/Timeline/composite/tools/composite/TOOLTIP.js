@@ -2,7 +2,11 @@ class tooltip extends tools{
 	constructor(element){
 		super(element);
 	}
-	
+
+
+
+
+
 	showConfig(){
 		let select = d3.select(this.element);
 		
@@ -80,11 +84,21 @@ class tooltip extends tools{
 		let select = d3.select(this.element);
 		select.html("");
 	}
+
+
+
+
+
 }
 
 
 
 
 
+function show_tooltip(){
+	mytooltip = new tooltip("#tools #tooltip");
+	mytooltip.show();
+	
+}
 
 

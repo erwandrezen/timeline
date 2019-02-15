@@ -1,14 +1,21 @@
 class D_POLYGON extends elements{
 	
-
-	constructor(data, ID = null, CLASS = null){
-		super(data, ID, CLASS);
+	
+	constructor(data, onStart = null, onEnd = null){
+		super(data, onStart, onEnd);
 	}
-
+	
+	
+	
+	
+	
 	get elementName(){
 		return "polygon";
 	}
-
+	
+	
+	
+	
 	
 	updateConfig(parent){
 		let bool;
@@ -71,7 +78,7 @@ class D_POLYGON extends elements{
 						d3.selectAll("polygon").remove();
 						let datas = d3.select(d3.event.target).data();
 						d_json.node = datas;
-						nav_expand();
+						hierarchy_expand();
 						
 					})
 
@@ -95,7 +102,7 @@ class D_POLYGON extends elements{
 						d3.selectAll("polygon").remove();
 						let datas = d3.select(d3.event.target).data();
 						d_json.node = datas;
-						nav_collapse();
+						hierarchy_collapse();
 		
 					})
 					
@@ -121,4 +128,9 @@ class D_POLYGON extends elements{
 			
 		})
 	}
+	
+	
+	
+	
+	
 }

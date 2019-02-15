@@ -4,6 +4,9 @@ class color extends tools{
 	}
 	
 	
+	
+	
+	
 	showConfig(){
 		let color = d3.selectAll("#tools .color");
 		
@@ -17,4 +20,9 @@ class color extends tools{
 		.style("top",y+"px")
 		.style("transform","translate(-49%, -26%)")
 	}
+	
+	
+	
+	
+	
 }
