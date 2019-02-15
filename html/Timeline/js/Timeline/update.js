@@ -29,6 +29,5 @@ function update(){
 	lesElements.update("#hierarchypart");
 	
 	//Reintegrer les evenements (clic droit etc ...)
-	event_rect(root);
 	event_doc();
 }

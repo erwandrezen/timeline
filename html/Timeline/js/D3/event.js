@@ -1,140 +1,99 @@
-let w;
-
-
-//AFF
-
-function event_rect(){
-	
-	let rect = d3.select("#hierarchypart").selectAll("rect");
-	
-	let focused;
-	
-
-	var shift_cliked = false;
-	
-	
-	d3.select("body")
-	
-	.on("keydown", function() {
-		
-		let shift = event.shiftKey;
-		let ctrl = event.ctrlKey;
-		
-		//#SHIFT
-		if (shift){
-			d3.selectAll("text").style("user-select","none");
-			d3.select("html")
-	    	.style("cursor", "crosshair");
-			
-			w = d3.select(window)
-		      .on("mousedown", mousedown)
-		      .on("mouseup", mouseup);
-	
-			
-		      function mousedown() {
-
-			        let target = event.target;
-					let tagName = target.tagName;
-					
-					/*
-					let parentNode = target.parentNode;
-					let parenId = parentNode.id;
-					*/
-					
-					if(tagName == "rect" ){
-			        	
-						//Indiquer qu'on veux modifier ses donnnees dans le json
-						d_json.node = d3.select(target).data(); //Selection des donnees cibles
-			        	
-			        	//Modifier ses donnees
-			        	d_json.setAttr(null,{color:laCouleur},"branch");
-			        	
-			        	//Update l'affichage
-			        	update();
-			        
-			        }
-			  
-				} 
-		      function mouseup() {
-
-					w.on("mousedown", null)
-				      .on("mouseup", null);
-			  
-				} 
-		      
-		}
-		   
-		
-		else if (ctrl) //#CTRL
-		      
-		    	
-		 {
-				w = d3.select(window)
-			      .on("mousedown", mousedown);
-			  
-				function mousedown() {
-					let target = d3.event.target;
-					let tagName = target.tagName;
-					if (tagName == 'rect' || tagName == 'text' || tagName == 'polygon')
-						{
-						show_tooltip();
-						}
-					
-					
-				}
-		
-		} 
-		
-		
-		else 
-			
-		{
-			w = d3.select(window)
-			.on("mouseup", mouseup);
-		}
-
-
-	})
-	//Si une touche est levé
-	.on("keyup", function() {
-		
-		let shift = event.shiftKey;
-		let ctrl = event.ctrlKey;
-		
-		
-		//Cette touche correspond au CTRL
-		if (!ctrl){
-			//On arrette la fonction mousedown
-			w.on("mousedown", null);
-		}
-		if (!shift){
-			d3.select("html")
-	    	.style("cursor", "inherit");
-		}
-	})
-
-
-	
-	
-	
-	
-		
-		
-		
-
-}
-
-
-
-
 
 function event_doc(){
+	var shiftPress = false;
+	var ctrlPress = false;
 	
-	
-	w = d3.select(window)
+	let w_context = d3.select(window)
 	.on("contextmenu",contextmenu)
 	.on("mouseup",mouseup);
 	
+	
+	let w_click = d3.select(window)
+	.on("keydown",keydown)
+	.on("keyup",keyup)
+	.on("click",mousedown)
+	.on("mouseup",mouseup);
+	
+	
+	
+	
+	
+	function keydown(){
+		let shift = event.shiftKey;
+		let ctrl = event.ctrlKey;
+		
+		
+		if (shift){
+			shiftPress = true;
+			//console.log("true");
+			d3.selectAll("text").style("user-select","none");
+			d3.select("html")
+	    	.style("cursor", "crosshair");
+		}
+		
+		if (ctrl){
+			ctrlPress = true;
+		}
+	}
+
+	
+	function keyup(){
+		let shift = event.shiftKey;
+		let ctrl = event.ctrlKey;
+		
+		
+		if (!shift){
+			shiftPress = false;
+			//console.log("false");
+			d3.select("html")
+	    	.style("cursor", "inherit");
+		}
+		
+		if (!ctrl){
+			ctrlPress = false;
+		}
+	}
+
+	function mousedown(){
+		d3.event.preventDefault();
+		let target = event.target;
+		let tagName = target.tagName;
+		
+		/*
+		let parentNode = target.parentNode;
+		let parenId = parentNode.id;
+		*/
+		if(tagName == "rect"){
+			if (shiftPress){
+				
+				console.log("shift pressed")
+				
+				d_json.node = d3.select(target).data(); //Selection des donnees cibles
+	        	
+	        	//Modifier ses donnees
+	        	d_json.setAttr(null,{color:laCouleur},"branch");
+	        	
+	        	//Update l'affichage
+	        	update();
+			}
+			
+			
+			if (ctrlPress){
+				//console.log("ctrl pressed");
+				show_tooltip();
+			}
+
+
+		}
+	}
+
+
+	function mouseup() {
+		w_context.on("mousedown", null).on("mouseup", null);
+		w_click.on("mousedown",null).on("mouseup", null);
+	}
+
+
 	function contextmenu(){
 		d3.event.preventDefault();
 		let target = event.target;
@@ -154,15 +113,18 @@ function event_doc(){
 		}
 		
 	}
+
 	
-
-
+	
+	
+	
+	
+	
+	
 	
 
 }
 
 
-function mouseup() {
-	//  hide_tooltip();
-  w.on("mousedown", null).on("mouseup", null);
-}
+
+
