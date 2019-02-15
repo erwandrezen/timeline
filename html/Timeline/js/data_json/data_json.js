@@ -102,12 +102,17 @@ class data_json{
 		return datas;
 	}
 	
-	get_attr(expand = "branch", attribute, value,  node){
+	getAttr(node, attribute,  expand = "branch"){
 		
 		node = this.node_null(node); // S'il est null récupere le noeud du JSON
 		
 		let datas = this.selectDatas(node, expand);
+		let key = Object.keys(attribute);
+		let value = Object.values(attribute);
 		
+		//Pour 1 attribut ( ne prend pas en compte une liste d'attribut )
+		key = key[0];
+		value = value[0];
 		
 		if (datas != undefined){
 
@@ -116,7 +121,7 @@ class data_json{
 		
 						datas.map(obj => {
 							let values = Object.values(obj);
-							if (obj[attribute] == value){
+							if (obj[key] == value){ 
 								setting = setting.concat([obj]);
 							}
 						})
@@ -288,7 +293,7 @@ class data_json{
 			//Recuperer le dernier objet et le supprimer
 			obj = branch.pop(); //Dernier objet (celui supprimer)
 			
-			let haveBrothers = this.get_attr("brothers","show",true,obj);
+			let haveBrothers = this.getAttr(obj,{show:true},"brothers");
 			let feuilles = 0;
 			
 			//S'il a des freres qui ont un attributs show
@@ -370,8 +375,8 @@ class data_json{
 					
 						let childrens = this.son(m);
 						
-						let trueBrothers = this.get_attr("brothers","show",true,m);
-						let undefinedBrothers = this.get_attr("brothers","show",undefined,m);
+						let trueBrothers = this.getAttr(m,{show:true},"brothers");
+						let undefinedBrothers = this.getAttr(m,{show:undefined},"brothers");
 						
 						let brothers;
 						if (trueBrothers != undefined && undefinedBrothers != undefined){

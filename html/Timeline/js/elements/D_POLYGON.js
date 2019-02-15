@@ -29,7 +29,7 @@ class D_POLYGON extends elements{
 			let mapping = d_json.son(d);
 			
 			//S'il a des enfant qui ont show = true;
-			let mapping2 = d_json.get_attr("cousin","show",true,[d]);
+			let mapping2 = d_json.getAttr([d],{show:true},"cousin");
 			
 
 			bool = (mapping != undefined ? true : false);

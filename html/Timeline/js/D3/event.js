@@ -66,7 +66,7 @@ function event_rect(){
 						d_json.node = d3.select(target).data(); //Selection des donnees cibles
 			        	
 			        	//Modifier ses donnees
-			        	d_json.set_attr(null,{color:laCouleur},"branch");
+			        	d_json.setAttr(null,{color:laCouleur},"branch");
 			        	
 			        	//Update l'affichage
 			        	update();

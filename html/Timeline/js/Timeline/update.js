@@ -13,7 +13,8 @@ function update(){
 	let root = d_json.root;
 	d_json.initialise(root);
 	//let datas = d_json.branch(root);
-	let datas = d_json.get_attr("branch","show",true,root);
+	
+	let datas = d_json.getAttr(root,{show:true},"branch");
 	
 	//Variable pas utile
 	//let datas_hide = get_all_childrens(root, false);  //Recupere tout les enfants avec show = false
