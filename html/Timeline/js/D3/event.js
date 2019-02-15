@@ -181,15 +181,6 @@ function event_doc(){
 }
 
 
-
-function set_objects(datas,object){ // List d'objet
-	
-	datas.map(m => {
-		Object.assign(m,object);
-	});
-}
-
-
 function mouseup() {
 	 d3.selectAll("text").style("user-select","select");
 	//  hide_tooltip();
