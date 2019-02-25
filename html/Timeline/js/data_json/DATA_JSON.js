@@ -126,7 +126,7 @@ class data_json{
 		return datas;
 	}
 	
-	getAttr(node, attribute,  expand = "branch"){
+	getAttr(node, attribute,  expand = "branch", getOnlyAttr = false){
 		
 		node = this.node_null(node); // S'il est null récupere le noeud du JSON
 		
@@ -144,13 +144,23 @@ class data_json{
 					let setting = []; 
 		
 					datas.map(obj => {
-						let values = Object.values(obj);
+						//let values = Object.values(obj);
 						let tmpObj;
 						if ((obj[key] === value || value === null) && obj[key] != undefined){ 
-							tmpObj = obj;
+							
+							if (getOnlyAttr){
+									let tmpValue = obj[key];
+									let onlyAttr = {};
+									onlyAttr[key] = tmpValue;
+									tmpObj = onlyAttr;
+								
+							} else {
+								tmpObj = obj;
+							}
 						}
 						
 						
+
 						if (typeof tmpObj != "undefined"){
 							setting = setting.concat([tmpObj]);
 						}
