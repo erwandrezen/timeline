@@ -209,7 +209,7 @@ class data_json{
 		
 }
 	
-	
+	/*
 	attr(expand = "branch", attribute, value = undefined,  node = undefined){
 		node = this.node_null(node);
 		let datas = node;
@@ -277,7 +277,7 @@ class data_json{
 		
 }
 	
-	
+	*/
 	get depth(){
 		return this._depth;
 	}
@@ -385,7 +385,7 @@ class data_json{
 		let rootBool = informations.root;
 		let width = this.min_rect_width;
 		
-		let noeuds = root.map(m => {
+		let noeuds = root.map(obj => {
 					//Recuperer l'enfant
 					
 
@@ -401,32 +401,32 @@ class data_json{
 					*/
 					// (childrens.length > 0 ? parcourir(childrens) : feuilles())
 
-					Object.assign(m,{
+					Object.assign(obj,{
 						depth:depth,
 						x:informations.x,
 						y:informations.y,
 						width:width})
 						
 						if (rootBool){
-							Object.assign(m,{root:rootBool})
+							Object.assign(obj,{root:rootBool})
 						}
 						
 						//Si show n'es pas assigner le faire
-						if (m.show == undefined){
-							Object.assign(m,{show:true})
+						if (obj.show == undefined){
+							Object.assign(obj,{show:true})
 						}
 						
-						if (m.color == undefined){
-							Object.assign(m,{color:"white"})
+						if (obj.color == undefined){
+							Object.assign(obj,{color:"white"})
 							
 						}
 					
 					
 					
-						let childrens = this.son(m);
+						let childrens = this.son(obj);
 						
-						let trueSon = this.getAttr(m,{show:true},"son");
-						let undefinedSon = this.getAttr(m,{show:undefined},"son");
+						let trueSon = this.getAttr(obj,{show:true},"son");
+						let undefinedSon = this.getAttr(obj,{show:undefined},"son");
 						
 						let son;
 						if (trueSon != undefined && undefinedSon != undefined){
@@ -436,16 +436,16 @@ class data_json{
 							son = false;
 						}
 						
-						//childrens = this.son(m);
-							//childrens = this.attr("brothers",["show"],undefined,m);
+						//childrens = this.son(obj);
+							//childrens = this.attr("brothers",["show"],undefined,obj);
 	
 					//Children identifie les freres avec attributs show
 					
 						//S'applique seulement au noeud qui sont (show = true ou show non identifier(par default))
-					if (m.show == true || m.show == undefined){
+					if (obj.show == true || obj.show == undefined){
 						if(son != false){
 							
-							//console.log("Parent: ",m);
+							//console.log("Parent: ",obj);
 							//console.log("Childrens: ",childrens);
 							
 							
@@ -460,12 +460,15 @@ class data_json{
 							
 							
 							
-						} else {
+						} else { //Sinon c'est une feuille
 							
 							let width_feuille = width*(depth);
-							Object.assign(m,{feuilles:0,width:width_feuille})
+							
+							//Parcourir les occurences
+							//let listOccurs = this.getAttr([obj], {occurs:null},"branch", false, true);
+							Object.assign(obj,{feuilles:0,width:width_feuille});
 								
-								
+							
 							informations.y += this.min_rect_height;
 							//marquer la feuille
 	

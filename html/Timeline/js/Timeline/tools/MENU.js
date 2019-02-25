@@ -115,7 +115,7 @@ function show_context_menu(element){
 function hierarchy_show(){  //nom de l'id
 
 
-	d_json.attr("branch",["show"],true);
+	d_json.setAttr(null,{show:true},"branch");
 	update();
 
 }
@@ -125,7 +125,7 @@ function hierarchy_show(){  //nom de l'id
 function hierarchy_hide(){  //nom de l'id
 	
 
-	d_json.attr("branch",["show"],false);
+	d_json.setAttr(null,{show:false},"branch");
 	update();
 }
 
@@ -135,7 +135,7 @@ function hierarchy_expand(){  //nom de l'id
 	
 	//console.log(rect);
 	//rect.attr("show",true,"fils");
-	d_json.attr("cousin",["show"],true);
+	d_json.setAttr(null,{show:true},"cousin");
 	update();
 
 }
@@ -144,7 +144,7 @@ function hierarchy_expand(){  //nom de l'id
 
 function hierarchy_collapse(){ //nom de l'id
 
-	d_json.attr("childrens",["show"],false);
+	d_json.setAttr(null,{show:false},"childrens");
 	update();
 
 
