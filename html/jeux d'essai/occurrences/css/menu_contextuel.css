@@ -1,0 +1,89 @@
+menu li{
+	user-select: none;
+	text-decoration:none;
+	font-family: sans-serif;
+	font-weight: bold;
+    padding: 8px;
+}
+
+menu li:hover{
+	background: #EFEFEF;
+	color: rgba(0, 0, 0, 0.8);
+	position: relative;
+}
+menu .show{
+	cursor: pointer;
+}
+
+menu .hide{
+	cursor: initial;
+	color: #efefef21;
+}
+
+
+
+#navigation {
+font-size:0.75em; 
+width:150px;
+padding: 5px;
+}
+#navigation menu {margin:0px; padding:0px;}
+#navigation li {list-style: none;} 
+
+menu {background:#fff;
+margin:0px; padding:0px;
+font-size: small;}
+
+
+
+
+
+menu li menu {
+display: none;
+
+}
+
+li:hover  menu {
+background: #fff;
+border: #fff solid;
+border-width: 1px;
+display: block;
+position: absolute;
+left: 150px;
+top: 5px;
+}
+
+menu li menu li {
+border: none;
+float:left;
+width:150px;
+
+}
+menu li.has-sub menu{
+	background-color: blue;
+}
+
+/************ Second Level ****************/
+#navigation menu {
+background: rgba(0, 0, 0, 0.8);
+color: #fff;
+}
+
+/************ Third Level ****************/
+#navigation menu li menu {
+background: rgba(0, 0, 0, 0.8);
+margin: 0 1px 0 0;
+}
+
+/* Display one level after another */
+li:hover menu li menu{
+display:none;
+}
+menu menu li:hover menu{
+display:block;
+
+}
+
+li menu{
+	    background-color: blue
+}

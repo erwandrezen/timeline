@@ -126,7 +126,7 @@ class data_json{
 		return datas;
 	}
 	
-	getAttr(node, attribute,  expand = "branch"){
+	getAttr(node, attribute,  expand = "branch", getOnlyAttr = false){
 		
 		node = this.node_null(node); // S'il est null récupere le noeud du JSON
 		
@@ -137,7 +137,7 @@ class data_json{
 		//Pour 1 attribut ( ne prend pas en compte une liste d'attribut )
 		key = key[0];
 		value = value[0];
-		
+
 		if (datas != undefined){
 
 				
@@ -145,20 +145,31 @@ class data_json{
 		
 					datas.map(obj => {
 						let values = Object.values(obj);
-						let tmpObj;
+						let tmpObj = {};
+						let tmpValue;
+						
 						if ((obj[key] === value || value === null) && obj[key] != undefined){ 
-							tmpObj = obj;
+								tmpObj = obj;
 						}
 						
 						
-						if (typeof tmpObj != "undefined"){
+						if (getOnlyAttr){
+							
+							tmpValue = tmpObj[key];
+							let onlyAttr = {};
+							onlyAttr[key] = tmpValue;
+							tmpObj = onlyAttr;
+						}
+						
+						if (typeof tmpValue != "undefined"){
+							console.log(typeof tmpValue != "undefined");
 							setting = setting.concat([tmpObj]);
 						}
 						
-
+						
 						
 					})
-					
+
 					setting = setting.flat();
 					return setting;
 

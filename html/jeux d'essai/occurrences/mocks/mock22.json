@@ -1,0 +1,49 @@
+{
+   "ownerlist" : 
+   [
+      {
+         "uid"  : "Actor 1",
+         "name" : "Actor 1",
+         "detail" : "detail for this feature",
+         "nodelist" : 
+         [
+            {
+               "uid"  : "ROOT/A/1",
+               "name" : "Feature_1",
+               "detail" : "detail for this feature",
+               "children_essai" : 
+               [
+                  {
+                     "uid"  : "ROOT/A/1/1",
+                     "name" : "Feature_1-1",
+                     "children_essai" : 
+                     [
+                        {  "uid"  : "ROOT/A/1/1/1",  "name" : "Feature_1-1-1" },
+                        {  "uid"  : "ROOT/A/1/1/2",  "name" : "Feature_1-1-2" },
+                        {  "uid"  : "ROOT/A/1/1/3",  "name" : "Feature_1-1-3" },
+                        {  "uid"  : "ROOT/A/1/1/4",  "name" : "Feature_1-1-4" },
+                        {  "uid"  : "ROOT/A/1/1/5",  "name" : "Feature_1-1-5" },
+                        {  "uid"  : "ROOT/A/1/1/6",  "name" : "Feature_1-1-6" }
+                     ]
+                  },
+
+                  {
+                     "uid"  : "ROOT/A/1/2",
+                     "name" : "Feature_1-2"
+                  },
+
+                  {
+                     "uid"  : "ROOT/A/1/3",
+                     "name" : "Feature_1-3",
+                     "children_essai" : 
+                     [
+                        {  "uid"  : "ROOT/A/1/3/1",  "name" : "Feature_1-3-1" },
+                        {  "uid"  : "ROOT/A/1/3/2",  "name" : "Feature_1-3-2" }
+                     ]
+                  }
+               ]
+            }
+         ]
+      } 
+   ]
+}

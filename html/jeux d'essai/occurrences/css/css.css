@@ -1,0 +1,123 @@
+svg #text text{
+	pointer-events:none;
+}
+
+#information{
+	background-color: #03A9F4;
+    color: white;
+    width: 460px;
+    font-size: small;
+    letter-spacing: 3px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    user-select: none;
+}
+
+#information b{
+	color: #003563;
+}
+
+.fill-blue{
+	fill: blue;
+}
+
+polygon{
+	cursor: pointer;
+}
+
+.fill-red{
+	fill: red;
+}
+rect {
+	
+	stroke: black;
+	stroke-width:0.7;
+	display: inline-block;
+}
+#hierarchypart{
+	flex-direction: row;
+}
+
+.ordering{
+	display: flex;
+	flex-direction: row;
+}
+
+.vide1, .vide2 {
+	width: 50px;
+	height: 50px;
+	background-color: blue;
+}
+
+.vide2 {
+	background-color: red;
+	order: -1;
+}
+
+.inside{
+	flex-direction: row;
+	display: flex;
+	
+}
+
+.container_essai{
+	flex-direction: row;
+	display: flex;
+}
+
+
+
+svg:focus, #menu:focus{
+	outline: none;
+}
+
+
+
+
+
+
+
+
+
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: orange;
+}
+
+.bar:hover {
+  fill: orangered ;
+}
+
+.x.axis path {
+  display: none;
+}
+
+#tooltip {
+  position: absolute;
+  cursor: default;
+  padding: 8px;
+  text-align: left;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border: 0px;
+  border-radius: 2px;
+  
+  
+  /* /!\ Permet de cacher l'element  /!\ */
+  opacity: 0;
+  z-index: -10;
+}
