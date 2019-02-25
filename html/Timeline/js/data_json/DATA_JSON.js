@@ -155,7 +155,6 @@ class data_json{
 									tmpObj = onlyAttr;
 								
 							} else if (getOnlyValue){
-								console.log(tmpValue);
 								tmpObj = tmpValue;
 							} else {
 								tmpObj = obj;
@@ -194,9 +193,13 @@ class data_json{
 
 		
 					let setting = datas.map(obj => {
+						//Pour chaque attribut
+						for (let i in newAttribute){
+							
+							//Assigne le nouvel objet
+							Object.assign(obj, newAttribute[i]);
+						}
 						
-						//Assigne le nouvel objet
-						Object.assign(obj, newAttribute);
 						
 						//Retourne l'objet
 						return obj;
@@ -420,7 +423,8 @@ class data_json{
 							Object.assign(obj,{color:"white"})
 							
 						}
-					
+						
+		
 					
 					
 						let childrens = this.son(obj);
@@ -465,8 +469,9 @@ class data_json{
 							let width_feuille = width*(depth);
 							
 							//Parcourir les occurences
-							//let listOccurs = this.getAttr([obj], {occurs:null},"branch", false, true);
-							Object.assign(obj,{feuilles:0,width:width_feuille});
+							let listOccurs = this.getAttr([obj], {occurs:null},"branch", false, true);
+							//console.log("feuille", obj, listOccurs);
+							Object.assign(obj,{feuilles:0,width:width_feuille,occursLeaf:listOccurs});
 								
 							
 							informations.y += this.min_rect_height;

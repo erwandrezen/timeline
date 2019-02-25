@@ -3,7 +3,9 @@ height = 800;
 var laCouleur = "white";
 
 var body = d3.select("body");
-var timeline = body.append("div").attr("id","timeline");
+var timeline = body.append("div")
+.attr("id","timeline")
+.style("display","flex"); //affiche les elements en lignes
 var hierarchypart = timeline.append("div").attr("id","hierarchypart");
 var occurpart = timeline.append("div").attr("id","occurpart");
 var divTools = timeline.append("div").attr("id","tools");

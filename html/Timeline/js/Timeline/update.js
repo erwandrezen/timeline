@@ -24,9 +24,46 @@ function update(){
 	 * => updates de tout les polygons
 	 * => updates de tout les textes
 	 * */
-	let lesElements = new elements(datas);
+	let rect = new D_RECT(datas);
+	let polygon = new D_POLYGON(datas);
+	let text = new D_TEXT(datas);
+	
+	rect.update("#timeline #rect");
+	polygon.update("#hierarchypart #polygon");
+	text.update("#hierarchypart #text");
+	
+	//Reintegrer les evenements (clic droit etc ...)
+	event_doc();
+	
+	update_occurs();
+}
 
-	lesElements.update("#hierarchypart");
+function update_occurs(){
+
+	//Selectionne le root
+	let root = d_json.root;
+	
+	//Le recalculer
+	d_json.initialise(root);
+	
+	//Recuperer tous les noeud du root avec l'attributs show = true
+	let datas = d_json.getAttr(root,{occursLeaf:null},"branch");
+	
+
+	/*Updates de tout les rectangles
+	 * 
+	 * A la fin des transition de ce rectangle
+	 * => updates de tout les polygons
+	 * => updates de tout les textes
+	 * */
+
+	let rect = new D_RECT(datas);
+	let polygon = new D_POLYGON(datas);
+	let text = new D_TEXT(datas);
+	
+	rect.update("#occurpart #rect");
+	//polygon.update("#polygon");
+	//text.update("#text");
 	
 	//Reintegrer les evenements (clic droit etc ...)
 	event_doc();
