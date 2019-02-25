@@ -10,7 +10,7 @@ class D_TEXT extends elements{
 	
 	
 	get elementName(){
-		return "text";
+		return "foreignObject";
 	}
 	
 	
@@ -35,11 +35,12 @@ class D_TEXT extends elements{
 		 * => WRAP A CHAQUE FOIS 
 		 * EN ENLEVANT LA LARGEUR DU POLYGON
 		*/
+		.style("text-align","center")//aligner au centre
 		.style("pointer-events","none") // enlevement du clique souris
 		.style("word-break","break-word") // wrap
 		.style("white-space","pre") // wrap sur une ligne
-		.style("text-overflow","ellipsis");//wrap avec 3 petit point possible
 		
+		.style("text-overflow","ellipsis");//wrap avec 3 petit point possible
 		
 		/*
 
