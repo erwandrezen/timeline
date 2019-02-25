@@ -4,6 +4,8 @@ class elements{
 	constructor(newData, onStart = null, onEnd = null){
 		this.newData = newData;
 		this.datas = newData;
+		this.x = undefined;
+		this.width = undefined;
 		
 	}
 	
@@ -35,6 +37,24 @@ class elements{
 	
 	set datas(value){
 		this._datas = value;
+	}
+	
+	get x(){
+		return this._x;
+
+	}
+	
+	set x(value){
+		this._x = value;
+	}
+	
+	get width(){
+		return this._width;
+
+	}
+	
+	set width(value){
+		this._width = value;
 	}
 	
 	

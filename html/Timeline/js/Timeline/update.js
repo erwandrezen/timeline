@@ -42,10 +42,7 @@ function update_occurs(){
 
 	//Selectionne le root
 	let root = d_json.root;
-	
-	//Le recalculer
-	d_json.initialise(root);
-	
+
 	//Recuperer tous les noeud du root avec l'attributs show = true
 	let datas = d_json.getAttr(root,{occursLeaf:null},"branch");
 	
@@ -58,7 +55,8 @@ function update_occurs(){
 	 * */
 
 	let rect = new D_RECT(datas);
-	let polygon = new D_POLYGON(datas);
+	rect.x = 0;
+	rect.width = 100;
 	let text = new D_TEXT(datas);
 	
 	rect.update("#occurpart #rect");

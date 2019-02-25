@@ -63,9 +63,24 @@ class D_RECT extends elements{
 			polygon.update("#polygon");
 			text.update("#text");*/
 	     })
-		.attr("x",function(d){return d.x+"px";})
+		.attr("x",function(d){
+			if (typeof constr.width == "undefined"){
+				return d.x+"px";
+			} else {
+				return constr.x+"px";
+			}
+			
+			
+		})
 		.attr("y",function(d){return d.y+"px";})
-		.attr("width", function(d){return d.width+"px";})
+		.attr("width", function(d){
+			if (typeof constr.width == "undefined"){
+				return d.width+"px";
+			} else {
+				return constr.width+"px";
+			}
+			
+			})
 		.attr("height", function(d){
 				
 /*
