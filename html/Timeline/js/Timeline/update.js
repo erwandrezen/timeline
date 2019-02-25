@@ -56,7 +56,7 @@ function update_occurs(){
 
 	let rect = new D_RECT(datas);
 	rect.x = 0;
-	rect.width = 100;
+	rect.width = d_json.max_width;
 	let text = new D_TEXT(datas);
 	
 	rect.update("#occurpart #rect");

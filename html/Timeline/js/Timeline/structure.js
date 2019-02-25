@@ -16,11 +16,14 @@ var divTools = timeline.append("div").attr("id","tools");
 svg = timepart.append("svg").attr("width",width*2+"px").attr("height",25+"px");
 svg.append("g").attr("id","rect")
 	.append("rect").attr("width",width*2+"px").attr("height",25+"px").attr("fill","white");
-svg.append("g").attr("id","text")
-
-	.append("foreignObject").attr("width",width+"px").attr("height",25+"px")
+let text = svg.append("g").attr("id","text")
+text.append("foreignObject").attr("width",width+"px").attr("height",25+"px")
 	.html("Hierarchy part")
 	.style("text-align","center")
+text.append("foreignObject").attr("width",width+"px").attr("height",25+"px").attr("x",width+"px")
+	.html("Occurrence part")
+
+	
 
 svg = hierarchypart.append("svg").attr("width",width+"px").attr("height",height+"px");		
 svg.append("g").attr("id","rect");		
