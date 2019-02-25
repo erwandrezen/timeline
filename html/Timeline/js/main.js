@@ -1,13 +1,15 @@
 let json = "mocks/mock22.json";
 let d_json;
+width = 250;
+height = 800;
+var laCouleur = "white";
 
 function hierarchy(data){
 	
 	
 	
 	root = data['ownerlist'][0]['nodelist'];
-	d_json = new data_json(root);
-	
+	d_json = new data_json(root,width);
 	console.log("root",d_json);
 	update();
 }

@@ -28,7 +28,7 @@ function update(){
 	let polygon = new D_POLYGON(datas);
 	let text = new D_TEXT(datas);
 	
-	rect.update("#timeline #rect");
+	rect.update("#hierarchypart #rect");
 	polygon.update("#hierarchypart #polygon");
 	text.update("#hierarchypart #text");
 	

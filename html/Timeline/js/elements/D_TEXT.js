@@ -22,23 +22,23 @@ class D_TEXT extends elements{
 		
 		parent
 		.enter()
-		.append('text')
-		.html(function(d){
-			let text = wrap(d.name, d.width);
-			return text;
-			})
-		.attr("x",function(d){return d.x+5})
-		.attr("y",function(d){return d.y+10})
-		
+		.append('foreignObject')
+
 		.merge(parent)
-		.html(function(d){
-			
-			let text = wrap(d.name, d.width);
-			
-			return text;
-			})
-		.attr("x",function(d){return d.x+5})
-		.attr("y",function(d){return d.y+10})
+		.html(function(d){return d.name;})
+		.attr("x",function(d){return d.x+5+"px"})
+		.attr("y",function(d){return d.y+"px"})
+		.attr("width",function(d){return d.width-19+"px"})
+		.attr("height",function(d){return d.height+"px"})
+		
+		/*WRAP NE VERIFIE PAS QU'IL N Y A PAS D'ENFANT 
+		 * => WRAP A CHAQUE FOIS 
+		 * EN ENLEVANT LA LARGEUR DU POLYGON
+		*/
+		.style("pointer-events","none") // enlevement du clique souris
+		.style("word-break","break-word") // wrap
+		.style("white-space","pre") // wrap sur une ligne
+		.style("text-overflow","ellipsis");//wrap avec 3 petit point possible
 		
 		
 		/*
@@ -65,21 +65,3 @@ class D_TEXT extends elements{
 }
 
 
-
-
-
-function wrap(text, width){
-	//Taille d'un caracteres
-	let unCaractere = 10;
-	let length = text.length * unCaractere;
-	
-	
-	//Nombre de caracteres disponible
-	let nombre_max = width / unCaractere -1;
-	let text_wrap = text.slice(0, nombre_max);
-	if (length > width){
-		text_wrap += " ...";
-	}
-	
-	return text_wrap;
-}
