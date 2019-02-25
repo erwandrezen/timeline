@@ -42,7 +42,7 @@ class tools{
 	get position(){
 		try{
 			let position;
-			let element = d3.selectAll("html").node();
+			let element = d3.selectAll("*").node();
 			let pos = d3.mouse(element);
 			
 			return pos;

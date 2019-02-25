@@ -306,7 +306,7 @@ class data_json{
 		node = this.node_null(node);
 		let branch = this.branch(node);
 		let root = branch[0];
-		Object.assign(root,{root:true});
+		
 		
 		//Longueur du tableau
 		let length = branch.length - 1; //0 et le depart
@@ -356,12 +356,13 @@ class data_json{
 		return this.max_depth;
 	}
 	
-	parcourir(root = this.root,informations = {depth:this.max_depth,x:0,y:0,w:0,h:0}){
+	parcourir(root = this.root,informations = {depth:this.max_depth,x:0,y:0,w:0,h:0,root:true}){
 		
 		
 		let depth = informations.depth;
+		let rootBool = informations.root;
 		let width = this.min_rect_width;
-
+		
 		let noeuds = root.map(m => {
 					//Recuperer l'enfant
 					
@@ -384,6 +385,9 @@ class data_json{
 						y:informations.y,
 						width:width})
 						
+						if (rootBool){
+							Object.assign(m,{root:rootBool})
+						}
 						
 						//Si show n'es pas assigner le faire
 						if (m.show == undefined){
@@ -426,6 +430,7 @@ class data_json{
 							informations.x += this._min_rect_width;
 							//Profondeur = this.max_depth -1
 							informations.depth -= 1;
+							informations.root = false;
 							
 							//Reparcourire
 							this.parcourir(childrens, informations);
