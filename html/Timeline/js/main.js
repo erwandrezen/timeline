@@ -7,10 +7,8 @@ function hierarchy(data){
 	
 	root = data['ownerlist'][0]['nodelist'];
 	d_json = new data_json(root);
-	var listOccurs = d_json.getAttr(root, {occurs:null},"branch", true);
 	
 	console.log("root",d_json);
-	console.log(listOccurs);
 	update();
 }
 

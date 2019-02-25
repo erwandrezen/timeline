@@ -126,7 +126,7 @@ class data_json{
 		return datas;
 	}
 	
-	getAttr(node, attribute,  expand = "branch", getOnlyAttr = false){
+	getAttr(node, attribute,  expand = "branch", getOnlyAttr = false, getOnlyValue = false){
 		
 		node = this.node_null(node); // S'il est null récupere le noeud du JSON
 		
@@ -147,13 +147,16 @@ class data_json{
 						//let values = Object.values(obj);
 						let tmpObj;
 						if ((obj[key] === value || value === null) && obj[key] != undefined){ 
+							let tmpValue = obj[key];
 							
 							if (getOnlyAttr){
-									let tmpValue = obj[key];
 									let onlyAttr = {};
 									onlyAttr[key] = tmpValue;
 									tmpObj = onlyAttr;
 								
+							} else if (getOnlyValue){
+								console.log(tmpValue);
+								tmpObj = tmpValue;
 							} else {
 								tmpObj = obj;
 							}
