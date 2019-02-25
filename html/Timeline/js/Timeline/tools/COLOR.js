@@ -9,7 +9,6 @@ class color extends tools{
 	
 	showConfig(){
 		let color = d3.selectAll("#tools .color");
-		
 		let pos = this.position;
 		let x = pos[0];
 		let y = pos[1];

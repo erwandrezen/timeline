@@ -40,12 +40,18 @@ class tools{
 	
 	
 	get position(){
-		let MouseX = event.clientX;
-		let MouseY = event.clientY;
+		try{
+			let position;
+			let element = d3.selectAll("html").node();
+			let pos = d3.mouse(element);
+			
+			return pos;
+		} catch(e){
+			console.log("not position",e);
+		}
 		
-		let position = [MouseX, MouseY];
-
-		return position;
+		
+		
 	}
 
 

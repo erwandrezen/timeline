@@ -65,9 +65,8 @@ class D_RECT extends elements{
 	     })
 		.attr("x",function(d){return d.x+"px";})
 		.attr("y",function(d){return d.y+"px";})
-
-			.style("width", function(d){return d.width+"px";})
-			.style("height", function(d){
+		.attr("width", function(d){return d.width+"px";})
+		.attr("height", function(d){
 				
 /*
 			

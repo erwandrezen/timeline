@@ -19,8 +19,9 @@ function event_doc(){
 	
 	
 	function keydown(){
-		let shift = event.shiftKey;
-		let ctrl = event.ctrlKey;
+		let evenement = d3.event;
+		let shift = evenement.shiftKey;
+		let ctrl = evenement.ctrlKey;
 		
 		
 		if (shift){
@@ -38,8 +39,9 @@ function event_doc(){
 
 	
 	function keyup(){
-		let shift = event.shiftKey;
-		let ctrl = event.ctrlKey;
+		let evenement = d3.event;
+		let shift = evenement.shiftKey;
+		let ctrl = evenement.ctrlKey;
 		
 		
 		if (!shift){
@@ -55,9 +57,18 @@ function event_doc(){
 	}
 
 	function mousedown(){
-		d3.event.preventDefault();
-		let target = event.target;
-		let tagName = target.tagName;
+		//d3.event.preventDefault();
+		let target;
+		let tagName;
+		
+		target = d3.event.target;
+		tagName = target.tagName;
+
+
+
+
+		
+		
 		
 		/*
 		let parentNode = target.parentNode;
@@ -96,8 +107,12 @@ function event_doc(){
 
 	function contextmenu(){
 		d3.event.preventDefault();
-		let target = event.target;
-		let tagName = target.tagName;
+		let target;
+		let tagName;
+		
+		target = d3.event.target;
+		tagName = target.tagName;
+		
 		
 		/*
 		let parentNode = target.parentNode;
