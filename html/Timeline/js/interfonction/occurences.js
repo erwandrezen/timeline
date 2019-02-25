@@ -7,5 +7,11 @@ function getOccurs(uid){
 	
 	let listOccurs = d_json.getAttr(allUid, {occurs:null},"branch", false, true);
 	
-	console.log(listOccurs);
+	return listOccurs;
+}
+
+Date.prototype.addDays = function(days, t0 = "1 January 1900") {
+    var date = new Date(t0);
+    date.setDate(date.getDate() + days);
+    return date;
 }
