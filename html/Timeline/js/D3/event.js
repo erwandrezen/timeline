@@ -1,5 +1,15 @@
+let w_mouse = d3.select(window).on("mousemove",mousemove)
+	function mousemove(){
+		let event = d3.event;
+		let x = event.pageX;
+		let y = event.pageY;
+		window.pos = [x,y];
+	}
 
 function event_doc(){
+	
+	
+	
 	var shiftPress = false;
 	var ctrlPress = false;
 	

@@ -41,9 +41,11 @@ class tools{
 	
 	get position(){
 		try{
-			let position;
-			let element = d3.selectAll("*").node();
-			let pos = d3.mouse(element);
+			
+			
+			pos = window.pos;
+			//console.log(d3.touch(d3.event.target));
+			//let pos = d3.mouse(d3.event.target);
 			
 			return pos;
 		} catch(e){
