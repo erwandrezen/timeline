@@ -47,7 +47,6 @@ class D_CIRCLE extends elements{
 		.style("fill","red")
 		
 		.attr("cx",function(d){
-			console.log(d);
 			let xPos = (width_max/occur_max)*(d.occursLeaf-occur_min);
 			return xPos+"px"
 			})

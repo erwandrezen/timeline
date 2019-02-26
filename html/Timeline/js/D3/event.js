@@ -90,9 +90,9 @@ function event_doc(){
 				console.log("shift pressed")
 				
 				d_json.node = d3.select(target).data(); //Selection des donnees cibles
-	        	
+
 	        	//Modifier ses donnees
-	        	d_json.setAttr(null,{color:laCouleur},"branch");
+	        	d_json.setAttr(null,[{color:laCouleur}],"branch");
 	        	
 	        	//Update l'affichage
 	        	update();
