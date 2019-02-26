@@ -1,6 +1,6 @@
 let json = "mocks/mock22.json";
 let d_json;
-width = 400;
+width = 500;
 height = 800;
 var laCouleur = "white";
 

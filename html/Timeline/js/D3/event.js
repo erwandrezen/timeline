@@ -84,7 +84,7 @@ function event_doc(){
 		let parentNode = target.parentNode;
 		let parenId = parentNode.id;
 		*/
-		if(tagName == "rect"){
+		if (tagName == "rect" || tagName == "polygon" || tagName == "text" || tagName == "circle" ){
 			if (shiftPress){
 				
 				console.log("shift pressed")

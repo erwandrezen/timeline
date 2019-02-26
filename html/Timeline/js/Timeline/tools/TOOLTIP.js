@@ -11,7 +11,7 @@ class tooltip extends tools{
 		let select = d3.select(this.element);
 		
 		//Information de l'element
-		let target = event.target;
+		let target = d3.event.target;
 		let tagName = target.tagName;
 		let id = target.getAttribute("id");
 		let x = target.getAttribute("x");
@@ -34,7 +34,8 @@ class tooltip extends tools{
 		let d_y;
 		let d_pos;
 		let detail;
-		if (tagName == "rect" || tagName == "polygon" || tagName == "text"){
+		console.log("tooltip")
+
 			data = select_target.datum();
 			color = data.color;
 			depth = data.depth;
@@ -44,9 +45,7 @@ class tooltip extends tools{
 			d_y = data.y;
 			d_pos = [d_x,d_y];
 			detail = data.detail;
-		} else {
-			console.log("tooltip: Les informations ne font pas parties du SVG et ne sont pas disponible")
-		}
+
 		
 		let keys = Object.keys(data);
 		let values = Object.values(data);

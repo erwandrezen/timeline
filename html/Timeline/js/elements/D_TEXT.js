@@ -35,7 +35,7 @@ class D_TEXT extends elements{
 		 * => WRAP A CHAQUE FOIS 
 		 * EN ENLEVANT LA LARGEUR DU POLYGON
 		*/
-		.style("text-align","center")//aligner au centre
+		//.style("text-align","center")//aligner au centre
 		.style("pointer-events","none") // enlevement du clique souris
 		.style("word-break","break-word") // wrap
 		.style("white-space","pre") // wrap sur une ligne
