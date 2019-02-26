@@ -21,12 +21,9 @@ class menu extends tools{
 		
 			let children;
 			let isRoot = (data.root != undefined ? true : false);
+			
 			//Recuperation des enfants
-			let object_values = Object.values(data);
-			let mapping = object_values.filter(f => f.constructor.name == "Array");
-			mapping = mapping.flat();
-			
-			
+			let mapping = d_json.son(data);
 			
 			//S'il y as  des enfants et que la variable children étais false
 			if (mapping.length > 0 && (children == false || children == undefined)){

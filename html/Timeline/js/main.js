@@ -38,7 +38,6 @@ function readMultipleFiles(evt) {
             })(f);
             
            
-            
             //f= file return
             r.readAsText(f);
             
