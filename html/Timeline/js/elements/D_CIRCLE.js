@@ -25,19 +25,21 @@ class D_CIRCLE extends elements{
 		console.log(leParent);
 		leParent.exit();
 		
+		
+		let info;
+		
 		let monupdate = leParent
 	
 		.enter()
 		.append("g")
 		.selectAll("circle")
 		.data(function(d){
-			occur_min = Math.in(...d.occursLeaf);
+			occur_min = Math.min(...d.occursLeaf);
 			occur_max = Math.max(...d.occursLeaf);
 			width_max = d.width;
 			
-			y = d.y;
-			console.log(occur_min)
-			return [{y:d.y,occursLeaf:d.occursLeaf}];
+			info = [{y:d.y,occursLeaf:d.occursLeaf}];
+			return d.occursLeaf;
 		})
 		.enter()
 		.append("circle")
@@ -45,7 +47,8 @@ class D_CIRCLE extends elements{
 		.style("fill","red")
 		
 		.attr("cx",function(d){
-			let xPos = (width_max/occur_max)*d.occursLeaf;
+			console.log(d);
+			let xPos = (width_max/occur_max)*(d.occursLeaf-occur_min);
 			return xPos+"px"
 			})
 		.attr("cy",function(d){return 15/2+d.y+"px"})

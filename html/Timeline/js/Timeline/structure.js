@@ -1,5 +1,5 @@
 
-var height = 500;
+var height = 1500;
 var body = d3.select("body");
 var timeline = body.append("div")
 .attr("id","timeline")
