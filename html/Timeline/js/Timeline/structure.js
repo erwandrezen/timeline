@@ -18,8 +18,11 @@ svg = timepart.append("svg").attr("width",width*2+"px").attr("height",25+"px");
 svg.append("g").attr("id","rect")
 	.append("rect").attr("width",width*2+"px").attr("height",height+"px").attr("fill","white");
 let text = svg.append("g").attr("id","text")
-text.append("foreignObject").attr("width",width+"px").attr("height",25+"px").attr("x",width+"px").attr("id","chronologique")
-	.html("Occurrence part")
+
+//Doit etre declarer avant afin de le cacher endessous de l'element precedant(un text "Hierarchy part")
+let chronologique = text.append("g").attr("id","chronologique")
+chronologique.append("foreignObject").attr("width",50+"px").attr("height",25+"px").attr("x",width+"px").attr("id","chronologique-debut")
+chronologique.append("foreignObject").attr("width",50+"px").attr("height",25+"px").attr("x",width+"px").attr("id","chronologique-fin")
 
 text.append("foreignObject").attr("width",width+"px").attr("height",25+"px")
 	.html("Hierarchy part")

@@ -41,7 +41,8 @@ function update_occurs(){
 	//Selectionne le root
 	let root = d_json.root;
 
-	let datas = d_json.getAttr(root,[{occursLeaf:null},{x:null},{y:null},{width:null},{height:null},{color:null},{show:true}],"branch", true);
+	let datas = d_json.getAttr(root,[{occursLeaf:null},{show:true}],"branch");
+	//let datas = d_json.getAttr(root,[{occursLeaf:null},{x:null},{y:null},{width:null},{height:null},{color:null},{show:true}],"branch", true);
 	
 	let rect = new D_RECT(datas);
 	rect.x = 0;

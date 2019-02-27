@@ -21,7 +21,7 @@ class D_CIRCLE extends elements{
 		
 		let y;
 		let timeline_t0 = 40900;
-		let timeline_tMax = timeline_t0+500;
+		let timeline_tMax = timeline_t0+700;
 		let diff = timeline_tMax-timeline_t0;
 		let width_max = d_json.max_width;
 		let k = width_max/diff;
@@ -31,10 +31,21 @@ class D_CIRCLE extends elements{
 		//d3.selectAll('#timeline #occurpart #circle *').remove();
 
 		uneDate = uneDate.addDays(timeline_t0);
-		let chronologique = d3.select("#timepart #text #chronologique");
+		let chronologiqueDebut = d3.select("#timepart #text #chronologique-debut").html(uneDate);
+		
+		
+	
+		/*
+		x = timeline_tMax-timeline_t0;
+		x = k*x;
+		
+		=> k*(timeline_tMax-timeline_t0)
+		*/
 
-		chronologique
-		.html(uneDate)
+		uneDate = uneDate.addDays(timeline_tMax);
+		let chronologiqueFin = d3.select("#timepart #text #chronologique-fin").html(uneDate).style("transform","translateX("+k*(timeline_tMax-timeline_t0)+"px)");
+		
+		
 		let leParent = d3.select("#timeline #occurpart #circle").selectAll("g").data(datas);
 		leParent.exit().remove();
 		console.log(datas)
