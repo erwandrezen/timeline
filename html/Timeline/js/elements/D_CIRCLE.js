@@ -83,80 +83,19 @@ class D_CIRCLE extends elements{
 		.merge(monupdate)
 		.attr("cx",function(date){
 			
-			
-			
 			let x = date-timeline_t0;
-			//debugger
-			//console.log("const",width_max, diff,k);
-			//console.log(k,x,k*x);
-			//let xPos = (width_max/diff)*(x-t0);
-			
+			return k*x+"px";
+			})
+		.datum(function(date){
+			let uneDate = new Date();
+			uneDate = uneDate.addDays(date);
+			return {date:uneDate};
+			})
+
+
+		
+		
 	
-			return k*x+"px"
-			})
-
-		/*
-		console.log(y)
-		monupdate.exit();
-		
-		monupdate
-
-		.enter()
-		.append("circle")
-		.attr("r",function(d){return 15/3})
-		.style("fill",function(d){return "red"})
-		
-		.merge(monupdate)
-		.attr("cx",function(x){
-			let xPos = (width_max/occur_max)*x;
-			return xPos+"px"
-			})
-		.attr("cy",function(d){return 15/2+y+"px"})
-		*/
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		let monupdate = leParent
-		
-		.selectAll("#occurpart #circle g circle")
-		.data(function(d){
-			occur_max = Math.max(...d.occursLeaf);
-			width_max = d.width;
-			
-			y = d.y;
-			console.log(y);
-			return d.occursLeaf;
-		})
-
-		//console.log(monupdate);
-		monupdate
-		.enter()
-
-		.append(this.elementName)
-		
-		.attr("r",function(d){return 15/3})
-		.style("fill",function(d){return "red"})
-
-	
-		.merge(monupdate)
-		.attr("cx",function(x){
-			let xPos = (width_max/occur_max)*x;
-			return xPos+"px"
-			})
-		.attr("cy",function(d){return 15/2+y+"px"})
-		*/
 		}
 
 
