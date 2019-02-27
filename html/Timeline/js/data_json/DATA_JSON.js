@@ -131,48 +131,175 @@ class data_json{
 		node = this.node_null(node); // S'il est null récupere le noeud du JSON
 		
 		let datas = this.selectDatas(node, expand);
-		let key = Object.keys(attribute);
-		let value = Object.values(attribute);
+		let breaked;
 		
-		//Pour 1 attribut ( ne prend pas en compte une liste d'attribut )
-		key = key[0];
-		value = value[0];
-		
-		if (datas != undefined){
+		if (datas != undefined && datas.constructor.name == "Array"){
 
 				
-					let setting = []; 
-		
-					datas.map(obj => {
-						//let values = Object.values(obj);
-						let tmpObj;
-						if ((obj[key] === value || value === null) && obj[key] != undefined){ 
-							let tmpValue = obj[key];
-							
-							if (getOnlyAttr){
-									let onlyAttr = {};
-									onlyAttr[key] = tmpValue;
-									tmpObj = onlyAttr;
-								
-							} else if (getOnlyValue){
-								tmpObj = tmpValue;
-							} else {
-								tmpObj = obj;
-							}
-						}
-						
-						
-
-						if (typeof tmpObj != "undefined"){
-							setting = setting.concat([tmpObj]);
-						}
-						
-
-						
-					})
+					let setting; 
 					
-					setting = setting.flat();
-					return setting;
+					
+					datas.map(obj => {
+						
+						let tmpObj = {};
+						let tmpObjList = [];
+						//Pour chaque attributs
+						for (let i in attribute){
+							
+							
+							//Recuperer key, val d'attribut i
+							let newAttrObj = attribute[i]; //Un seul objet
+							let keyAttrObj;
+							let valueAttrObj;
+							
+		
+							
+							//console.log(newAttrObj, newAttrObj == null,obj)
+							
+							//Sortir du for
+							breaked = true;
+							if (newAttrObj == null || newAttrObj.constructor.name != "Object"){ //L'attribut i doit être un objet
+								//debugger;
+								break; //Sort du for
+							} else {
+								//console.log("else",keyAttrObj, valueAttrObj, obj);
+							}
+							
+							
+
+
+							try{
+								keyAttrObj = Object.keys(newAttrObj); //Recupere la cle
+								valueAttrObj = Object.values(newAttrObj); //Recupere la valeur
+								
+							} catch (e){
+								console.log(e,obj,newAttrObj);
+								break;
+							}
+							
+							keyAttrObj = keyAttrObj[0]; //Selectionne dans la liste le premier et le seul
+							valueAttrObj = valueAttrObj[0]; //Selectionne dans la liste le premier et le seul
+							
+							//console.log(newAttrObj,keyAttrObj,obj)
+							
+							//Recuperer val objet
+							let valueObj = obj[keyAttrObj]; //Recupere la valeur de l'objet selon la cle de notre attribut
+							valueObj = valueObj;
+							
+							
+							
+							if (typeof valueAttrObj != "undefined" && typeof valueObj == "undefined"){
+								break;
+							}
+						
+							//Si val de l'attribut == null
+							if (valueAttrObj == null){
+								//val attribut = val objet
+								valueAttrObj = valueObj;
+								//console.log(valueAttrObj)
+							}
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							//getOnlyAttr & getOnlyValue
+							if (getOnlyAttr == true) //Si getOnlyAttr  == true
+								
+							{
+								if (obj[keyAttrObj] == valueAttrObj){
+									//tmpObj;
+									let unObjTmp = {};
+									unObjTmp[keyAttrObj] = valueObj;//Créer l'objet
+									try {
+										Object.assign(tmpObj, unObjTmp); //Push
+						
+									} catch (e){
+										//console.log(tmpObj)
+										tmpObj = unObjTmp;
+									}
+									
+									
+
+								}
+							} else if (getOnlyValue == true){ //Sinon si getOnlyValue == true
+								//valueObj
+
+								if (obj[keyAttrObj] == valueAttrObj){
+									
+									
+									/*let uneListeTmp = valueObj;//Créer la valeur
+									
+									debugger;
+									try {
+										setting = setting.concat([valueObj]); //Push
+										debugger;
+									} catch (e){
+										//console.log(tmpObj)
+										setting = [valueObj];
+										debugger;
+									}
+									*/
+
+									try {
+										setting = setting.concat(valueObj);
+									} catch (e){
+										setting = []
+										setting = setting.concat(valueObj);
+										
+									}
+								}
+							} else { //(getOnlyAttr == false && getOnlyValue == false)
+								//Recuperer l'objet
+								
+								if (obj[keyAttrObj] == valueAttrObj){
+									try {
+										setting = setting.concat([obj]);
+									} catch (e){
+										setting = [obj];
+									}
+								}
+								
+								
+								//console.log(setting, newAttrObj, keyAttrObj, valueAttrObj, obj[keyAttrObj] == valueAttrObj, obj);
+							} 
+							
+							
+							
+								
+							//console.log("not exit",setting,valueAttrObj,obj);	
+									
+							
+
+						
+							breaked = false;
+						} //END FOR
+						
+					
+						if (Object.keys(tmpObj).length > 0 && breaked == false){
+							
+							try {
+								setting = setting.concat([tmpObj]);
+							} catch (e){
+								setting = [tmpObj];
+							}
+
+						}
+						
+					}) //END MAP
+					
+					if (typeof setting != "undefined"){
+						return setting;
+						
+					}
+					
+					
+					
+					
 
 	}
 		
@@ -193,11 +320,25 @@ class data_json{
 
 		
 					let setting = datas.map(obj => {
+						//console.log(obj);
 						//Pour chaque attribut
 						for (let i in newAttribute){
+							let newAttrObj = newAttribute[i];
+							let keyAttrObj = Object.keys(newAttrObj);
+							let valueAttrObj = Object.values(newAttrObj);
+							console.log(newAttribute,valueAttrObj);
+							keyAttrObj = keyAttrObj[0];
+							valueAttrObj = valueAttrObj[0];
 							
-							//Assigne le nouvel objet
-							Object.assign(obj, newAttribute[i]);
+							//debugger;
+							if (typeof valueAttrObj == "undefined"){
+								delete obj[keyAttrObj];
+			
+							} else {
+								//Assigne le nouvel objet
+								Object.assign(obj, newAttribute[i]);
+							}
+							
 						}
 						
 						
@@ -342,7 +483,7 @@ class data_json{
 			//Recuperer le dernier objet et le supprimer
 			obj = branch.pop(); //Dernier objet (celui supprimer)
 			
-			let haveSon = this.getAttr(obj,{show:true},"son");
+			let haveSon = this.getAttr(obj,[{show:true}],"son");
 			let feuilles = 0;
 			
 			//S'il a des freres qui ont un attributs show
@@ -429,8 +570,8 @@ class data_json{
 					
 						let childrens = this.son(obj);
 						
-						let trueSon = this.getAttr(obj,{show:true},"son");
-						let undefinedSon = this.getAttr(obj,{show:undefined},"son");
+						let trueSon = this.getAttr(obj,[{show:true}],"son");
+						let undefinedSon = this.getAttr(obj,[{show:undefined}],"son");
 						
 						let son;
 						if (trueSon != undefined && undefinedSon != undefined){
@@ -469,8 +610,9 @@ class data_json{
 							let width_feuille = width*(depth);
 							
 							//Parcourir les occurences
-							let listOccurs = this.getAttr([obj], {occurs:null},"branch", false, true);
+							let listOccurs = this.getAttr([obj], [{occurs:null}],"branch", false, true);
 							//console.log("feuille", obj, listOccurs);
+							//debugger
 							Object.assign(obj,{feuilles:0,width:width_feuille,occursLeaf:listOccurs});
 								
 							

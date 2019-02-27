@@ -36,11 +36,11 @@ class D_POLYGON extends elements{
 			let mapping = d_json.son(d);
 			
 			//S'il a des enfant qui ont show = true;
-			let mapping2 = d_json.getAttr([d],{show:true},"cousin");
+			let mapping2 = d_json.getAttr([d],[{show:true}],"cousin");
 			
 
 			bool = (mapping != undefined ? true : false);
-			bool2 = ( mapping2.length > 0 ? true : false);
+			bool2 = ( mapping2 != undefined  ? true : false);
 			
 			y = d.y;
 			x = d.x+d.width;

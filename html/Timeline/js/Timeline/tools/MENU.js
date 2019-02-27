@@ -110,8 +110,8 @@ function show_context_menu(element){
 
 function hierarchy_show(){  //nom de l'id
 
-
-	d_json.setAttr(null,[{show:true,occursLeaf:undefined}],"branch");
+	delete d_json.node[0].occursLeaf; //Suppression liste des occurrences de la cible
+	d_json.setAttr(null,[{show:true},{occursLeaf:undefined}],"branch");
 	update();
 
 }
@@ -120,8 +120,8 @@ function hierarchy_show(){  //nom de l'id
 
 function hierarchy_hide(){  //nom de l'id
 	
-
-	d_json.setAttr(null,[{show:false,occursLeaf:undefined}],"branch");
+	delete d_json.node[0].occursLeaf; //Suppression liste des occurrences de la cible
+	d_json.setAttr(null,[{show:false},{occursLeaf:undefined}],"branch");
 	update();
 }
 
@@ -129,9 +129,8 @@ function hierarchy_hide(){  //nom de l'id
 
 function hierarchy_expand(){  //nom de l'id
 	
-	//console.log(rect);
-	//rect.attr("show",true,"fils");
-	d_json.setAttr(null,[{show:true,occursLeaf:undefined}],"cousin");
+	delete d_json.node[0].occursLeaf; //Suppression liste des occurrences de la cible
+	d_json.setAttr(null,[{show:true},{occursLeaf:undefined}],"cousin");
 	update();
 
 }
@@ -139,8 +138,9 @@ function hierarchy_expand(){  //nom de l'id
 
 
 function hierarchy_collapse(){ //nom de l'id
-
-	d_json.setAttr(null,[{show:false,occursLeaf:undefined}],"childrens");
+	
+	delete d_json.node[0].occursLeaf; //Suppression liste des occurrences de la cible
+	d_json.setAttr(null,[{show:false},{occursLeaf:undefined}],"childrens");
 	update();
 
 

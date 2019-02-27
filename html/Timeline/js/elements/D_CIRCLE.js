@@ -21,13 +21,7 @@ class D_CIRCLE extends elements{
 		let y;
 		let datas = this.datas;
 		//d3.selectAll('#timeline #occurpart #circle *').remove();
-		datas = datas.map(obj => {
-			let unY = obj.y;
-			let unX = obj.x
-			let uneOccur = obj.occursLeaf;
-			
-			return {x:unX,y:unY, occursLeaf:uneOccur};
-			})
+
 			
 		let leParent = d3.select("#timeline #occurpart #circle").selectAll("g").data(datas);
 		leParent.exit().remove();
@@ -41,11 +35,14 @@ class D_CIRCLE extends elements{
 		
 		.merge(leParent)
 		.style("transform",function(d){
+			console.log(d.y)
 			let calc = 15/2+d.y;
 			return "translateY("+calc+"px)"
 		})
 		.selectAll("circle")
 		.data(function(d,i){
+			console.log(d,d.occursLeaf);
+			/*
 			let min = Math.min(...d.occursLeaf);
 			if (occur_min > min || typeof occur_min == "undefined"){
 				occur_min = min;
@@ -58,7 +55,10 @@ class D_CIRCLE extends elements{
 			
 			width_max = d.width;
 			
-			y = d.y;
+			y = d.y;*/
+			
+			info = d;
+			
 			return d.occursLeaf;
 		})
 		monupdate.exit().remove();
@@ -69,12 +69,23 @@ class D_CIRCLE extends elements{
 		.style("fill","red")
 		
 		.merge(monupdate)
-		.attr("cx",function(x){
-			let diff = occur_max-occur_min;
-			let t0 = x-occur_min;
-			console.log(occur_min);
-			let xPos = (width_max/diff)*(x-t0);
-			return t0+"px"
+		.attr("cx",function(date){
+			
+			
+			let timeline_t0 = 40900;
+			let timeline_tMax = 42100;
+			let diff = timeline_tMax-timeline_t0;
+			
+			let width_max = info.width;
+			let k = width_max/diff;
+			let x = date-timeline_t0;
+			//debugger
+			//console.log("const",width_max, diff,k);
+			console.log(x);
+			//let xPos = (width_max/diff)*(x-t0);
+			
+	
+			return k*x+"px"
 			})
 
 		/*
