@@ -17,8 +17,15 @@ class D_CIRCLE extends elements{
 		let constr = this;
 		let occur_min;
 		let occur_max;
-		let width_max;
+		
 		let y;
+		let timeline_t0 = 40900;
+		let timeline_tMax = timeline_t0+500;
+		let diff = timeline_tMax-timeline_t0;
+		let width_max = d_json.max_width;
+		let k = width_max/diff;
+
+		//debugger
 		let datas = this.datas;
 		//d3.selectAll('#timeline #occurpart #circle *').remove();
 
@@ -57,10 +64,15 @@ class D_CIRCLE extends elements{
 			
 			y = d.y;*/
 			
+			
 			info = d;
 			
 			return d.occursLeaf;
 		})
+
+		
+		
+
 		monupdate.exit().remove();
 		monupdate
 		.enter()
@@ -72,16 +84,11 @@ class D_CIRCLE extends elements{
 		.attr("cx",function(date){
 			
 			
-			let timeline_t0 = 40900;
-			let timeline_tMax = 42100;
-			let diff = timeline_tMax-timeline_t0;
 			
-			let width_max = info.width;
-			let k = width_max/diff;
 			let x = date-timeline_t0;
 			//debugger
 			//console.log("const",width_max, diff,k);
-			console.log(x);
+			//console.log(k,x,k*x);
 			//let xPos = (width_max/diff)*(x-t0);
 			
 	
