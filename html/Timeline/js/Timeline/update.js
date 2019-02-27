@@ -56,10 +56,16 @@ function update_occurs(){
 	.on("zoom",zoomed)
 	
 	d3.select("#occurpart svg").call(zoom);
+	//d3.select("#timepart #text #chronologique").call(zoom);
 	function zoomed(){
 		let x = d3.event.transform.x;
-		//console.log(d3.event)
-		d3.select("#occurpart svg #circle").style("transform","translateX("+x+"px)")
+		let synchronisation;
+		
+		synchronisation = d3.select("#occurpart svg #circle")
+		synchronisation.style("transform","translateX("+x+"px)")
+		
+		synchronisation = d3.select("#timepart #text #chronologique")
+		synchronisation.style("transform","translateX("+x+"px)")
 	}
 	
 	//polygon.update("#polygon");

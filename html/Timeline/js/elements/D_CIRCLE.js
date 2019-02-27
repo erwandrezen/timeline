@@ -17,6 +17,7 @@ class D_CIRCLE extends elements{
 		let constr = this;
 		let occur_min;
 		let occur_max;
+		let uneDate = new Date();
 		
 		let y;
 		let timeline_t0 = 40900;
@@ -29,7 +30,11 @@ class D_CIRCLE extends elements{
 		let datas = this.datas;
 		//d3.selectAll('#timeline #occurpart #circle *').remove();
 
-			
+		uneDate = uneDate.addDays(timeline_t0);
+		let chronologique = d3.select("#timepart #text #chronologique");
+
+		chronologique
+		.html(uneDate)
 		let leParent = d3.select("#timeline #occurpart #circle").selectAll("g").data(datas);
 		leParent.exit().remove();
 		console.log(datas)
@@ -87,7 +92,6 @@ class D_CIRCLE extends elements{
 			return k*x+"px";
 			})
 		.datum(function(date){
-			let uneDate = new Date();
 			uneDate = uneDate.addDays(date);
 			return {date:uneDate};
 			})
