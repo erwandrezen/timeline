@@ -13,7 +13,7 @@ class menu extends tools{
 		
 		
 		let mon_menu = d3.select(this.element);
-
+		console.log("pass")
 		//console.log("contextmenu");
 		 
 		//Recuperation des donnees cible
@@ -24,9 +24,8 @@ class menu extends tools{
 			
 			//Recuperation des enfants
 			let mapping = d_json.son(data);
-			
 			//S'il y as  des enfants et que la variable children étais false
-			if (mapping.length > 0 && (children == false || children == undefined)){
+			if (typeof mapping != "undefined" && (children == false || children == undefined)){
 				children = true;
 				
 				//suppresion de l'ancien menu
@@ -51,7 +50,7 @@ class menu extends tools{
 			
 			
 			//S'il n'y as pas d'enfant et que la variable children étais true
-			if (mapping.length < 1 && (children == true || children == undefined)){
+			if (typeof mapping == "undefined" && (children == true || children == undefined)){
 				children = false;
 				
 				
