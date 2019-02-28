@@ -164,7 +164,7 @@ function update_occurs(){
 				synchronisation = d3.selectAll("#parts svg #circle")
 				synchronisation.style("transform","translate("+x+"px,"+y+"px)");
 			}
-			
+	
 		} else {// Wheel down
 			//Voir les parts d'en bas
 			y += k;

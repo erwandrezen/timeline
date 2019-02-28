@@ -2,6 +2,14 @@ svg #text text{
 	pointer-events:none;
 }
 
+.extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+p { text-align: center; }
+
 #information{
 	background-color: #03A9F4;
     color: white;
