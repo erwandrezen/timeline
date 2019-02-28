@@ -59,10 +59,12 @@ function update_occurs(){
 	
 	//d3.select("#occurpart svg").call(zoom);
 	let synchronisation = d3.selectAll("#parts svg")
+	synchronisation.on("wheel",wheeling)
 	
-	synchronisation.on("wheel",wheel)
+	synchronisation = d3.select("#parts #occurpart svg")
+	synchronisation.call(d3.drag().on("drag", dragging));
 	
-	function wheel(){
+	function wheeling(){
 		d3.event.preventDefault();
 		
 		let event = d3.event;
@@ -73,9 +75,10 @@ function update_occurs(){
 		//d = digit g=grouper |=ou
 		//soit digit positif ou negatif
 		translate = translate .match(/(\d+)|(-\d+)/g); // We grab only the digits    
+		translate = (translate == null ? [0,0] : translate);
 		
-		
-		
+		let x = (translate[0] == null ? 0 : parseInt(translate[0]));
+		let y = (translate[1] == null ? 0 : parseInt(translate[1]));
 		
 		function elementAttr(element){
 			return element.getBoundingClientRect();
@@ -116,13 +119,7 @@ function update_occurs(){
 		let layerY = event.layerY;
 		let deltaY = event.wheelDeltaY;
 		let k = 10;
-		let y = translate;
-		try {
-			y = y[0];
-			y = parseInt(y);
-		} catch(e) {
-			y = 0;
-		}
+
 		
 
 		function checkScrollingTop(coef){
@@ -155,7 +152,6 @@ function update_occurs(){
 
 		synchronisation = d3.selectAll(
 				"#parts svg #rect," +
-				"#parts svg #circle," +
 				"#parts svg #polygon," +
 				"#parts svg #text")
 		if (deltaY > 0){ //Wheel up
@@ -165,6 +161,8 @@ function update_occurs(){
 			
 			if (!checkScrollingTop(k)){
 				synchronisation.style("transform","translateY("+y+"px)");
+				synchronisation = d3.selectAll("#parts svg #circle")
+				synchronisation.style("transform","translate("+x+"px,"+y+"px)");
 			}
 			
 		} else {// Wheel down
@@ -173,6 +171,8 @@ function update_occurs(){
 			
 			if(!checkScrollingBot(k)){
 				synchronisation.style("transform","translateY("+y+"px)");
+				synchronisation = d3.selectAll("#parts svg #circle")
+				synchronisation.style("transform","translate("+x+"px,"+y+"px)");
 			}
 			
 			
@@ -181,20 +181,38 @@ function update_occurs(){
 		
 	}
 	
-	function zoomed(){
-		/*
-		let y = d3.event.transform.y;
+	
+	
+	
+	function dragging(){
+		function checkScrollingLeft(){
+			
+		}
 		
-		console.log(d3.event)
+		function checkScrollingRight(){
+			
+		}
 		
-		synchronisation.style("transform","translateY("+y+"px)")*/
 		
+		let select = d3.select("#occurpart #circle");
+		let translate = select.style("transform") //Recupere la valeur
+		
+		translate = translate.match(/(\d+)|(-\d+)/g); // We grab only the digits    
+		translate = (translate == null ? [0,0] : translate);
+		
+		let x = (translate[0] == null ? 0 : parseInt(translate[0]));
+		let y = (translate[1] == null ? 0 : parseInt(translate[1]));
+		
+		
+		let event = d3.event;
+		let dx = event.dx;
+		
+		
+		x += dx;
+		synchronisation = d3.select("#parts #occurpart svg #circle")
+		synchronisation.style("transform","translate("+x+"px,"+y+"px)");
+	
 
-		
-		
-		/*
-		synchronisation = d3.select("#timepart #text #chronologique")
-		synchronisation.style("transform","translateX("+x+"px)")*/
 	}
 	
 	//polygon.update("#polygon");

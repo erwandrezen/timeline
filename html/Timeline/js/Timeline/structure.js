@@ -5,8 +5,8 @@ var timeline = body.append("div")
 .attr("id","timeline")
 .style("display","flex") // alignement en horizontal
 .style("flex-wrap","wrap") // deplacement a la ligne quand il n'y a plus de place
-.style("width",width*2+20+"px") // definie la place
-.style("overflow","scroll");
+.style("width",width*2+20+"px"); // definie la place
+
 
 var timepart = timeline.append("div").attr("id","timepart").style("z-index","1") // mettre devant
 var divTools = timeline.append("div").attr("id","tools");
