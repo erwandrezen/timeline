@@ -1,5 +1,5 @@
 
-var height = 1500;
+var height = 200;
 var body = d3.select("body");
 var timeline = body.append("div")
 .attr("id","timeline")
@@ -8,10 +8,14 @@ var timeline = body.append("div")
 .style("width",width*2+20+"px") // definie la place
 .style("overflow","scroll");
 
-var timepart = timeline.append("div").attr("id","timepart");
-var hierarchypart = timeline.append("div").attr("id","hierarchypart");
-var occurpart = timeline.append("div").attr("id","occurpart");
+var timepart = timeline.append("div").attr("id","timepart").style("z-index","1") // mettre devant
 var divTools = timeline.append("div").attr("id","tools");
+var parts = timeline.append("div").attr("id","parts").style("display","flex") // alignement en horizontal
+
+var hierarchypart = parts.append("div").attr("id","hierarchypart");
+var occurpart = parts.append("div").attr("id","occurpart");
+
+
 
 
 svg = timepart.append("svg").attr("width",width*2+"px").attr("height",25+"px");

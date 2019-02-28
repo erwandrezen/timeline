@@ -9,6 +9,22 @@ class D_CIRCLE extends elements{
 		return "circle";
 	}
 	
+	get t0(){
+		return this._t0;
+	}
+	
+	set t0(value){
+		this._t0 = value;
+	}
+	
+	get t1(){
+		return this._t1;
+	}
+	
+	set t1(value){
+		this._t1 = value;
+	}
+	
 	
 	/*//////////////////////////////////////////
 	 * CONFIG CHANGEMENT DE FORME DES RECTANGLES
@@ -20,9 +36,12 @@ class D_CIRCLE extends elements{
 		let uneDate = new Date();
 		
 		let y;
-		let timeline_t0 = 40900;
-		let timeline_tMax = timeline_t0+700;
-		let diff = timeline_tMax-timeline_t0;
+		let t0 = this.t0;
+		let t1 = this.t1;
+		
+		t0 = 40900;
+		t1 = t0+700;
+		let diff = t1-t0;
 		let width_max = d_json.max_width;
 		let k = width_max/diff;
 
@@ -30,20 +49,20 @@ class D_CIRCLE extends elements{
 		let datas = this.datas;
 		//d3.selectAll('#timeline #occurpart #circle *').remove();
 
-		uneDate = uneDate.addDays(timeline_t0);
+		uneDate = uneDate.addDays(t0);
 		let chronologiqueDebut = d3.select("#timepart #text #chronologique-debut").html(uneDate);
 		
 		
 	
 		/*
-		x = timeline_tMax-timeline_t0;
+		x = t1-t0;
 		x = k*x;
 		
-		=> k*(timeline_tMax-timeline_t0)
+		=> k*(t1-t0)
 		*/
 
-		uneDate = uneDate.addDays(timeline_tMax);
-		let chronologiqueFin = d3.select("#timepart #text #chronologique-fin").html(uneDate).style("transform","translateX("+k*(timeline_tMax-timeline_t0)+"px)");
+		uneDate = uneDate.addDays(t1);
+		let chronologiqueFin = d3.select("#timepart #text #chronologique-fin").html(uneDate).style("transform","translateX("+k*(t1-t0)+"px)");
 		
 		
 		let leParent = d3.select("#timeline #occurpart #circle").selectAll("g").data(datas);
@@ -99,7 +118,7 @@ class D_CIRCLE extends elements{
 		.merge(monupdate)
 		.attr("cx",function(date){
 			
-			let x = date-timeline_t0;
+			let x = date-t0;
 			return k*x+"px";
 			})
 		.datum(function(date){
