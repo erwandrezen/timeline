@@ -86,18 +86,28 @@ function update_occurs(){
 			return element.getBBox();
 		}
 		
-		/*
-		let svgHeight = svgAttr(select).height;
+		
+		let eSVG = select.node();
 		let eTimeline = d3.select("#timeline").node();
 		let eTimepart = d3.select("#timepart").node();
 		let eParts = d3.select("#parts").node();
-		*/
-		//let posYtimeline = eTimeline//position y timeline
-		//position y timepart
-		//position y parts
+		
+		
+		let posYsvg = elementAttr(eSVG).y;
+		let posYtimeline = elementAttr(eTimeline).y;		//position y timeline
+		let posYtimepart = elementAttr(eTimepart).y;		//position y timepart
+		let posYparts = elementAttr(eParts).y;				//position y parts
 
-		//hauteur h timeline
-		//hauteur h timepart
+		
+		let sizeHsvg = svgAttr(eSVG).height;
+		let sizeHtimeline = elementAttr(eTimeline).height;	//hauteur h timeline
+		let sizeHtimepart = elementAttr(eTimepart).height;	//hauteur h timepart
+		let sizeHparts = elementAttr(eParts).height;		//hauteur h parts
+		
+
+		let heightCordSVG = posYsvg + sizeHsvg;
+		let heightCordTimeline = posYtimeline + sizeHtimeline;
+		let heightCordParts = posYparts + sizeHparts;
 		//hauteur h parts
 		/*
 		let positionY = element.y;
@@ -114,18 +124,35 @@ function update_occurs(){
 			y = 0;
 		}
 		
-		//HAUT
-		//position svg
-		//== 
-		//position timeline + freeze
-		//HAUT
 
+		function checkScrollingTop(coef){
+
+			if (heightCordSVG <= heightCordParts){
+				console.log("*inf.");
+				return true;
+			} else {
+				console.log("*superior");
+				return false;
+			}
+		}
 		
-		//BAS
-		//si la hauteur du svg + position
-		//== 
-		//hauteur timeline + position
 		
+
+		function checkScrollingBot(coef){
+			
+			if (posYsvg >= posYparts){
+				console.log("superior");
+				return true;
+			} else {
+				console.log("inf.");
+				return false;
+			}
+		}
+		
+		
+		
+		
+
 		synchronisation = d3.selectAll(
 				"#parts svg #rect," +
 				"#parts svg #circle," +
@@ -133,13 +160,22 @@ function update_occurs(){
 				"#parts svg #text")
 		if (deltaY > 0){ //Wheel up
 			///Voir les parts d'en haut
-			y -= k;
+			k = -k;
+			y += k;
 			
-			synchronisation.style("transform","translateY("+y+"px)");
+			if (!checkScrollingTop(k)){
+				synchronisation.style("transform","translateY("+y+"px)");
+			}
+			
 		} else {// Wheel down
 			//Voir les parts d'en bas
 			y += k;
-			synchronisation.style("transform","translateY("+y+"px)");
+			
+			if(!checkScrollingBot(k)){
+				synchronisation.style("transform","translateY("+y+"px)");
+			}
+			
+			
 		}
 
 		
