@@ -209,7 +209,8 @@ function update_occurs(){
 		
 		
 		x += dx;
-		synchronisation = d3.select("#parts #occurpart svg #circle")
+		synchronisation = d3.selectAll("#parts #occurpart svg #circle,"+
+									"#timepart svg #chronologique")
 		synchronisation.style("transform","translate("+x+"px,"+y+"px)");
 	
 
